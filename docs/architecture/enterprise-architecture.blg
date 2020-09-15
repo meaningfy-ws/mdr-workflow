@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: enterprise-architecture.aux
+The style file: abbrvnat.bst
+Database file #1: ../references/references.bib
+Repeated entry---line 137 of file ../references/references.bib
+ : @techreport{xmi2.5.1
+ :                     ,
+I'm skipping whatever remains of this entry
+Unbalanced braces---line 471 of file ../references/references.bib
+ :     title   = "Directive 2014/25/EU of the European Parliament and of the Council of 26 February 2014 on procurement by entities operating in the water, energy, transport and postal services sectors and repealing Directive 2004/17/EC Text with EEA relevance
+ :                                                                                                                                                                                                                                                                  }}",
+I'm skipping whatever remains of this entry
+Warning--to sort, need author or key in xmi2.5.1
+Warning--empty author in xmi2.5.1
+Warning--empty title in directive-2014/25/EU
+Warning--empty journal in directive-2014/25/EU
+Warning--empty year in directive-2014/25/EU
+Warning--empty year in directive-2014/25/EU
+You've used 19 entries,
+            2773 wiz_defined-function locations,
+            704 strings with 8030 characters,
+and the built_in function-call counts, 7614 in all, are:
+= -- 689
+> -- 487
+< -- 16
++ -- 168
+- -- 147
+* -- 610
+:= -- 1250
+add.period$ -- 67
+call.type$ -- 19
+change.case$ -- 109
+chr.to.int$ -- 17
+cite$ -- 45
+duplicate$ -- 330
+empty$ -- 543
+format.name$ -- 179
+if$ -- 1536
+int.to.chr$ -- 3
+int.to.str$ -- 1
+missing$ -- 8
+newline$ -- 113
+num.names$ -- 72
+pop$ -- 185
+preamble$ -- 1
+purify$ -- 87
+quote$ -- 0
+skip$ -- 257
+stack$ -- 0
+substring$ -- 106
+swap$ -- 24
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 204
+warning$ -- 6
+while$ -- 62
+width$ -- 0
+write$ -- 268
+(There were 2 error messages)
