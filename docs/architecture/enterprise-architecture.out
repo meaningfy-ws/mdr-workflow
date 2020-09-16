@@ -8,8 +8,21 @@
 \BOOKMARK [2][-]{subsection.0.2.2}{Towards semantic technology workflow}{section.0.2}% 8
 \BOOKMARK [1][-]{section.0.3}{Architecture building blocks}{}% 9
 \BOOKMARK [2][-]{subsection.0.3.1}{Methodology}{section.0.3}% 10
-\BOOKMARK [1][-]{section.0.4}{Motivation architecture}{}% 11
-\BOOKMARK [1][-]{section.0.5}{Business architecture}{}% 12
-\BOOKMARK [1][-]{section.0.6}{Application architecture}{}% 13
-\BOOKMARK [1][-]{section.0.7}{Technical architecture}{}% 14
-\BOOKMARK [1][-]{section.0.8}{Conclusions}{}% 15
+\BOOKMARK [2][-]{subsection.0.3.2}{ArchiMate elements}{section.0.3}% 11
+\BOOKMARK [2][-]{subsection.0.3.3}{Architecture views}{section.0.3}% 12
+\BOOKMARK [1][-]{section.0.4}{Motivation architecture}{}% 13
+\BOOKMARK [2][-]{subsection.0.4.1}{Overall motivation structure}{section.0.4}% 14
+\BOOKMARK [2][-]{subsection.0.4.2}{Stakeholders and their roles}{section.0.4}% 15
+\BOOKMARK [2][-]{subsection.0.4.3}{Drivers: primary}{section.0.4}% 16
+\BOOKMARK [2][-]{subsection.0.4.4}{Drivers: secondary}{section.0.4}% 17
+\BOOKMARK [2][-]{subsection.0.4.5}{Assessment: Responsiveness and processing speed}{section.0.4}% 18
+\BOOKMARK [2][-]{subsection.0.4.6}{Assessment: Data quality}{section.0.4}% 19
+\BOOKMARK [2][-]{subsection.0.4.7}{Assessment: Service quality}{section.0.4}% 20
+\BOOKMARK [1][-]{section.0.5}{Business architecture}{}% 21
+\BOOKMARK [2][-]{subsection.0.5.1}{Prototypical business structure}{section.0.5}% 22
+\BOOKMARK [2][-]{subsection.0.5.2}{Current asset lifecycle stages}{section.0.5}% 23
+\BOOKMARK [2][-]{subsection.0.5.3}{Actors and roles}{section.0.5}% 24
+\BOOKMARK [2][-]{subsection.0.5.4}{Current asset lifecycle}{section.0.5}% 25
+\BOOKMARK [1][-]{section.0.6}{Application architecture}{}% 26
+\BOOKMARK [1][-]{section.0.7}{Technical architecture}{}% 27
+\BOOKMARK [1][-]{section.0.8}{Conclusions}{}% 28

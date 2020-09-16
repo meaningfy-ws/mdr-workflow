@@ -1,14 +1,9 @@
-\begin{thebibliography}{19}
+\begin{thebibliography}{4}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
-
-\bibitem[xmi(2015)]{xmi2.5.1}
-Xml metadata interchange (xmi) specification: Version 2.5.1.
-\newblock Standard formal/2015-06-07, Object Management Group ({OMG}), 2015.
-\newblock URL \url{http://www.omg.org/spec/XMI/2.5.1}.
 
 \bibitem[Archer et~al.(2014)Archer, Bargiotti, Keyzer, Goedertier, Loutas, and
   Geel]{d-high-value-assets}
@@ -16,55 +11,6 @@ P.~Archer, L.~Bargiotti, M.~D. Keyzer, S.~Goedertier, N.~Loutas, and F.~V.
   Geel.
 \newblock Report on high-value datasets from eu institutions.
 \newblock Deliverable SC17DI06692, {{European Commission}}, 2014.
-
-\bibitem[Booch et~al.(2005)Booch, Rumbaugh, and Jacobson]{uml-userguide}
-G.~Booch, J.~Rumbaugh, and I.~Jacobson.
-\newblock \emph{Unified Modeling Language User Guide, The (2nd Edition)
-  (Addison-Wesley Object Technology Series)}.
-\newblock Addison-Wesley Professional, 2005.
-\newblock ISBN 0321267974.
-
-\bibitem[Bradner(1997)]{rfc2119}
-S.~O. Bradner.
-\newblock {Key words for use in RFCs to Indicate Requirement Levels}.
-\newblock RFC 2119, Mar. 1997.
-\newblock URL \url{https://rfc-editor.org/rfc/rfc2119.txt}.
-
-\bibitem[Brickley and Guha(2014)]{rdfs11-spec}
-D.~Brickley and R.~Guha.
-\newblock {RDF} schema {1.1}.
-\newblock {W3C} recommendation, W3C, Feb. 2014.
-\newblock http://www.w3.org/TR/2014/REC-rdf-schema-20140225/.
-
-\bibitem[Cirulli(2017)]{xspec-cirulli2017xspec}
-S.~Cirulli.
-\newblock Xspec v0. 5.0.
-\newblock \emph{XML LONDON 2017}, 2017.
-
-\bibitem[Cook et~al.(2017)Cook, Bock, Rivett, Rutt, Seidewitz, Selic, and
-  Tolbert]{uml2.5}
-S.~Cook, C.~Bock, P.~Rivett, T.~Rutt, E.~Seidewitz, B.~Selic, and D.~Tolbert.
-\newblock Unified modeling language ({UML}) version 2.5.1.
-\newblock Standard formal/2017-12-05, Object Management Group ({OMG}), Dec.
-  2017.
-\newblock URL \url{https://www.omg.org/spec/UML/2.5.1}.
-
-\bibitem[Costetchi(2020)]{costetchi2020b}
-E.~Costetchi.
-\newblock {eProcurement} uml conceptual model conventions.
-\newblock Recommendation, {{Publications Office of the European Union}}, April
-  2020.
-
-\bibitem[Dekkers et~al.(2017)Dekkers, Stani, Wyns, and Barthelemy]{d2.01-2017}
-M.~Dekkers, E.~Stani, B.~Wyns, and F.~Barthelemy.
-\newblock D02.01 - specification of the process and methodology to develop the
-  eprocurement ontology with initial draft of the eprocurement ontology for 3
-  use cases.
-\newblock Deliverable SC378DI07171, {{Publications Office of the European
-  Union}}, 2017.
-
-\bibitem[{{European Parliament}} and {{the Council}}()]{directive-2014/25/EU}
-{{European Parliament}} and {{the Council}}.
 
 \bibitem[{{European Parliament}} and {{the
   Council}}(2013)]{directive-2013/37/EU}
@@ -75,64 +21,14 @@ M.~Dekkers, E.~Stani, B.~Wyns, and F.~Barthelemy.
 \newblock \emph{OJ}, L 175:\penalty0 1--8, 2013.
 \newblock CELEX:32013L0037.
 
-\bibitem[{{European Parliament}} and {{the
-  Council}}(2014{\natexlab{a}})]{directive-2014/23/EU}
-{{European Parliament}} and {{the Council}}.
-\newblock {{Directive 2014/23/EU of the European Parliament and of the Council
-  of 26 February 2014 on the award of concession contracts Text with EEA
-  relevance}}.
-\newblock \emph{OJ}, L 94\penalty0 (2014/23/EU):\penalty0 1--64,
-  2014{\natexlab{a}}.
-\newblock CELEX:32014L0024.
+\bibitem[{The Open Group}(2018)]{togaf9.2}
+{The Open Group}.
+\newblock \emph{The TOGAF Standard, Version 9.2}.
+\newblock The Open Group, 2018.
 
-\bibitem[{{European Parliament}} and {{the
-  Council}}(2014{\natexlab{b}})]{directive-2014/24/EU}
-{{European Parliament}} and {{the Council}}.
-\newblock {{Directive 2014/24/EU of the European Parliament and of the Council
-  of 26 February 2014 on public procurement and repealing Directive 2004/18/EC
-  Text with EEA relevance}}.
-\newblock \emph{OJ}, L 94:\penalty0 65--242, 2014{\natexlab{b}}.
-\newblock CELEX:32014L0024.
-
-\bibitem[{{European Parliament}} and {{the
-  Council}}(2014{\natexlab{c}})]{directive-2014/55/EU}
-{{European Parliament}} and {{the Council}}.
-\newblock {{Directive 2014/55/EU of the European Parliament and of the Council
-  of 16 April 2014 on electronic invoicing in public procurement Text with EEA
-  relevance}}.
-\newblock \emph{OJ}, L 133:\penalty0 1--11, 2014{\natexlab{c}}.
-\newblock CELEX:32014L0055.
-
-\bibitem[Kay(2017)]{xslt3-Kay}
-M.~Kay.
-\newblock {XSL} transformations ({XSLT}) version 3.0.
-\newblock {W3C} recommendation, W3C, June 2017.
-\newblock https://www.w3.org/TR/2017/REC-xslt-30-20170608/.
-
-\bibitem[Knublauch and Kontokostas(2017)]{shacl-spec}
-H.~Knublauch and D.~Kontokostas.
-\newblock Shapes constraint language ({SHACL}).
-\newblock {W3C} recommendation, W3C, July 2017.
-\newblock https://www.w3.org/TR/2017/REC-shacl-20170720/.
-
-\bibitem[Kr{\"{o}}tzsch et~al.(2012)Kr{\"{o}}tzsch, Horrocks, Smith, and
-  Glimm]{owl2-comformance}
-M.~Kr{\"{o}}tzsch, I.~Horrocks, M.~Smith, and B.~Glimm.
-\newblock {OWL} 2 web ontology language conformance (second edition).
-\newblock {W3C} recommendation, W3C, Dec. 2012.
-\newblock http://www.w3.org/TR/2012/REC-owl2-conformance-20121211/.
-
-\bibitem[Loutas et~al.(2016)Loutas, Loutas, Kotoglou, and
-  Hytiroglou]{d4.07-2016}
-N.~Loutas, N.~Loutas, S.~Kotoglou, and D.~Hytiroglou.
-\newblock D04.07 - report on policy support for eprocurement.
-\newblock Deliverable SC245DI07171, {{ISA programme of the European
-  Commission}}, 2016.
-
-\bibitem[Rescorla et~al.(2013)Rescorla, Barnes, and Kent]{rfc6919}
-E.~Rescorla, R.~Barnes, and S.~Kent.
-\newblock {Further Key Words for Use in RFCs to Indicate Requirement Levels}.
-\newblock RFC 6919, Apr. 2013.
-\newblock URL \url{https://rfc-editor.org/rfc/rfc6919.txt}.
+\bibitem[{The Open Group}(2019)]{archimate3.1}
+{The Open Group}.
+\newblock \emph{ArchiMate 3.1 Specification}.
+\newblock The Open Group, 2019.
 
 \end{thebibliography}

@@ -3,59 +3,49 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: enterprise-architecture.aux
 The style file: abbrvnat.bst
 Database file #1: ../references/references.bib
-Repeated entry---line 137 of file ../references/references.bib
- : @techreport{xmi2.5.1
- :                     ,
-I'm skipping whatever remains of this entry
 Unbalanced braces---line 471 of file ../references/references.bib
  :     title   = "Directive 2014/25/EU of the European Parliament and of the Council of 26 February 2014 on procurement by entities operating in the water, energy, transport and postal services sectors and repealing Directive 2004/17/EC Text with EEA relevance
  :                                                                                                                                                                                                                                                                  }}",
 I'm skipping whatever remains of this entry
-Warning--to sort, need author or key in xmi2.5.1
-Warning--empty author in xmi2.5.1
-Warning--empty title in directive-2014/25/EU
-Warning--empty journal in directive-2014/25/EU
-Warning--empty year in directive-2014/25/EU
-Warning--empty year in directive-2014/25/EU
-You've used 19 entries,
+You've used 4 entries,
             2773 wiz_defined-function locations,
-            704 strings with 8030 characters,
-and the built_in function-call counts, 7614 in all, are:
-= -- 689
-> -- 487
-< -- 16
-+ -- 168
-- -- 147
-* -- 610
-:= -- 1250
-add.period$ -- 67
-call.type$ -- 19
-change.case$ -- 109
-chr.to.int$ -- 17
-cite$ -- 45
-duplicate$ -- 330
-empty$ -- 543
-format.name$ -- 179
-if$ -- 1536
-int.to.chr$ -- 3
+            616 strings with 5242 characters,
+and the built_in function-call counts, 1588 in all, are:
+= -- 130
+> -- 98
+< -- 4
++ -- 34
+- -- 30
+* -- 115
+:= -- 267
+add.period$ -- 13
+call.type$ -- 4
+change.case$ -- 20
+chr.to.int$ -- 4
+cite$ -- 8
+duplicate$ -- 77
+empty$ -- 124
+format.name$ -- 36
+if$ -- 317
+int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 8
-newline$ -- 113
-num.names$ -- 72
-pop$ -- 185
+missing$ -- 5
+newline$ -- 29
+num.names$ -- 16
+pop$ -- 46
 preamble$ -- 1
-purify$ -- 87
+purify$ -- 18
 quote$ -- 0
-skip$ -- 257
+skip$ -- 57
 stack$ -- 0
-substring$ -- 106
-swap$ -- 24
-text.length$ -- 5
+substring$ -- 21
+swap$ -- 4
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 204
-warning$ -- 6
-while$ -- 62
+type$ -- 34
+warning$ -- 0
+while$ -- 14
 width$ -- 0
-write$ -- 268
-(There were 2 error messages)
+write$ -- 59
+(There was 1 error message)
