@@ -16,7 +16,6 @@
 
 	The central element of the application architecture is the \textit{application service}, which represents an application behaviour or functionality. The application services, from an inter-layer perspective, serve the processes in the business layer and provide support for their realisation. 
 	
-	
 	The application services are realised through application processes. The processes have application components assigned to them signifying their place of encapsulation. Application components are modular and replaceable blocks encapsulating 
 	implementation of application services and functionalities. In practice, for clarity, we take a shortcut, and say that the application services are realised through \textit{application components} directly.
 	
@@ -167,10 +166,14 @@
 	
 	The data validation was also described in Section \ref{sec:implementation-application}. One thing that was not mentioned is that the validation relies on an XSLT \citep{xslt3-Kay} controller component which triggers the XML validator component and the XSLT transformation component realising the data transformation service.
 	
-	The data transformation service 
+	The data transformation service is used currently, in the pre-release stage, to format the RDF/XML content. Internally this operation is known as SKOS ``prettification'', i.e. making the SKOS-RDF/XML easier to work with. This operation will no longer be necessary in the new architecture and XSLT transformation component will be employed only in the next stage: release.
+	
+	The issue management and the file management and versioning services are used in the pre-release stage and are the only ones necessary in the validation stage. Therefore they are placed in the middle, common, lane. These services have been detailed in Section \ref{sec:evolution-application} and \ref{sec:implementation-application}. As you may notice, the validation stage requires nothing more than these because it is mostly a manual process executed by the validation officer who checks the validation artefacts generated previously in the implementation stage, as explained in Section \ref{sec:validation-new}.	
 
 	\subsection{Release services and components}
 	\label{sec:release-application}	
+	
+	The release stage is significantly unbalanced in terms of the services employed currently and what is foreseen in the new architecture and this is reflected in the application architecture depicted in Figure \ref{fig:application-release}. 
 	
 	\begin{figure}[h]
 		\centering
@@ -178,15 +181,34 @@
 		\caption{The application services and components that serve the current and new release stage}
 		\label{fig:application-release}
 	\end{figure}
+
+	Currently, in the release stage described in Section \ref{sec:release-current}, the asset(s) are mainly copied from one part of the common repository into a another one dedicated to the artefacts that follow to be published. 
+	
+	In the new release stage, in addition to the copying operation, all the data transformation operations described in Section \ref{sec:publication-current} are also executed leaving the (new) publication stage to deal with packaging and distribution mainly (from a technical perspective).
+	
+	This is reflected in the new application architecture depicted in the right lane. The data transformation services are employed here not only in their current form, dealing with various formats consumed by the current clients (XSD, MarkXML, GeoJSON, etc.), but also with complex transformation operations on the RDF representation. The former is realised through the same XSLT engine component, while the latter through a new component called LinkedPipes ETL \citep{linkedpipes-klimek2016linkedpipes,linkedpipes-klimek2017linkedpipes}.
+	
+	The situation is similar with the data validation service: both, the current validation component based on XSD schemas and Schematron checks, and a new validation based on SHACL shape checks are necessary. Both validation types are used because current data formats and new data formats needs to be formally verified before being published. This validation, however, aims to ensure that the transformation processes ran correctly and not as much the content correctness which, is already assessed in the previous, validation stage. The asset structure analysis service was addressed in Section \ref{sec:implementation-new}. Also the new components, that operate with RDF data, require a triple store, which is depicted in the left lane as serving the depending components.
+	
 	
 	\subsection{Publication services and components}
 	\label{sec:publication-application}	
 	
-	\begin{figure}[h]
+	The publication stage is the last on in the asset lifecycle process. Its application architecture is depicted in Figure \ref{fig:application-publication}. As you may notice, there not much difference between the two, most services and components being palced in the middle lane, common to both. 
+	
+	\begin{figure}[!h]
 		\centering
 		\includegraphics[width=.9\textwidth]{images/application/Publication v3.png}
 		\caption{The application services and components that serve the current and new publication stage}
 		\label{fig:application-publication}
 	\end{figure}
 
+	New and specific to the publication stage is the impact assessment and release notes generation service provides the basic communication artefacts about what has changed between two versions of an artefact and what is contained in a publication. To a large extent it is based on the diffs generated in the implementation stage, but not limited to those. Yet, this has an impact on how the component functions because the diff of two XML files are different from the diffs of two RDF files. Remember that the asset source format changes from XML to RDF in between the current and new architectures. Therefore, the current implementation of the service cannot be reused and a new impact assessment generator shall be developer for the new application. 
+
+	The following services have already been addressed in the previous sections and will not be discussed here: management and versioning, e-mail, issue management and asset metadata and workflow design management. 
 	
+	The asset packaging service, placed in the middle lane of the diagram, is another service that is specific to the publication stage only. It is realised by the legacy package generator which assembles in various ways asset artefacts as necessary for the partner dissemination systems and the final consumers. This component shall be reused in the new application architecture in order to ensure continuity but it may be replaced in further digital transformation initiatives. 
+	
+	The last service, adopted in the new application architecture, is the package transmission service. The added value of this service is that no more the publication officer needs to manually ingest the packages into the dissemination system. For a start this service is realised by the new CERES component, which is responsible for ingesting the packages into Cellar. Later on additional components can be created for ingesting packages into other dissemination systems, such as Wikidata, Bartoc, ODP and others. 
+	
+	This brings us to the end of the application architecture description. Next we will take a look at how the two applications are deployed in practice and what are the differenced in the infrastructure.
