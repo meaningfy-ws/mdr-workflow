@@ -4,26 +4,28 @@
 	
 	\textit{Introduction section is unfinished, please start reviewing at the second one}
 	
-	This document provides a working definition of what is the architectural stance and the design decisions that shall be adopted for the reference asset management life-cycle materialised as the publishing workflow used by the Standardisation Unit (SU) at the Publications Office of the European Union (PO).
+	This document provides a working definition of the architectural stance and  design decisions that are to be adopted for the reference asset management life-cycle materialised as the publishing workflow used by the Standardisation Unit (SU) at the Publications Office of the European Union (PO).
 	
-	In this document we (a) establish the baseline architecture, supported by the strategic and motivational information; (b) develop a target architecture guiding the transitional processes of implementing new technologies. This constitutes a natural evolution in response to changing mission needs defined by the SU management, and also takes into consideration the strategic directions proposed by PO and European Commission (EC) and European Parliament (EP).
+	In this document we (a) establish the baseline architecture, supported by  strategic and motivational information; and (b) develop a target architecture guiding the transitional processes of implementing new technologies. This constitutes a natural evolution in response to changing mission needs defined by  SU management, and also takes into consideration the strategic directions proposed by the PO, the European Commission (EC) and the European Parliament (EP).
 	
 	
 	\subsection{Background considerations}
 	
-	Given the increasing importance of data standards for the European institutions, a number of initiatives driven by the public sector, the industry and academia have been kick-started in the recent years. Some have grown organically, while others are the result of standardisation work. The vocabularies and the semantics that they are introducing and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public. This creates the need for a common data standard for publishing public reference data and models, hence allowing data from different sources to be easily accessed and linked, and consequently reused.
+	Given the increasing importance of data standards for the EU institutions, a number of initiatives driven by the public sector, industry and academia have been kick-started in recent years. Some have grown organically, while others are the results of standardisation work. The vocabularies and semantics that they are introducing, together with the technologies that they are using, all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public. This creates the need for a common data standard for publishing public reference data and models, hence allowing data from different sources to be easily accessed and linked, and consequently reused.
 	
-	The PSI directive \cite{directive-2013/37/EU} across the EU is calling for open, unobstructed access to public data in order to improve transparency and to boost innovation via the reuse of public data. The reference data maintained and published by the PO has been identified as data with a high-reuse potential \cite{d-high-value-assets}. Therefore, making this data available in machine-readable formats and following the data as a service paradigm, is required in order to maximise its reuse.
+	The PSI directive \cite{directive-2013/37/EU} across the EU calls for open, unobstructed access to public data in order to improve transparency and to boost innovation via the reuse of public data. The reference data maintained and published by the PO has been identified as data with a high-reuse potential \cite{d-high-value-assets}. Therefore, making this data available in machine-readable formats, as well as following the data as a service paradigm, are required in order to maximise its reuse.
 	
-	In this context the Publications Office of the European Union maintains and publishes an ever growing number of reference data assets vital in the context of inter-institutional information exchange. With regards to reference data, PO provides an ever growing number of services to the main institutional stakeholders and with the aim to extend them to a broader public; enabling active or passive participation in the reference data life cycle, standardisation and harmonisation.
+	In this context, the Publications Office of the European Union maintains and publishes an ever-increasing number of reference data assets vital in the context of inter-institutional information exchange. With regards to reference data, the PO provides an ever-increasing number of services to the main institutional stakeholders and with the aim to extend them to a broader public, enabling active or passive participation in the reference data life cycle, standardisation and harmonisation.
 
 	\subsection{EU trajectory towards semantic and linked data}
 	
-	European institutions set sail to adopt Semantic Web and Linked Data technologies as part of the vision to become data centred e-government bodies [cite find directives]. 
+	European institutions set sail to adopt Semantic Web and Linked Data technologies as part of their visions to become data-centred e-government bodies [cite find directives]. 
 	
-	Many of the legacy systems in the institutions use XML data format for exchange and document formats governed by the XSD schemes \citep{xsd1.1-spec}. The aim is to evolve so that the existing and the new systems are capable to operate with semantic data representations using RDF \citep{rdf11}, OWL \citep{owl2.0,owl2}, SHACL \citep{shacl-spec} and other representations and serialised at least in RDF/XML \citep{rdf-xml-Beckett:04:RSS,rdf-xml-Schreiber:14:RXS}, Turtle \citep{turtle-Carothers:14:RT} and JSON-LD \citep{spornyjson,sporny2014json} formats.
+	Many of the legacy systems used in the EU institutions use XML data format for exchange and document formats governed by the XSD schemes \citep{xsd1.1-spec}. The aim is to evolve so that both existing and new systems are capable to operate with semantic data representations using RDF \citep{rdf11}, OWL \citep{owl2.0,owl2}, SHACL \citep{shacl-spec} and other representations, and serialised at least in RDF/XML \citep{rdf-xml-Beckett:04:RSS,rdf-xml-Schreiber:14:RXS}, Turtle \citep{turtle-Carothers:14:RT} and JSON-LD \citep{spornyjson,sporny2014json} formats.
 	
-	For this reason, the PO is already publishing the data in RDF format for over a decade using Cellar repository [cite]. And the SU, in particular, is committed to publish and disseminate the reference data in semantic formats. Next we describe the state of affairs of the SU to describe the context of the current work. 
+	For this reason, the PO has already been publishing data in RDF format for over a decade using the Cellar repository [cite]. Also, the SU, in particular, is committed to publish and disseminate reference data in semantic formats. 
+	
+	Next we outline the state of affairs of the SU to describe the context of the current work. 
 	
 	\subsection{Target audience}
 	\label{sec:audience}
@@ -32,21 +34,21 @@
 	\begin{itemize}
 		\item Management of the SU
 		\item Enterprise architects and data governance specialists
-		\item Documentalists involved in the reference data lifecycle
-		\item Technical staff in charge of operating the workflow components
-		\item Developers in charge of the workflow implementation		
+		\item Documentalists involved in the reference data life-cycle
+		\item Technical staff in charge of operating workflow components
+		\item Developers in charge of workflow implementation		
 	\end{itemize}	
 	
 	\subsection{Document scope}
 	\label{sec:scope}
 	
-	This document aims to support SU in the transition towards the semantic technologies focusing on the architecture of the publishing workflow. 
-	The central use case is to support the asset management lifecycle presented in Section (below). It includes managing the incoming requests, editing the reference assets in VocBench3 system \citep{stellato2017towards,stellatovocbench}, then exporting the RDF data and passing them as input to a set of processes that validate, assess, transform, package and finally publish the assets in Cellar \cite{cdm-francesconi2015ontology}, the main dissemination platform.
+	This document aims to support SU in the transition towards semantic technologies focusing on architecture of the publishing workflow. 
+	The central use case is to support the asset management life-cycle presented in Section nn (below). This includes managing the incoming requests, editing the reference assets in VocBench3 system \citep{stellato2017towards,stellatovocbench}, then exporting the RDF data and passing them as input to a set of processes that validate, assess, transform, package and finally publish the assets in Cellar \cite{cdm-francesconi2015ontology}, the main dissemination platform.
 	
-	This document will provide a motivational, business and application account of the workflow. Each of these accounts is limited strictly to the success scenario of the above mentioned use case and does not include possible extensions and variations which may be. 
+	This document will provide a motivational, business and application account of the workflow. Each of these accounts is limited strictly to the success scenario of the above-mentioned use case and does not include possible extensions and variations. 
 	
 %	TODO: write 
-%	In the past years much effort was invested into the eProcurement ontology initiative, including definition of requirements, provision of general specifications, identification of the main use cases, and laborious development of a preliminary shared conceptual model expressed using Unified Modelling Language (UML) \cite{uml-userguide,uml2.5}. 
+%	In recent years much effort has been invested into the eProcurement ontology initiative, including definition of requirements, provision of general specifications, identification of the main use cases, and laborious development of a preliminary shared conceptual model expressed using Unified Modelling Language (UML) \cite{uml-userguide,uml2.5}. 
 %	
 %	%	The next step is to establish a process for generating a formal OWL ontology, the final artefact of the project.  
 %	
