@@ -1,7 +1,10 @@
 %\section{Context of the digital transformation}
 \section{Publication workflow digital transformation}
 \label{sec:context}
-
+    
+    Internally in the SU publication workflow is called the entire process from receiving the request for change of a data asset, through its implementation, validation, transformation of data, packaging and dissemination, ending finally with the data being consumed by the client, who request new changes again after using the data. We refer to this publication workflow as the publication life-cycle process, or the asset life-cycle process.
+    
+    In this section we assets the technical state of play in order to be able to frame technically the digital transformation proposed in this architecture. In the next section (Section \ref{sec:business-use cases}) we will address the business aspects in terms of use case scenarios, and then, in Section \ref{sec:business-architecture} in terms of business processes, which will serve as a backbone for organising the application architecture in Section \ref{sec:application-architecture}.
 
 	\subsection{State of play}
 	The SU publishes reference data in several formats, the most important being XML \citep{xml1-spec}, XSD \citep{xsd1.1-spec} and RDF/XML \citep{rdf-xml-Beckett:04:RSS,rdf-xml-Schreiber:14:RXS}. On the application side (see Section \ref{sec:application-architecture}), the SU currently employs a legacy (custom-built) system for controlling and executing, in part, the asset management life-cycle operations (legacy workflow system). The system was developed using a mixture of XSLT technology \cite{xslt3-Kay}, Perl and Bash scripting languages. The system was developed to execute a wide variety of conversions and transformations based on XML source files into various other formats including human readable documents.
@@ -16,7 +19,6 @@
 	 
 	Moreover, the maintenance of this system is burdened by a technical debt that has accumulated over time, because the system has evolved organically based on incorporation of many requests. 
 	
-
 	\subsection{Towards semantic technology workflow}
 	
 	The SU's mission regarding the technological evolution is to migrate towards Semantic Web and Linked Data technologies and representations. The maintenance of reference data is currently done based on XML source representation and the desired transition is towards RDF-based representation\citep{rdf11,rdf11-semantics}. For that purpose, MS Excel and XML sources are no longer suitable and a dedicated editor is necessary.
@@ -31,3 +33,11 @@
 	 
 	The legacy workflow system is also lacking in semantic validation, structural analysis (fingerprinting) and content comparison capabilities (calculating the difference between two versions of an asset) for RDF data representation. A transition would imply development of at least these new capabilities in order to maintain business processes similar to the current ones (see Section \ref{sec:business-architecture}). 
 	
+	\subsection{Towards (Micro-)Service Oriented Architecture}
+	\label{sec:soa}
+	
+	\textit{Service-oriented architecture} (SOA) \cite{open2016soa} is a style of software design where services are provided to the other components by application components, through a communication protocol over a network. A SOA service is a discrete unit of functionality that can be accessed remotely and acted upon and updated independently. SOA is also intended to be independent of vendors, products and technologies.
+	
+	SOA is believed to help businesses respond more quickly and more cost-effectively to changing market conditions. This style of architecture promotes high component reuse and facilitates interconnection between components. The SOA systems are known to be resilient in the light of changing technologies because the components are loosely coupled and could easily be replaced by alternative implementations exposing with the same interfaces.	SOA could be regarded as an architectural evolution rather than as a revolution. It captures many of the best practices of previous software architectures and it is a practical approach for cloud computing \citep{velte2019cloud}.
+	
+	Service-oriented architecture can be implemented with web services or Microservices \citep{brandner2004web}. This is done to make the functional building-blocks accessible over standard Internet protocols that are independent of platforms and programming languages. These services can represent either new applications or just wrappers around existing legacy systems to make them network-enabled \citep{channabasavaiah2003migrating}. We recommend this approach for the transition to a micro-service based application. First the micro-services can be implemented as wrappers around existent components and at a later stage the components can be replaced by modern implementations. 
