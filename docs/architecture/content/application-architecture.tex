@@ -1,9 +1,9 @@
-\section{Application architecture}
+\chapter{Application architecture}
 \label{sec:application-architecture}
 
     This section covers the application architecture (term from ArchiMate language). We present here the essential services and the components realising those services to enact the current and the new life-cycle processes.
 
-	\subsection{Prototypical application structure}
+	\section{Prototypical application structure}
 	
 	This section presents the application architecture from the solution architecture point of view. A generic solution architecture is depicted in Figure \ref{fig:application-view}.
 	
@@ -11,7 +11,7 @@
 	
     \begin{figure}[h]
 		\centering
-		\includegraphics[width=.5\textwidth]{images/views/Application view.png}
+		\includegraphics[width=.6\textwidth]{images/views/Application view.png}
 		\caption{The prototypical application structure view}
 		\label{fig:application-view}
 	\end{figure}
@@ -30,7 +30,7 @@
 
 	Below we present an overview of the application architecture, in terms of services alone, depicting how the asset life-cycle stages are served.
 	
-	\subsection{Current and new application service architecture}
+	\section{Current and new application service architecture}
 	\label{sec:application-overview}
 	
 	This section presents how the asset life-cycle stages are supported by the application services. The current application architecture is depicted in Figure \ref{fig:application-current} and the new one in Figure \ref{fig:application-new}. The services employed in each of the architectures are mostly the same, with a few exceptions. What differs more significantly is their utilisation in the asset life-cycle stages. For this reason, we set them side-by-side to provide a contrasting image. 
@@ -86,7 +86,7 @@
 	
 	The \textit{package transmission} provides the possibility to automatically deliver and ingest the prepared packages into the dissemination system, rather than the publication officer having to perform this operation manually. 
 	
-%	\subsection{New application service architecture}
+%	\section{New application service architecture}
 %	\label{sec:application-new}	
 
 %	\begin{figure}[h]
@@ -96,7 +96,7 @@
 %		\label{fig:application-new}
 %	\end{figure}	
 	
-	\subsection{Inception and evolution services and components}
+	\section{Inception and evolution services and components}
 	\label{sec:evolution-application}
 	
 	In the first stage of the asset life-cycle, the technical requirements are limited to client communication and the request documentation services as depicted in Figure \ref{fig:application-inception-evolution}.
@@ -112,7 +112,7 @@
 	
 	The email service is realised by the Outlook software. Issue management is realised by the Jira system. No changes are foreseen in the way these services are realised in the future. 
 
-	\subsection{Implementation services and components}
+	\section{Implementation services and components}
 	\label{sec:implementation-application}	
 	
 	The implementation stage is the first place where considerable differences are visible in the way the application architecture is organised. This is depicted in Figure \ref{fig:application-implementation}.
@@ -146,13 +146,13 @@
 	
 	In the new version of the implementation stage, the main source of the assets is represented as SRC-AP \cite{src-ap-vb3}, a particular form of SKOS \citep{skos-spec} and is serialised as RDF \citep{rdf11}. The editing is covered by the asset content management service, which is realised by the VocBench3 system \citep{stellatovocbench}. When the authoring officer finishes the implementation of a request case, the content is exported from VocBench3 and committed into the SVN common repository. This commit triggers automatic SHACL validation, RDF diffing and structure analysis operations, which write the results back into the common repository for the editor to look at and verify the implementation correctness. 
 	
-	Asset structure analysis service is realised by the RDF fingerprinter component which is necessary for the quality assessment in this and the next stage of the asset life-cycle. Finally, asset documentation management service was described in Section \ref{sec:application-overview}. 
+	Asset structure analysis service is realised by the RDF fingerprinter component which is necessary for the quality assessment in this and the next stage of the asset life-cycle. Finally, asset documentation management service was described in \mbox{Section \ref{sec:application-overview}.}
 	
 	The new RDF-based components rely mostly on the existence of an RDF triple store service, which is a database ensuring persistence, accessibility and data query. This triple store component is depicted not as realising any service in particular, but as serving other components: RDF fingerprinter, SHACL validator, RDF differ and VocBench3, so that they function as expected this way, creating a dependency between them. We use a generic label ``triple store'' here to express that it is of little importance what system is chosen in particular. Among the candidates we can mention are Fuseki, Virtuoso, GraphDB, StarDog, AnzoGraph,... the list can continue. 
 	
 	This brings us to the end of the implementation stage description which provided us with a parallel between the services and components as they are used currently and how the new application should be implemented. 
 	
-	\subsection{Pre-release and validation services and components}
+	\section{Pre-release and validation services and components}
 	\label{sec:validation-application}
 	
 	The stages following the implementation in both the current and new life-cycle processes differ. In Section \ref{sec:lifecycle-new} we described that in the current life-cycle it is termed the pre-release stage while in the new one it is the validation stage. This difference is also reflected on the application architecture in Figure \ref{fig:application-validation}.
@@ -172,7 +172,7 @@
 	
 	The issue management, file management and versioning services are used in the pre-release stage and are the only ones necessary in the validation stage. Therefore, they are placed in the middle, common, lane. These services have been detailed in Section \ref{sec:evolution-application} and \ref{sec:implementation-application}. The validation stage requires nothing more than these because it is mostly a manual process executed by the validation officer who checks the validation artefacts generated previously in the implementation stage, as explained in Section \ref{sec:validation-new}.	
 
-	\subsection{Release services and components}
+	\section{Release services and components}
 	\label{sec:release-application}	
 	
 	The release stage is significantly unbalanced in terms of the services employed currently and what is foreseen in the new architecture: this is reflected in the application architecture depicted in Figure \ref{fig:application-release}. 
@@ -193,7 +193,7 @@
 	The situation is similar with the data validation service: both the current validation component based on XSD schemas and Schematron checks, and a new validation based on SHACL shape checks, are necessary. Both validation types are used because current data formats and new data formats needs to be formally verified before being published. This validation, however, aims to ensure primarily that the transformation processes run correctly and, to a lesser effect, the content correctness which is already assessed in the previous validation stage. The asset structure analysis service was addressed in Section \ref{sec:implementation-new}. Also, the new components that operate with RDF data require a triple store which is depicted in the left lane as serving the depending components.
 	
 	
-	\subsection{Publication services and components}
+	\section{Publication services and components}
 	\label{sec:publication-application}	
 	
 	The publication stage is the last one in the asset life-cycle process. Its application architecture is depicted in Figure \ref{fig:application-publication}. There is not much difference between the two, most services and components being placed in the middle lane, common to both. 

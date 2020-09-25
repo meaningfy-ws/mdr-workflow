@@ -136,9 +136,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
 \fancyhf{}
-%\rhead{\slshape\DelAuthor}
-%\rhead{\slshape{\DelInitiative}}
-\lhead{\slshape\nouppercase{\rightmark}}
+%%\rhead{\slshape\DelAuthor}
+%%\rhead{\slshape{\DelInitiative}}
+%\rhead{\slshape\nouppercase{\rightmark}}
+%\lhead{\slshape\nouppercase{\leftmark}}
+\fancyhead[RE]{\slshape\nouppercase{\rightmark}}      % Chapter in the right on even pages
+\fancyhead[LO]{\slshape\nouppercase{\leftmark}}     % Section in the left on odd pages
 \cfoot{\thepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

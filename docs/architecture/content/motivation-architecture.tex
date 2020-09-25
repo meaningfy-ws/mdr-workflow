@@ -1,14 +1,13 @@
-\section{Motivation architecture}
+\chapter{Motivation architecture}
 \label{sec:motivation-architecture}
 
-	%	TODO: rewrite 
-	This section presents the motivation and goal structure of the Standardisation Unit (SU). This helps to scope and derive a rationale for the current architecture specification. 
+	This chapter presents the motivation and goal structure of the Standardisation Unit (SU). This helps to scope and derive a rationale for the current architecture specification. 
 	
 	We do not aim for an in depth coverage of the motivation architecture here. So it cannot be considered as a fully fledged decision-making tool for the management. What we rather aim at is accounting for the context of the asset publishing lifecycle which is the final goal of this architecture. 
 	
 	Nonetheless, this motivation view helps address questions on why a demand is meaningful, model crucial drivers and root causes behind the demand, actual goals and related outcomes, as well as concrete requirements for further development. In short, it answers the crucial questions to WHOM, WHY and WHAT.
 	
-	\subsection{Overall motivation structure}
+	\section{Overall motivation structure}
 	\label{sec:how-to-motivation}		
 	
 	The structure of motivations, in ArchiMate, is organised hierarchically in several layers. For simplicity, we have chosen to use the top four layers: \textit{stakeholders, drivers, assessments and goals}; leaving out the \textit{outcomes}, \textit{principles} and \textit{requirements}. \mbox{Figure \ref{fig:morivation-structure}} depicts the organisation of the motivation architecture. The structure starts at the top with enumerating the stakeholders, who can be individuals, teams or organisations that represent their interests in the effects of \mbox{the architecture \citep{archimate3.1}}. 
@@ -35,7 +34,7 @@
 	
 	Next we present the SU motivation structure spread over several sections.
 	
-	\subsection{Stakeholders and their roles}
+	\section{Stakeholders and their roles}
 	
 	The Standardisation Unit involves multiple stakeholders. We could enumerate them; however, the list would  be long and is outside the scope of this exercise. Instead, we highlight the most important ones and, in addition, we group them based on the role they play in interaction with SU. In Figure \ref{fig:stakehodlers-roles} the roles are depicted as aggregate stakeholders in a grouping frame in the middle of the figure. Above the roles are positioned the most important external stakeholders, while below the stakeholders from the PO are enumerated.
 	
@@ -62,12 +61,12 @@
 	
 	The \textit{data overseers} are agents who ensure that content satisfying business needs is harmonised, coherent and complete. They are also responsible for the content correctness and harmonisation among multiple stakeholders and its usefulness in the broader context of application. Usually the role of data overseers is performed by the standardisation committees, steering committees and data stewards at large.
 	
-	\subsection{Drivers: primary}
+	\section{Drivers: primary}
 	
 	We have identified four \textit{primary drivers}, three \textit{secondary drivers} and two \textit{internal efficiency drivers}. The distinction between primary and secondary drivers is based on whether the driver is shared, or not, between the external and internal stakeholders (in this case the business management).
 	Figure \ref{fig:primary-drivers} depicts the main stakeholders and their concerns, where the business manager, in this case head of the SU, has the same primary concerns as the main stakeholder roles.
 	
-	\begin{figure}[hbt!]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.9\textwidth]{images/motivation/Primary drivers.png}
 		\caption{Primary drivers, motivating both, the internal and external stakeholders}
@@ -82,17 +81,17 @@
 	
 	The last of the primary drivers is \textit{standardisation, interoperability and adoption}, which is a major concern for data disseminators and data users. This driver covers the adoption of widely-used meta-models, formally well-defined models representing shared conceptualisation of major bodies and organisations, usage and implementation of national and international standards proposed by standardisation bodies (e.g. ISO, W3C, OMG). These standards refer not only to aspects of data representation, but also to protocols, exchange schemas, validation mechanisms and other tools facilitating systemic interoperability. 
 	
-	\subsection{Drivers: secondary}
-	The secondary drivers are those that are important to both external and internal stakeholders.
+	\section{Drivers: secondary}
+	The secondary drivers are those that are important to both external and internal stakeholders. They are depicted in Figure \ref{fig:secondary drivers}.
+
+	\textit{Steady and uninterrupted IT systems} is a critical driver for the data consumers. Several institutions and OP units have built IT systems which rely on data maintained and published by the SU. Also, this is one dimension of client satisfaction. The SU ensures that data modifications have no impact on external systems, and for that a part of the life-cycle process is dedicated to impact assessment. 
 	
-	\begin{figure}[h!]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=1.05\textwidth]{images/motivation/Secondary drivers.png}
 		\caption{Secondary drivers, motivating either internal or external stakeholders}
 		\label{fig:secondary drivers}
 	\end{figure}
-
-	\textit{Steady and uninterrupted IT systems} is a critical driver for the data consumers. Several institutions and OP units have built IT systems which rely on data maintained and published by the SU. Also, this is one dimension of client satisfaction. The SU ensures that data modifications have no impact on external systems, and for that a part of the life-cycle process is dedicated to impact assessment. 
 	
 	\textit{Data reuse} is encouraged at the level of all EU institutions as a means to reduce integration and development costs. The standardisation committees and other responsible parties (the data overseers) are especially interested in this. 
 	
@@ -104,7 +103,7 @@
 	
 	Next we have chosen three drivers we considered to be the most important for this exercise, and we present their assessments. 
 	
-	\subsection{Assessment: Responsiveness and processing speed}
+	\section{Assessment: Responsiveness and processing speed}
 	
 	A number of causes were identified that decrease responsiveness and process speed. 
 	
@@ -122,7 +121,7 @@
 	In addition, slow ticket processing can be due to a limitation in the number of tickets that can be handled by the business team: a caveat here is the lack of modelling and knowledge organisation kills. As a result,  training the entire team to add knowledge modelling skills or recruiting additional staff with such skills are potential solutions. 
 	
 
-	\subsection{Assessment: Data quality}
+	\section{Assessment: Data quality}
 
     Data quality and, implicitly, consumer satisfaction driver have been assessed with the following issues being identified.
     
@@ -139,7 +138,7 @@
     
     Finally, the switch from the XML-based asset sources to RDF-based asset sources is highly recommended as data maintenance is considerably improved in semantic formats. 
 
-	\subsection{Assessment: Service quality}
+	\section{Assessment: Service quality}
 
     A number of complaints have been received, mainly from other OP units, with regards to the quality of services provided by the SU. 
 

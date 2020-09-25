@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% DOCUMENT PREAMBLE %%%
-\documentclass[12pt, a4paper]{report}
+\documentclass[12pt, a4paper, twoside]{report}
 \usepackage[english]{babel}
 \usepackage[square,numbers]{natbib}
 \usepackage{url}
@@ -103,10 +103,11 @@ version={4.0},
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \tableofcontents
+\vspace*{\fill}  
 \pagebreak
 
 
-\renewcommand{\thesection}{\arabic{section}}
+%\renewcommand{\thesection}{\arabic{section}} % this provides numbering with sections only, without the chapers
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Content sections follow
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -118,11 +119,11 @@ version={4.0},
 \input{content/business-architecture.tex}
 \input{content/application-architecture.tex}
 \input{content/technical-architecture.tex}
+\input{content/infrastructure-setup}
 \input{content/conclusions.tex}
-%\input{content/final-word.tex}
- 
-%\bibliography{../references/references.bib}
-\bibliography{docs/references/references.bib}
+
+\bibliography{../references/references.bib}
+%\bibliography{docs/references/references.bib}
  
 \end{document}
 
