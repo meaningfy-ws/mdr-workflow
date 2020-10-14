@@ -22,12 +22,4 @@ Feature: Test functionality of RDF Differ running in a Docker container
     And I upload in the field old_version_file_content with OLD
     And I upload in the field new_version_file_content with NEW
     And I click on the button with id submit
-#    Then the resulting page contains ceva_aici in the element with id some_id
-#
-#  Scenario: Get the diff report for a calculated diff
-#    Given the baseURI "http://rdfdiffer"
-#    When I navigate to the location "/page"
-#    And I click on the button with id "generate_id"
-#    Then I get a file download
-#    And the downloaded file contains "something"
-#
+#    Then the resulting page contains something_here in the element with id some_id
