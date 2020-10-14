@@ -27,6 +27,9 @@ def test_main_success_scenario_for_rdf_file_and_html_validation_report():
 def test_main_success_scenario_for_sparql_endpoint_and_rdf_validation_report():
     """Main success scenario for SPARQL endpoint and RDF validation report."""
 
+@scenario('../features/rdf_differ.feature', 'Main success scenario')
+def test_main_success_scenario():
+    """Main success scenario."""
 
 @given(parsers.cfparse('the {file_id:String} file {somefile:String}', extra_types=dict(String=str)))
 def the_shacl_file_somefile(scenario_context, file_id, somefile):

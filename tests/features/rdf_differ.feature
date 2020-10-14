@@ -7,19 +7,22 @@
 Feature: Test functionality of RDF Differ running in a Docker container
   
     Background:
-    Given the baseURI http://localhost:8010
+    Given the baseURI http://localhost:8030
 
   Scenario: Main success scenario
     Given the OLD file /tests/test_data/skosShapes.shapes.ttl
     And the NEW file /tests/test_data/skosShapes.shapes.ttl
-    When I navigate to the location /page
-    And I fill in the field field_id_datafile with somefile
-    And I fill in the field dataset_id with datasetid_field
-    And I fill in the field dataseturi with dataseturi_field
-    And I fill in the field newversionid with newversionid_field
-    And I fill in the field oldversionid with oldversionid_field
-    And I click on the button with id validate_button_id
-    Then the resulting page contains ceva_aici in the element with id some_id
+    And the DATASET_NAME with value A_DATASET_NAME
+    And the DATASET_DESCRIPTION with value Dataset description
+    And the DATASET_URI with value http://dataset.uri
+    When I navigate to the location /create-diff
+    And I fill in the field dataset_name with DATASET_NAME
+    And I fill in the field dataset_description with DATASET_DESCRIPTION
+    And I fill in the field dataset_uri with DATASET_URI
+    And I upload in the field old_version_file_content with OLD
+    And I upload in the field new_version_file_content with NEW
+    And I click on the button with id submit
+#    Then the resulting page contains ceva_aici in the element with id some_id
 #
 #  Scenario: Get the diff report for a calculated diff
 #    Given the baseURI "http://rdfdiffer"
