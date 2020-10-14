@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="16.653" timestamp="2020-09-30T16:57:47.427332" hostname="laur-vl"><testcase classname="tests.steps.test_rdf_validator_ws" name="test_main_success_scenario_for_sparql_endpoint_and_rdf_validation_report" time="16.537" /></testsuite></testsuites>

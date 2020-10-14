@@ -11,7 +11,8 @@ install-dev:
 	@ echo "$(BUILD_PRINT)Installing the development requirements"
 	@ pip install --upgrade pip
 	@ pip install -r requirements/dev.txt
-	@ sudo cp requirements/geckodriver /usr/bin
+	@ sudo cp requirements/chromedriver /usr/bin
+	@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 test:
 	@ echo "$(BUILD_PRINT)Running the tests"

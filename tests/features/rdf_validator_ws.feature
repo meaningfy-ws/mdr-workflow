@@ -1,28 +1,29 @@
-# Created by Laurentiu Mandru at 9/30/20
+# rdf_validator.ws.feature
+# Date:  2020.10.13
+# Author: Laurentiu Mandru
+# Email: mclaurentiu79@gmail.com
+
 Feature: Test functionality of rdf-validator-ws running in a docker container
 
+  Background:
+    Given the baseURI http://localhost:8010
+
   Scenario: Main success scenario for SPARQL endpoint and RDF validation report
-    Given the baseURI "https://www.google.com"
-    And the SHACL file "somefile"
-    When I navigate to the location "/page"
-    And I fill in the field "field_id_sparql" with "someendpointhere"
-    And I fill in the field "field_id_datafile" with "somefile"
-    And I click on the button with id "validate_button_id"
-    Then I get the "200" response status code
-    And the response contains an attachment in the "Turtle" format
-    And the received file contains "something"
+    Given the SCHEMA file /tests/test_data/skosShapes.shapes.ttl
+    And the URL with value http://localhost:3030/treaty-fragment/query
+    When I navigate to the location /validate-sparql-endpoint
+    And I upload in the field schema_files with SCHEMA
+    And I fill in the field endpoint_url with URL
+    And I click on the button with id report_extension-1
+    And I click on the button with id submit
+#    Then the field with id "id_of_field_here" is visible
 
-#  Scenario: Main success scenario for SPARQL endpoint and HTML validation report
   Scenario: Main success scenario for RDF file and HTML validation report
-    Given the baseURI "http://xxxx"
-    And the SHACL file "somefile"
-    When I navigate to the location "/page"
-    And I fill in the field "field_id_datafile" with "somefile"
-    And I upload the "file" in the "upload_id" field
-    And I click on the button with id "validate_button_id"
-    Then I get the "200" response status code
-    And the response contains an attachment in the "Turtle" format
-    And the received file contains "something"
-
-
-#  Scenario: Main success scenario for resource URI and HTML validation report - TBD ? - not critical just yet
+    Given the SHACL file /tests/test_data/skosShapes.shapes.ttl
+    And the SCHEMA file /tests/test_data/skosShapes.shapes.ttl
+    When I navigate to the location /validate-file
+    And I upload in the field data_file with SHACL
+    And I upload in the field schema_files with SCHEMA
+    And I click on the button with id report_extension-1
+    And I click on the button with id submit
+#    Then the field with id "id_of_field_here" is visible
