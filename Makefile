@@ -16,7 +16,7 @@ install-dev:
 
 test:
 	@ echo "$(BUILD_PRINT)Running the tests"
-	@ pytest -s
+	@ pytest
 
 #-----------------------------------------------------------------------------
 # Development environment
