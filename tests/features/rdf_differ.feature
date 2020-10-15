@@ -7,7 +7,7 @@
 Feature: Test functionality of RDF Differ running in a Docker container
   
     Background:
-    Given the baseURI http://localhost:8030
+    Given the baseURI DIFFER_UI_URL
 
   Scenario: Main success scenario
     Given the OLD file /tests/test_data/skosShapes.shapes.ttl

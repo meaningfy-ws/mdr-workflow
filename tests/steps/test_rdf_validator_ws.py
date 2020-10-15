@@ -15,6 +15,8 @@ from pytest_bdd import (
     when, parsers,
 )
 
+from tests.config import VALIDATOR_UI_URL, DIFFER_UI_URL
+
 logger = logging.getLogger(__name__)
 
 
@@ -38,7 +40,10 @@ def the_shacl_file_somefile(scenario_context, file_id, somefile):
 
 @given(parsers.cfparse('the baseURI {baseUri:String}', extra_types=dict(String=str)))
 def the_baseuri_httpxxxx(browser, scenario_context, baseUri):
-    scenario_context["baseURI"] = baseUri
+    if baseUri == "VALIDATOR_UI_URL":
+        scenario_context["baseURI"] = VALIDATOR_UI_URL
+    elif baseUri == "DIFFER_UI_URL":
+        scenario_context["baseURI"] = DIFFER_UI_URL
 
 
 @when(parsers.cfparse('I click on the button with id {control_id:String}', extra_types=dict(String=str)))
