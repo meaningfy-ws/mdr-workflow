@@ -62,7 +62,6 @@ def i_fill_in_the_field_field_id_sparql_with_someendpointhere(scenario_context, 
                       extra_types=dict(String=str)))
 def i_upload_in_the_field_schema_file_with_somefile(browser, scenario_context, field_id, file_name):
     file_button = browser.find_element_by_id(field_id)
-    print(str(Path.cwd()) + scenario_context[file_name])
     file_button.send_keys(str(Path.cwd()) + scenario_context[file_name])
 
 
