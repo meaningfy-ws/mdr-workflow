@@ -1,0 +1,22 @@
+-r common.txt
+
+# Testing Dependencies
+pytest
+coverage
+pytest-cov
+pytest-bdd
+beautifulsoup4
+
+# Linting dependencies
+flake8
+
+# Documentation Dependencies
+myst-parser
+sphinx<3
+sphinxcontrib-apidoc
+
+
+# Flask requirements for testing
+Flask
+flask-bootstrap
+Flask-Wtf
