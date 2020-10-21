@@ -20,7 +20,7 @@ services:
       - mydefault
 
   fuseki:
-    container_name: fuseki
+    container_name: rdf-differ-fuseki
     image: meaningfy/fuseki:latest
     volumes:
       - ${PWD}/${RDF_DIFFER_FUSEKI_DATA_FOLDER}/fuseki:/fuseki
