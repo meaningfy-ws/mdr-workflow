@@ -1,0 +1,69 @@
+version: '3.7'
+
+services:
+  rdf-differ-api:
+    container_name: rdf-differ-api
+    image: meaningfy/rdf-differ-api:latest
+    ports:
+      - ${RDF_DIFFER_API_PORT}:${RDF_DIFFER_API_PORT}
+    env_file: .env
+    networks:
+      - mydefault
+
+  rdf-differ-ui:
+    container_name: rdf-differ-ui
+    image: meaningfy/rdf-differ-ui:latest
+    ports:
+      - ${RDF_DIFFER_UI_PORT}:${RDF_DIFFER_UI_PORT}
+    env_file: .env
+    networks:
+      - mydefault
+
+  fuseki:
+    container_name: rdf-differ-fuseki
+    image: meaningfy/fuseki:latest
+    volumes:
+      - ${PWD}/${RDF_DIFFER_FUSEKI_DATA_FOLDER}/fuseki:/fuseki
+    env_file: .env
+    environment:
+      - ADMIN_PASSWORD=${RDF_DIFFER_FUSEKI_ADMIN_PASSWORD}
+      - JVM_ARGS=${RDF_DIFFER_FUSEKI_JVM_ARGS}
+    ports:
+      - ${RDF_DIFFER_FUSEKI_PORT}:${RDF_DIFFER_FUSEKI_PORT}
+    networks:
+      - mydefault
+
+  validator-api:
+    container_name: validator-api
+    image: meaningfy/rdf-validator-api:latest
+    ports:
+      - ${VALIDATOR_API_PORT}:${VALIDATOR_API_PORT}
+    env_file: .env
+    networks:
+      - mydefault
+
+  validator-ui:
+    container_name: validator-ui
+    image: meaningfy/rdf-validator-ui:latest
+    ports:
+      - ${VALIDATOR_UI_PORT}:${VALIDATOR_UI_PORT}
+    env_file: .env
+    depends_on:
+      - "validator-api"
+    networks:
+      - mydefault
+
+  maintainance:
+    container_name: maintainance
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./splash-nginx:/usr/share/nginx/html
+    networks:
+      - mydefault
+
+
+networks:
+  mydefault:
+    name: globalnet
