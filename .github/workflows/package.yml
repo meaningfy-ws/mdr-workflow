@@ -27,10 +27,18 @@ jobs:
           echo "TAG_VERSION_FUSEKI=$DKR_HUB_URL_FUSEKI:$RELEASE_VERSION" >> $GITHUB_ENV
           echo "TAG_VERSION_SPLASH_NGINX=$DKR_HUB_URL_SPLASH_NGINX:$RELEASE_VERSION" >> $GITHUB_ENV
 
-      - name: Build
+      - name: Build local
         run: |
           docker build --tag $TAG_LATEST_FUSEKI --tag $TAG_VERSION_FUSEKI --file ./docker/fuseki/Dockerfile  .
           docker build --tag $TAG_LATEST_SPLASH_NGINX --tag $TAG_VERSION_SPLASH_NGINX --file ./docker/splash-nginx/Dockerfile  .
+
+      - name: Build external (LinkedPipes ETL)
+        run: |
+          docker-compose --file docker/linkedpipes-etl/docker-compose.yml --env-file docker/.env build
+          docker tag meaningfy/linkedpipes-etl-storage:latest meaningfy/linkedpipes-etl-storage:$RELEASE_VERSION
+          docker tag meaningfy/linkedpipes-etl-frontend:latest meaningfy/linkedpipes-etl-frontend:$RELEASE_VERSION
+          docker tag meaningfy/linkedpipes-etl-executor-monitor:latest  meaningfy/linkedpipes-etl-executor-monitor:$RELEASE_VERSION
+          docker tag meaningfy/linkedpipes-etl-executor:latest meaningfy/linkedpipes-etl-executor:$RELEASE_VERSION
 
       - name: Logs / docker (inspect, history, version, info), uname
         run: |
@@ -49,3 +57,11 @@ jobs:
           docker push $TAG_VERSION_FUSEKI
           docker push $TAG_LATEST_SPLASH_NGINX
           docker push $TAG_VERSION_SPLASH_NGINX
+          docker push meaningfy/linkedpipes-etl-storage:latest
+          docker push meaningfy/linkedpipes-etl-frontend:latest
+          docker push meaningfy/linkedpipes-etl-executor-monitor:latest
+          docker push meaningfy/linkedpipes-etl-executor:latest
+          docker push meaningfy/linkedpipes-etl-storage:$RELEASE_VERSION
+          docker push meaningfy/linkedpipes-etl-frontend:$RELEASE_VERSION
+          docker push meaningfy/linkedpipes-etl-executor-monitor:$RELEASE_VERSION
+          docker push meaningfy/linkedpipes-etl-executor:$RELEASE_VERSION
