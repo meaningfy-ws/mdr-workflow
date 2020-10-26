@@ -16,14 +16,19 @@ test:
 	@ echo "$(BUILD_PRINT)Running the tests"
 	@ pytest
 
-start-services:
+set_linekdpipes-etl-configurations:
+	@ echo "$(BUILD_PRINT)Setting configuratiosn fro LinkedPipes ETL"
 	@ docker rm temp | true
 	@ docker volume rm linkedpipes-configuration | true
 	@ docker volume create linkedpipes-configuration
 	@ docker container create --name temp -v linkedpipes-configuration:/data busybox
 	@ docker cp ./docker/linkedpipes-etl/configuration/configuration.properties temp:/data
 	@ docker rm temp
+
+start-services: set_linekdpipes-etl-configurations
+	@ echo "$(BUILD_PRINT)Starting the Docker compose services"
 	@ docker-compose --file docker/docker-compose.yml --env-file docker/.env up -d
 
 stop-services:
+	@ echo "$(BUILD_PRINT)Stopping the Docker compose services"
 	@ docker-compose --file docker/docker-compose.yml --env-file docker/.env down
