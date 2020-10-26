@@ -63,6 +63,20 @@ services:
     networks:
       - mydefault
 
+  jenkins-docker:
+    container_name: jenkins-docker
+    image: jenkins/jenkins
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - jenkins-home:/var/jenkins_home
+    privileged: true
+    networks:
+      - mydefault
+
+volumes:
+  jenkins-home:
 
 networks:
   mydefault:
