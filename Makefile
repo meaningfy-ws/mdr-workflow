@@ -1,5 +1,3 @@
-.PHONY: test install lint start-services stop-services docker-stop-dev docker-start-dev docker-build-dev
-
 
 BUILD_PRINT = \e[1;34mSTEP: \e[0m
 
@@ -22,36 +20,28 @@ test:
 # Development environment
 #-----------------------------------------------------------------------------
 
-build-dev:
-	@ echo -e '$(BUILD_PRINT)Building the dev container'
-	@ docker-compose --file docker-compose.dev.yml --env-file .env.dev build
+build-linkedpipes:
+	@ echo -e '$(BUILD_PRINT)Building the linked pipes images'
+	@ docker-compose --file docker/linkedpipes-etl/docker-compose.yml --env-file docker/.env build
 
-run-dev:
-	@ echo -e '$(BUILD_PRINT)Starting the dev services'
-	@ docker-compose --file docker-compose.dev.yml --env-file .env.dev up -d
+start-linkedpipes:
+	@ echo -e '$(BUILD_PRINT)Building the linked pipes images'
+	@ docker-compose --file docker/linkedpipes-etl/docker-compose.yml --env-file docker/.env up -d
 
-stop-dev:
-	@ echo -e '$(BUILD_PRINT)Stopping the dev services'
-	@ docker-compose --file docker-compose.dev.yml --env-file .env.dev down
 
-populate-fuseki:
-	@ python scripts/commands.py
-
-#-----------------------------------------------------------------------------
-# Production environment
-#-----------------------------------------------------------------------------
-
-build-prod:
-	@ echo -e '$(BUILD_PRINT)Building the prod container'
-	@ docker-compose --file docker-compose.yml --env-file .env.prod build
-
-run-prod:
-	@ echo -e '$(BUILD_PRINT)Starting the prod services'
-	@ docker-compose --file docker-compose.yml --env-file .env.prod up -d
-
-stop-prod:
-	@ echo -e '$(BUILD_PRINT)Stopping the prod services'
-	@ docker-compose --file docker-compose.yml --env-file .env.prod down
+#build-dev:
+#	@ echo -e '$(BUILD_PRINT)Building the dev container'
+#	@ docker-compose --file docker-compose.dev.yml --env-file .env.dev build
+#
+#run-dev:
+#	@ echo -e '$(BUILD_PRINT)Starting the dev services'
+#	@ docker-compose --file docker-compose.dev.yml --env-file .env.dev up -d
+#
+#stop-dev:
+#	@ echo -e '$(BUILD_PRINT)Stopping the dev services'
+#	@ docker-compose --file docker-compose.dev.yml --env-file .env.dev down
+#
+#
 
 #-----------------------------------------------------------------------------
 # Fuseki related commands
@@ -74,29 +64,3 @@ fuseki-create-test-dbs:
 run-fuseki-dirty: run-fuseki fuseki-create-test-dbs
 
 #-----------------------------------------------------------------------------
-# Gherkin feature and acceptance test generation commands
-#-----------------------------------------------------------------------------
-
-FEATURES_FOLDER = tests/features
-STEPS_FOLDER = tests/steps
-FEATURE_FILES := $(wildcard $(FEATURES_FOLDER)/*.feature)
-EXISTENT_TEST_FILES = $(wildcard $(STEPS_FOLDER)/*.py)
-HYPOTHETICAL_TEST_FILES :=  $(addprefix $(STEPS_FOLDER)/test_, $(notdir $(FEATURE_FILES:.feature=.py)))
-TEST_FILES := $(filter-out $(EXISTENT_TEST_FILES),$(HYPOTHETICAL_TEST_FILES))
-
-generate-tests-from-features: $(TEST_FILES)
-	@ echo "$(BUILD_PRINT)The following test files should be generated: $(TEST_FILES)"
-	@ echo "$(BUILD_PRINT)Done generating missing feature files"
-	@ echo "$(BUILD_PRINT)Verifying if there are any missing step implementations"
-	@ py.test --generate-missing --feature $(FEATURES_FOLDER)
-
-$(addprefix $(STEPS_FOLDER)/test_, $(notdir $(STEPS_FOLDER)/%.py)): $(FEATURES_FOLDER)/%.feature
-	@ echo "$(BUILD_PRINT)Generating the testfile "$@"  from "$<" feature file"
-	@ pytest-bdd generate $< > $@
-	@ sed -i  's|features|../features|' $@
-
-#-----------------------------------------------------------------------------
-# Default
-#-----------------------------------------------------------------------------
-all:
-	install test
