@@ -7,6 +7,7 @@ services:
     ports:
       - ${RDF_DIFFER_API_PORT}:${RDF_DIFFER_API_PORT}
     env_file: .env
+    restart: always
     networks:
       - mydefault
 
@@ -16,15 +17,17 @@ services:
     ports:
       - ${RDF_DIFFER_UI_PORT}:${RDF_DIFFER_UI_PORT}
     env_file: .env
+    restart: always
     networks:
       - mydefault
 
-  fuseki:
+  rdf-differ-fuseki:
     container_name: rdf-differ-fuseki
     image: meaningfy/fuseki:latest
     volumes:
-      - ${PWD}/${RDF_DIFFER_FUSEKI_DATA_FOLDER}/fuseki:/fuseki
+      - rdf-differ-fuseki:/fuseki
     env_file: .env
+    restart: always
     environment:
       - ADMIN_PASSWORD=${RDF_DIFFER_FUSEKI_ADMIN_PASSWORD}
       - JVM_ARGS=${RDF_DIFFER_FUSEKI_JVM_ARGS}
@@ -39,6 +42,7 @@ services:
     ports:
       - ${VALIDATOR_API_PORT}:${VALIDATOR_API_PORT}
     env_file: .env
+    restart: always
     networks:
       - mydefault
 
@@ -48,35 +52,135 @@ services:
     ports:
       - ${VALIDATOR_UI_PORT}:${VALIDATOR_UI_PORT}
     env_file: .env
+    restart: always
     depends_on:
       - "validator-api"
     networks:
       - mydefault
 
-  maintainance:
-    container_name: maintainance
-    image: nginx
+  splash-page:
+    container_name: splash-page
+    image: meaningfy/splash-nginx:latest
     ports:
       - 80:80
-    volumes:
-      - ./splash-nginx:/usr/share/nginx/html
+    env_file: .env
+    restart: always
     networks:
       - mydefault
 
-  jenkins-docker:
-    container_name: jenkins-docker
-    image: jenkins/jenkins
+  jenkins-automation:
+    container_name: jenkins-automation
+    image: jenkins/jenkins:latest
     ports:
       - 8080:8080
       - 50000:50000
+    env_file: .env
+    restart: always
     volumes:
       - jenkins-home:/var/jenkins_home
     privileged: true
     networks:
       - mydefault
 
+#LinekdPipes ETL services
+
+  linkedpipes-etl-storage:
+    container_name: linkedpipes-etl-storage
+    image: meaningfy/linkedpipes-etl-storage:latest
+    ports:
+      - ${LP_ETL_STORAGE_PORT}:${LP_ETL_STORAGE_PORT}
+    env_file: .env
+    environment:
+      - LP_ETL_DOMAIN=${LP_ETL_DOMAIN}
+    restart: always
+    volumes:
+      - linkedpipes-logs:/data/lp/etl/logs
+      - linkedpipes-data-storage:/data/lp/etl/storage
+      - type: volume
+        source: linkedpipes-configuration
+        target: /data/lp/etl/configuration
+        read_only: true
+        volume:
+          nocopy: true
+    networks:
+      - mydefault
+
+  linkedpipes-etl-executor:
+    container_name: linkedpipes-etl-executor
+    image: meaningfy/linkedpipes-etl-executor:latest
+    ports:
+      - ${LP_ETL_EXECUTOR_PORT}:${LP_ETL_EXECUTOR_PORT}
+    env_file: .env
+    environment:
+      - LP_ETL_DOMAIN=${LP_ETL_DOMAIN}
+    restart: always
+    volumes:
+      - linkedpipes-data-execution:/data/lp/etl/executor
+      - linkedpipes-logs:/data/lp/etl/logs
+      - type: volume
+        source: linkedpipes-configuration
+        target: /data/lp/etl/configuration
+        read_only: true
+        volume:
+          nocopy: true
+    networks:
+      - mydefault
+
+  linkedpipes-etl-executor-monitor:
+    container_name: linkedpipes-etl-executor-monitor
+    image: meaningfy/linkedpipes-etl-executor-monitor:latest
+    ports:
+      - ${LP_ETL_MONITOR_PORT}:${LP_ETL_MONITOR_PORT}
+      - 2221:2221
+      - 2222:2222
+      - 2225:2225
+    env_file: .env
+    environment:
+      - LP_ETL_DOMAIN=${LP_ETL_DOMAIN}
+    restart: always
+    volumes:
+      - linkedpipes-data-execution:/data/lp/etl/executor
+      - linkedpipes-logs:/data/lp/etl/logs
+      - type: volume
+        source: linkedpipes-configuration
+        target: /data/lp/etl/configuration
+        read_only: true
+        volume:
+          nocopy: true
+    networks:
+      - mydefault
+
+  linkedpipes-etl-frontend:
+    container_name: linkedpipes-etl-frontend
+    image: meaningfy/linkedpipes-etl-frontend:latest
+    ports:
+      - ${LP_ETL_PORT}:${LP_ETL_PORT}
+    env_file: .env
+    environment:
+      - LP_ETL_DOMAIN=${LP_ETL_DOMAIN}
+    restart: always
+    volumes:
+      - linkedpipes-logs:/data/lp/etl/logs
+      - type: volume
+        source: linkedpipes-configuration
+        target: /data/lp/etl/configuration
+        read_only: true
+        volume:
+          nocopy: true
+    networks:
+      - mydefault
+
 volumes:
   jenkins-home:
+  rdf-differ-fuseki:
+  rdf-fingerprinter-fuseki:
+  linkedpipes-logs:
+  linkedpipes-data-execution:
+  linkedpipes-data-storage:
+  linkedpipes-configuration:
+    name: linkedpipes-configuration
+    external: true
+
 
 networks:
   mydefault:

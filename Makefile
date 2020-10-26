@@ -17,7 +17,13 @@ test:
 	@ pytest
 
 start-services:
-	@ docker-compose --file docker/docker-compose.yml --env-file docker/.env up
+	@ docker rm temp | true
+	@ docker volume rm linkedpipes-configuration | true
+	@ docker volume create linkedpipes-configuration
+	@ docker container create --name temp -v linkedpipes-configuration:/data busybox
+	@ docker cp ./docker/linkedpipes-etl/configuration/configuration.properties temp:/data
+	@ docker rm temp
+	@ docker-compose --file docker/docker-compose.yml --env-file docker/.env up -d
 
 stop-services:
 	@ docker-compose --file docker/docker-compose.yml --env-file docker/.env down
