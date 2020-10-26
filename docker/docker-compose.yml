@@ -32,7 +32,7 @@ services:
       - ADMIN_PASSWORD=${RDF_DIFFER_FUSEKI_ADMIN_PASSWORD}
       - JVM_ARGS=${RDF_DIFFER_FUSEKI_JVM_ARGS}
     ports:
-      - ${RDF_DIFFER_FUSEKI_PORT}:${RDF_DIFFER_FUSEKI_PORT}
+      - ${RDF_DIFFER_FUSEKI_PORT}:3030
     networks:
       - mydefault
 
@@ -63,6 +63,8 @@ services:
     image: meaningfy/splash-nginx:latest
     ports:
       - 80:80
+    volumes:
+      - ./splash-nginx:/usr/share/nginx/html
     env_file: .env
     restart: always
     networks:
@@ -82,7 +84,7 @@ services:
     networks:
       - mydefault
 
-#LinekdPipes ETL services
+#LinekdPipes ETL service suite
 
   linkedpipes-etl-storage:
     container_name: linkedpipes-etl-storage
@@ -170,17 +172,32 @@ services:
     networks:
       - mydefault
 
+  linkedpipes-fuseki:
+    container_name: linkedpipes-fuseki
+    image: meaningfy/fuseki:latest
+    volumes:
+      - linkedpipes-fuseki:/fuseki
+    env_file: .env
+    restart: always
+    environment:
+      - ADMIN_PASSWORD=${LP_ETL_FUSEKI_ADMIN_PASSWORD}
+      - JVM_ARGS=${LP_ETL_FUSEKI_JVM_ARGS}
+    ports:
+      - ${LP_ETL_FUSEKI_PORT}:3030
+    networks:
+      - mydefault
+
 volumes:
   jenkins-home:
   rdf-differ-fuseki:
   rdf-fingerprinter-fuseki:
+  linkedpipes-fuseki:
   linkedpipes-logs:
   linkedpipes-data-execution:
   linkedpipes-data-storage:
   linkedpipes-configuration:
     name: linkedpipes-configuration
     external: true
-
 
 networks:
   mydefault:
