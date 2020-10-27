@@ -68,15 +68,15 @@
 	
 	\textit{Version diffing} is a service which calculates and presents the difference between two versions of the same asset. The \textit{data validation} service is self-explanatory. It checks whether the asset content is correct, or not. The asset content conversion, version diffing and data validation services are realised by components that comprise the legacy workflow, which is currently in use.
 	
-	\textit{Asset document management} provides capabilities for describing, storing and producing documents about assets in various human-readable formats (e.g. HTML, PDF, docx). It also allows for document metadata management. Currently, this capability is realised by PDF forms, called Asses Document Description (ADD), which are produced from XML-DITA sources \citep{dita-day2005introduction, dita-spec} using Adobe FrameMaker \citep{framemaker} . 
+	\textit{Asset document management} provides capabilities for describing, storing and producing documents about assets in various human-readable formats (e.g. HTML, PDF, docx). It also allows for document metadata management. Currently, this capability is realised by PDF forms, called Asses Description Document (ADD), which are produced from XML-DITA sources \citep{dita-day2005introduction, dita-spec} using Adobe FrameMaker \citep{framemaker} . 
 	
 	\textit{Asset metadata \& workflow management} is a service which centralises the flow of the automated processes. It is currently realised by legacy workflow implementation. 
 	
 	The \textit{file management \& versioning} service enables storing the content and and tracing the evolution of assets. This service is realised by the SVN system \cite{svn}.
 	
-	The \textit{data transformation} service is self-explanatory. It stands for a generic capability of transforming data from one form and format into another. Currently, this service is realised by a multitude of custom-built transformation procedures, some of which are chained to produce the desired outcome. This service is realised by components that are part of the legacy system. 
+	The \textit{data transformation} service stands for a generic capability of transforming data from one form and format into another. The main transformation flow is from RDF data source into representations that are already supported by the current workflow. Currently, this service is realised by a multitude of custom-built transformation procedures, some of which are chained to produce the desired outcome. This service is realised by components that are part of the legacy system. 
 	
-	The \textit{asset packaging} service prepares assets for transmission to the partner distribution systems, specifically Cellar. It covers functionalities including assembling the necessary asset representations together with their documentation, generating necessary technical metadata and zipping the assets in a manner that is acceptable for partner distribution systems. The type of package and the asset metadata description varies, yet among the most prominent ones are METS \citep{mets}, IMMC\footnote{see \url{https://op.europa.eu/en/web/eu-vocabularies/immc}} and DCAT \cite{dcat2}. 
+	The \textit{asset packaging} service prepares assets for transmission to the dissemination systems, specifically Cellar. It covers functionalities including assembling the necessary asset representations together with their documentation, generating necessary technical metadata and zipping the assets in a manner that is acceptable for partner dissemination systems. The type of package and the asset metadata description varies, yet among the most prominent ones are METS \citep{mets}, IMMC\footnote{see \url{https://op.europa.eu/en/web/eu-vocabularies/immc}} and DCAT \cite{dcat2}. 
 	
 	The last service to mention that is employed in the current life-cycle process is the \textit{impact assessment \& release note generation} service. Its title is again self-explanatory. The values it provides are the release notes that are published with assets and describe the list of changes implemented in each version. The impact assessment is a type of report which includes assessments for target stakeholders which usually are service provides whose systems depend on the assets published by the SU. These special impact assessments may target whether a given aspect of an asset has changed which may disrupt functioning systems. So, a series of specific checkers and reports are produced to safeguard the partners. 
 	
@@ -99,8 +99,8 @@
 	\section{Inception and evolution services and components}
 	\label{sec:evolution-application}
 	
-	In the first stage of the asset life-cycle, the technical requirements are limited to client communication and the request documentation services as depicted in Figure \ref{fig:application-inception-evolution}.
-	
+	In the first stage of the asset life-cycle, the technical requirements are limited to client communication and the request documentation services as depicted in \mbox{Figure \ref{fig:application-inception-evolution}}. The diagram is split into three lanes. The right lane accounts for the new components, while the left line for the current ones. The components that are common to both are situated in the middle lane. 
+
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=.6\textwidth]{images/application/InceptionEvolution.png}
@@ -108,7 +108,7 @@
 		\label{fig:application-inception-evolution}
 	\end{figure}
 	
-	In the left and right lanes of the diagram are where the current and new life-cycle stages are represented as red rectangles. In the middle lane are the email and issue management services because they are involved in both the new and current architectures. 
+	The life-cycle stages are represented as red rectangles situated in the left and the right lanes. In the middle lane are the email and issue management services because they are involved in both the new and current architectures. 
 	
 	The email service is realised by the Outlook software. Issue management is realised by the Jira system. No changes are foreseen in the way these services are realised in the future. 
 
@@ -124,15 +124,20 @@
 		\label{fig:application-implementation}
 	\end{figure}
 	
-	We start discussing this architecture by covering the common services first, situated in the middle lane of the diagram, and then we address particularities which are situated at the left and right sides of the diagram. 
+	This section presents the common services first, situated in the middle lane of the diagram, and then the particularities which are situated at the left and right sides of the diagram are presented. 
 	
 	The issue management system is involved and is realised the same way as in the inception/evolution stage (Section \ref{sec:evolution-application}). In the following sections the services and their realisation that have been already discussed will no longer be addressed.  
 	
 	File management \& versioning is realised through SVN \cite{svn}. In the current application architecture this serves as a foundation for process automation, the triggers being any operations within the SVN repository. The mechanisms employed are similar to what an automation server is doing in the software development context: triggering automatic building, testing and deploying, facilitating continuous integration and continuous delivery. No such automation server is, however, used due to infrastructure limitations that existed in the past and a custom SVN handler component was developed within the legacy workflow system. 
 	
-	In the new architecture, the possibility to continue the same practice of automating process executions based on SVN triggers is still there. Moreover, we recommend replacing the current SVN handler by an automation system, such as Jenkins \citep{jenkins} and Bamboo \cite{bamboo}. This suggestion is not depicted in the diagram because the current workflow SVN handler could still serve in the immediate future; however, for the long run, we recommend an alternative.
+	In the new architecture, the possibility to continue the same practice of automating process executions based on SVN triggers is still there. Moreover, it is advisable replacing the current SVN handler by an automation system, such as Jenkins \citep{jenkins} or Bamboo \cite{bamboo}. This suggestion is not depicted in the diagram because the current workflow SVN handler could still serve in the immediate future; however, in the long run, the alternative is recommended.
 	
-	Asset metadata and workflow design management is centralised in a custom-built XML file called the "Vocabulary table". The vocabulary table is a file which contains descriptions of currently-administered digital assets, descriptions of generic process execution flows and decision rules for special assets. For this reason, we say the it is "workflow design management" and not the actual "workflow management",  because we deal here with description and configuration of the execution paths and decision rules (plus asset metadata) which are enacted by the legacy workflow system. This aggregation of the two responsibilities complicates both the maintenance and evolution both shall be separated in the future.  
+	In the current system, the asset metadata and workflow design management is centralised in a custom-built XML file called the ``Vocabulary table''. The vocabulary table is an XML file which serves three functions. It contains descriptions of currently-administered digital assets, descriptions of generic process execution flows and decision rules for alternative flows specific to some assets. This aggregation of multiple responsibilities complicates both the maintenance and evolution and shall be separated in the future. 
+	
+	Operationally, the vocabulary table is used by the legacy system for deciding what chains of operations shall be executed start to end, without the possibility to monitor or manage the process steps. It is also becoming increasingly difficult to maintain, adapt and extend workflow descriptions indicated in the vocabulary table. This challenge can be overcome by adopting a modern workflow management system. 
+	
+	% rephrase
+	%For this reason, we say the it is ``workflow design management'' and not the actual ``workflow management'',  because we deal here with description and configuration of the execution paths and decision rules (plus asset metadata) which are enacted by the legacy workflow system. This aggregation of the two responsibilities complicates both the maintenance and evolution both shall be separated in the future.  
 	
 	Later, after adoption of the digital transformation proposed in this architecture, the asset metadata and workflow design management service need to be broken down into two parts: asset metadata management and workflow management. The metadata management can be realised through a DCAT \citep{dcat2} cataloguing software. 
 	
@@ -155,7 +160,7 @@
 	\section{Pre-release and validation services and components}
 	\label{sec:validation-application}
 	
-	The stages following the implementation in both the current and new life-cycle processes differ. In Section \ref{sec:lifecycle-new} we described that in the current life-cycle it is termed the pre-release stage while in the new one it is the validation stage. This difference is also reflected on the application architecture in Figure \ref{fig:application-validation}.
+	The stages following the implementation in both the current and new life-cycle processes differ. In Section \ref{sec:lifecycle-new} was described that the current life-cycle contains a stage called ``pre-release stage`` while in the new life-cycle specifies instead a stage called ``validation stage''. This difference is also reflected in the application architecture presented in Figure \ref{fig:application-validation}.
 	
 	\begin{figure}[h]
 		\centering
@@ -186,7 +191,7 @@
 
 	Currently, in the release stage described in Section \ref{sec:release-current}, the asset(s) are mainly copied from one part of the common repository into a another which is dedicated to the artefacts that follow to be published. 
 	
-	In the new release stage, in addition to the copying operation, all data transformation operations described in Section \ref{sec:publication-current} are also executed leaving the (new) publication stage to deal with packaging and distribution mainly (from a technical perspective).
+	In the new release stage, in addition to the copying operation, all data transformation operations described in Section \ref{sec:publication-current} are also executed leaving the (new) publication stage to deal with packaging and dissemination mainly (from a technical perspective).
 	
 	This is reflected in the new application architecture depicted in the right lane. The data transformation services are employed here, not only in their current form, dealing with various formats consumed by the current clients (XSD, MarkXML, GeoJSON, etc.), but also with complex transformation operations on RDF representation. The former is realised through the same XSLT engine component, while the latter is realised through a new component called LinkedPipes ETL \citep{linkedpipes-klimek2016linkedpipes,linkedpipes-klimek2017linkedpipes}.
 	
@@ -211,6 +216,6 @@
 	
 	The asset packaging service, placed in the middle lane of the diagram, is another service that is specific to the publication stage only. It is realised by the legacy package generator which assembles in various ways asset artefacts as necessary for partner dissemination systems and final consumers. This component shall be reused in the new application architecture in order to ensure continuity: however, it may be replaced in further digital transformation initiatives. 
 	
-	The last service adopted in the new application architecture is the package transmission service. The added value of this service is that the publication officer does not any more need to manually ingest the packages into the dissemination system. For a start, this service is realised by the new CERES component which is responsible for ingesting packages into Cellar. Later on, additional components can be created for ingesting packages into other dissemination systems such as Wikidata, Bartoc, ODP, etc. 
+	The last service adopted in the new application architecture is the package transmission service. The added value of this service is that the publication officer does not any more need to manually ingest the packages into the dissemination system. For a start, this service is realised by the new CERES component which is responsible for ingesting packages into Cellar. Later on, additional components can be created for ingesting packages into other dissemination systems such as Wikidata \citep{vrandevcic2014wikidata}, Bartoc \citep{ledl2016describing}, Open Data Portal (ODP), etc. 
 	
 	This brings us to the end of the application architecture description. Next we will take a look at how the two applications are deployed in practice and the differences in the infrastructure.
