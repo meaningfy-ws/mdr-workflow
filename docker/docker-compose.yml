@@ -74,8 +74,8 @@ services:
     container_name: jenkins-automation
     image: jenkins/jenkins:latest
     ports:
-      - 8080:8080
-      - 50000:50000
+      - ${JENKINS_UI_PORT}:8080
+      - ${JENKINS_AGENTS_PORT}:50000
     env_file: .env
     restart: always
     volumes:
@@ -220,7 +220,7 @@ services:
     ports:
       - ${RDF_FINGERPRINTER_FUSEKI_PORT}:3030
     volumes:
-      - ${PWD}/${RDF_FINGERPRINTER_FUSEKI_DATA_FOLDER}/fuseki:/fuseki
+          - rdf-fingerprinter-fuseki:/fuseki
     networks:
       - mydefault
 
