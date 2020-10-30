@@ -4,23 +4,15 @@
 \label{sec:business-architecture}
 	
 	% rewrite
-	This chapter describes the currently established business architecture and also depicts how the new architecture looks like in the light of the digital transformation. The business processed are aligned with use case descriptions from Chapter \ref{sec:business-use cases} and are derived from the interviews with the SU technical and business team members, based on existent materials describing the current workflow and.
+	This chapter addresses the business architecture aiming to describe the internal processes, events and roles answering questions concerning who shall do what and when.
 	
- 	The focus falls almost entirely on describing the internal processes, events and roles answering questions concerning who shall do what and when.
-		
-	Firstly is established a baseline representing the current setup and, secondly is presented how the new processes will look like in the light of digital transformations moving towards goals identified in the motivation structure (Section \ref{sec:motivation-architecture}).
-	
-	The description, however commences by explaining how a prototypical business architecture is structured that will serve as framework to better understand the diagrams in this chapter. 	
+	This chapter first presents the baseline business architecture, as it is currently established and, then, presents a new (target) business architecture, as it is envisaged in the light of the digital transformation moving towards goals identified in the motivation structure (Section \ref{sec:motivation-architecture}). The new business processes (see Section \ref{sec:lifecycle-new}) are aligned with use case descriptions from Section \ref{sec:business-use cases}. The latter are derived from materials describing the current workflow and interviews with the SU technical and business team members.
+
+	Beforehand, however, the description commences by explaining how a prototypical business architecture is structured that will serve as framework to better understand the diagrams in this chapter. 	
 	
 	\section{Prototypical business structure}
 	
 	Following the metaphor of layers presented in the motivation view (see Section \ref{sec:how-to-motivation}), the organisation of business structure is also explained in terms of layers. Figure \ref{fig:business-structure-protopypical} depicts three layers with the most important elements of the business structure. 
-	
-%	\begin{wrapfigure}{r}{0.4\textwidth}
-%		\includegraphics[width=0.4\textwidth]{images/views/Business view.png}
-%		\caption{The prototypical business structure view}
-%		\label{fig:business-structure-protopypical}
-%	\end{wrapfigure}
 	
 	\begin{figure}[h]
 		\centering
@@ -35,7 +27,7 @@
 	
 	The lower layers accounts for the internal organisation in terms of \textit{events}, \textit{roles}, \textit{processes} and \textit{objects}. The business process represents a sequence of business behaviours that achieves a specific result such as a defined set of products or business services. The business event represents an organisational state change; while a business object represents a (passive) concept used within a particular business domain.
 	
-	\section{Current asset life-cycle stages}
+	\section{Current asset life-cycle}
 	\label{sec:lifecycle-current-stages}
 	
 	The current asset life-cycle process is organised in six stages: \textit{inception (or evolution)}, \textit{implementation}, \textit{pre-release}, \textit{release}, \textit{publication} and \textit{consumption}. Each of the stages represents a business sub-process. Figure \ref{fig:lifecycle-current-stages} depicts the order in which stages flow and indicates that each stage process accesses a data asset, the central artefact in the diagram.
@@ -51,13 +43,13 @@
 	
 	The \textit{implementation} stage deals with actually changing, authoring, converting (MS Excel to XML and back) and verifying the client request. 
 	
-	\textit{Pre-release} marks that the content has been implemented accordingly and can be validated by a second pair of eyes implementing the \textit{four eyes principle} implemented in SU. This verification and validation is performed by checking the validation reports and by comparing the difference between current and previous versions of the asset conveyed in a diff report. 
+	\textit{Pre-release} marks that the content has been implemented accordingly and can be validated by a second pair of eyes implementing the \textit{four eyes principle} implemented in SU. This verification and validation is performed by checking the validation reports and by comparing the difference between current and previous versions of the asset conveyed in one or multiple diff reports (depending on the granularity).
 	
 	In the \textit{release} stage the validated content is placed in a dedicated location of the common repository which indicates that the content is fit for publication. 
 	
 	The \textit{publication} stage deals with packaging the content and disseminating it to the selected data disseminators, Cellar being the most important. During this stage, a set of announcements and communications ensure that the main stakeholders and the broad public are aware of the published new version of the asset. 
 	
-	\textit{Consumption} stage is the one that happens outside SU borders. It is clients who use the data and then, in the process, come up with additional requests for either changing existent assets or adding and publishing new ones. 
+	\textit{Consumption} stage is the one that happens outside SU borders. The clients while using the data assets come up with additional requests for either changing content of the existent assets or adding and publishing new ones. 
 	
 	\subsection{Actors and roles}
 	\label{sec:lifecycle-roles}	
@@ -83,14 +75,18 @@
 	\end{figure}
 	
 	\textit{Request manager} is the interface with the client collecting change requests, assessing business needs and translating them into data management requirements, all being summarised and documented case-by-case. 
-	\textit{Data authoring officer} is responsible for editing data in a content management system implementing the cases prepared by the request manager.
-	Quality assurance officers validate that the content implementation is correct from both technical and business points of view. 
+	
+	\textit{Data authoring officer} (informally referred to as the editor) is responsible for editing data in a content management system implementing the cases prepared by the request manager. This is a business role that is responsible for implementing the request case specifications by modifying the data asset accordingly with the provided tools.
+	
+	\textit{Quality assurance office}  (informally referred to as the validator) is a business role that is responsible for ensuring the request case implementation is complete and correct. This role has a special importance and contributes to applying the ``four eyes principle'' in the asset lifecycle. Quality assurance officers validate that the content implementation is correct from both technical and business points of view. 
 	
 	\textit{Data processing officer} is a technical role that is responsible for preparing the assets for publication. The responsibilities include, but are not limited to, data storage, manipulation, automatic transformation and generation of validation and assessment reports. 
 	
 	\textit{Publication officer} is a technical role responsible for packaging and disseminating assets to specialised platforms.
 	
 	\textit{Stakeholder steering committee} is a body representing the main clients and stakeholders ensuring data and model harmonisation, alignment of data management practices and adoption of international standards.
+	
+	\textit{Website content manager} is a business role responsible for updating information available on the SU website. 
 	
 	\textit{Client} (\textit{change requester} and \textit{data user}) is a generic external role who, on one side, consumes data and services provided by the Standardisation Unit and, on the other side, suggests publication of new assets or modification of existing ones. 
 	
@@ -142,7 +138,7 @@
 	
 	Client communication is mainly carried out by email or by telephone, with the cases being managed using the Jira ticket management system \citep{jira}. 
 	
-	The process ends when either the case is rejected or when it is scheduled for implementation. 
+	The process ends when either the request case is rejected or when it is scheduled for implementation. 
 
 	
 	\subsection{Current implementation stage}
@@ -157,9 +153,9 @@
 		\label{fig:implementation-current}
 	\end{figure}
 	
-	Once the asset is converted into XML form, it becomes possible through a set of Perl scripts and XSLT style-sheets \citep{xslt3-Kay} to automatically generate assessment artefacts such as the diff report and the schema validation report. The diff report indicates what changes have been done to the content between the previous and the most recent versions, while the validation report details violations, if any, of XML structural constraints.
+	Once the asset is converted into XML form, it becomes possible through a set of Perl scripts and XSLT style-sheets \citep{xslt3-Kay} to automatically generate assessment artefacts: (a) \textit{the diff report} and (b) \textit{the validation report}. The diff report indicates what changes have been done to the content between two versions of a data asset. Usually this diff report is generated for the last two versions, but it could be done per data snapshots corresponding to beginning and the end of implementing a request case, or even a publication. The validation report details violations, if any, of XML structural constraints provided in an XSD schema.
 	
-	The editor then verifies the diff report to ensure the case implementation completeness and that the asset can be tagged for pre-release. Otherwise, the content should be edited once again. 
+	The content authoring officer then verifies the diff report to ensure the case implementation completeness and that the asset can be tagged for pre-release. Otherwise, the content should be edited once again. 
 	
 	The process ends with the asset being marked for pre-release, which means that the case implementation is complete.
 	
@@ -177,7 +173,7 @@
 
 	If issues are identified in the case implementation, the quality assurance officer creates a new request for changes and the case returns to the implementation stage; otherwise, the case implementation is validated and the asset is marked as ready for release. 
 	
-	This process involves mostly manual steps. Some minor content transformation can take place such as improving the serialisation of RDF files (called internally as RDF ``prettification''), as well as an additional validation of record identifiers in the XML file. These operations, however, are merely technicalities and do no have any business relevance. Therefore they are omitted in the process diagram from Figure \ref{fig:pre-release-current}. 
+	This process involves mostly manual steps. Some minor content transformation can take place such as improving the serialisation of RDF files (called internally as RDF ``prettification''), as well as an additional validation of record identifiers in the XML file. These operations, however, are mostly technical and the only business relevance being the management of the generated diff reports in the common repository. Therefore they are omitted in the process diagram from Figure \ref{fig:pre-release-current}. 
 
 	\subsection{Current release stage}
 	\label{sec:release-current}
@@ -207,11 +203,11 @@
 
 	The publication process starts several weeks before the scheduled publication date, when a code freeze is announced and all pre-selected assets are marked for release. It commences by generating (from the CAT-XML source) a selection of forms and formats to ease asset consumption by various clients. Mostly XSD, CAT-XML and SKOS-AP-EU forms are generated that are serialised in XML, Turtle and JSON formats. In addition, some assets are also prepared in Genericode, MS Excel/CSV, MarcXML, GeoJSON and other formats. 
 	
-	Next, the publication notes are prepared together with a few different impact assessments specially prepared for targeted stakeholders. These communication artefacts are checked for correctness and sent to the corresponding stakeholders. After a predefined number of days (usually two weeks) the feedback, if any, is collected. Reception of no feedback is considered as a tacit acceptance of the current publication and that the process can continue. Seldom is blocking / non-blocking feedback received which leads to creation of new change requests and, depending on the situation, last-minute changes are executed. On the other hand, if the feedback received is non-blocking, the intervention is scheduled for the next publication. 
+	Next, the publication notes are prepared together with a few different impact assessments and written procedure notes prepared for targeted stakeholders. These communication artefacts are checked for correctness and sent to the corresponding stakeholders. After a predefined number of days (up to four weeks) the feedback, if any, is collected. Reception of no feedback is considered as a tacit acceptance of the current publication and that the process can continue. Seldom is blocking / non-blocking feedback received which leads to creation of new change requests and, depending on the situation, last-minute changes are executed. On the other hand, if the feedback received is non-blocking, the intervention is scheduled for the next publication. 
 	
-	In parallel, a packaging process is executed during which the assets are prepared for dissemination. They are assembled in packages accompanied by their content-related and technical metadata, user manuals, format documentation and, of course, the asset itself expressed in all pre-generated forms and formats, the release artefacts. The packages are verified to establish if they can be accepted by the target dissemination platforms.
+	In parallel with the stakeholder communication, a packaging process is executed during which the assets are prepared for dissemination. They are assembled in packages accompanied by their content-related and technical metadata, user manuals, format documentation and, of course, the asset itself expressed in all pre-generated forms and formats, the release artefacts. The packages are verified to establish if they can be accepted by the target dissemination platforms.
 	
-	Finally, the packages are disseminated and the successful publication is announced to the broad public. The dissemination is done primarily through Cellar\citep{cdm-francesconi2015ontology}, although other dissemination channels are also employed, among which are Wikidata\citep{vrandevcic2014wikidata}, Publications Office Open Data Portal (ODP), Bartoc \citep{ledl2016describing}, JoinUp platform \citep{hillenius2013free}.
+	Finally, the packages are disseminated and the successful publication is announced to the broad public. The dissemination is done primarily through Cellar\citep{cdm-francesconi2015ontology} and EU Vocabularies website, although other dissemination channels are also employed, among which are Wikidata\citep{vrandevcic2014wikidata}, Publications Office Open Data Portal (ODP), Bartoc \citep{ledl2016describing}, JoinUp platform \citep{hillenius2013free}.
 	
 	This section completes the detailed presentation of the asset life-cycle process as it is today. 
 	
@@ -220,18 +216,17 @@
 	\section{New asset life-cycle}
 	\label{sec:lifecycle-new}	
 	
-	The structure of the new asset life-cycle process is depicted in Figure \ref{fig:lifecycle-new}. In this new architecture, is proposed to adopt incremental changes, so as to cause minimal disruption to the team and ongoing operations. 
-
-    The current asset life-cycle process is organised in six stages: \textit{inception (or evolution)}, \textit{implementation}, \textit{pre-release}, \textit{release}, \textit{publication} and \textit{consumption}. Each of the stages represents a business sub-process. Figure \ref{fig:lifecycle-current-stages} depicts the order in which stages flow and indicates that each stage process accesses a data asset, the central artefact in the diagram.
+    The current asset life-cycle process is organised in six stages: \textit{inception (or evolution)}, \textit{implementation}, \textit{validation}, \textit{release}, \textit{publication} and \textit{consumption}. Each of the stages represents a business sub-process. Figure \ref{fig:lifecycle-current-stages} depicts the order in which stages flow and indicates that each stage process accesses a data asset, the central artefact in the diagram.
 	
 	%TODO: place the new one here
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=0.6\textwidth]{docs/architecture/images/business/Lifecycle process only (current).png}
+		\includegraphics[width=0.6\textwidth]{docs/architecture/images/business/Lifecycle process only (new).png}
 		\caption{The new asset lifecycle stages}
 		\label{fig:lifecycle-new-stages}
 	\end{figure}
 	
+	The structure of the new asset life-cycle process is depicted in Figure \ref{fig:lifecycle-new}. In this new architecture, is proposed to adopt incremental changes, so as to cause minimal disruption to the team and ongoing operations.
 
 	\begin{figure}[h]
 		\centering
@@ -240,31 +235,16 @@
 		\label{fig:lifecycle-new}
 	\end{figure}
 	
-	This process is similar, in structure and stage names, to the current one: i.e. six stages are circularly linked. The only difference is the replacement of the pre-release stage by a validation stage. There are, however, significant changes in the structure of three stages: implementation, validation and release, while the inception/evolution stage is identical to the current one, and the publication stage is almost entirely unchanged. These changes are addressed in detail in the following sections.
-		
-	There are no new roles in the new process; however, there is a difference in the role allocation and involvement (of the various roles) at different stages of the process compared to the current one. 
+	This process is similar, in structure and stage names, to the current one: i.e. six stages are circularly linked: inception/evolution, implementation, \textit{validation}, release, publication and consumption. The main difference in the stages is the replacement of the pre-release by a validation stage. Also, there are significant changes in the process structure of three stages, namely: implementation, validation and release. The inception/evolution stage is identical to the current one, and the publication stage is almost unchanged. 
 	
-	As mentioned above, the implementation/evolution stage is identical to the current one. So, after the case has been registered and processed, the implementation is scheduled. How it happens in the new workflow is presented in the next section. 
-
-    \subsection{A note on data stewards and custodians}
-    There are two roles that are not used in this architecture but are of high relevance in this context. In Data Governance groups, responsibilities for data management are increasingly divided between the business process owners and information technology (IT) departments. Two functional titles commonly used for these roles are Data Steward and Data Custodian.
-     
-     Data Stewards are commonly responsible for data content, context, and associated business rules. Data Custodians are responsible for the safe custody, transport, storage of the data and implementation of business rules. Simply put, Data Stewards are responsible for what is stored in a data field, while Data Custodians are responsible for the technical environment and database structure.
-     
-     The data custodians are the agents that ensure that the content is coherent and complete. It is also responsible for the content correctness and harmonisation among multiple stakeholders and its usefulness in broader context of application. 
-     
-     These roles are not explicitly employed neither in the current nor in the new architecture. However other roles cover the very same responsibilities and therefore are worth explaining.  
-     
-     For example, the asset manager define in the previous section is a mix of \textit{operational and business data steward}. The business data steward typically is an individual who knows the business data and works closely with it. Its main responsibilities are the quality and the meaning of the data used in an organisation or across multiple organisations. The operational data steward are helpers of the business stewards, who can step in to ensure that the data specific rules and processes are followed. For example ensuring that specific validation or documentation procedures are applied can be part of its duties. 
-     
-     Another example are the data processing officer and the publication officers, who both cover responsibilities of the data custodian role. Both of them guard the consistency of the data they are responsible for. Moreover, the SU team enjoys a dedicated technical person who takes the responsibility for the consistency and completeness of the SVN repository hosting the data assets.
-
-    Revising the roles used in this architecture in order to accommodate data stewards and custodians can facilitate adoption of data governance policies.  
+	In the following sections, the stages different from the baseline lifecycle are described in detail, while the unchanged ones are skipped.
+		
+	No new roles are added or removed from the business processes; however, there is a difference in the role allocation and involvement at different stages of the process as compared to the current one. Section \ref{sec:data-stewards} provides a brief introduction to the \textit{data steward} and \textit{custodian} roles, which are well defined in the standard data governance practices and are missing in the current organisation. Before that a suite of use case scenarios is provided in the next section. It is presented based on the knowledge elicitation interviews conducted with the business and technical team members of the SU. 
 
     \subsection{New asset lifecycle use cases}
     \label{sec:business-use cases}
 	
-	This section presents the core business use cases that have been identified in discussions with SU team members. These use cases have been structured in the light of the new asset life-cycle process. They represent an adaptation of the current business process to the technical changes. 
+	This section presents the core business use cases that have been identified in discussions with SU team members. These use cases have been structured in the light of the new asset life-cycle process. They represent an adaptation of the current business process to the technical changes foreseen in the new asset lifecycle.
 	
 	\subsubsection{UC1: Evolution: Register a change request case}
 	\label{sec:uc1}
@@ -356,7 +336,7 @@
 		\end{enumerate}		
 		\item \label{step:verify} The data authoring officer verifies the data: 
 		\begin{enumerate}
-			\item that the diff report calculated between the previous release export corresponds with the implemented change request\footnote{This is to ensure that the export reflects change request case for the change request ticket, keeping the editors on the safe side. If all is good, then this is the final diff.}
+			\item that the diff report calculated between the previous release export corresponds with the implemented change request\footnote{This is to ensure that the export reflects change request case for the change request ticket, keeping the content authoring officers on the safe side. If all is good, then this is the final diff.}
 			\item that no structural anomalies are present in the fingerprint and validation reports.
 		\end{enumerate}		 
 		\item Repeat steps \ref{step:export} - \ref{step:verify} until the scheduled case is implemented for the asset
@@ -368,13 +348,8 @@
 	\begin{enumerate}
 		\item [2a] Translations are necessary:
 		\begin{enumerate}
-			\item [2a1] Additionally, the data authoring officer manages the necessary translations and proof-reading (the process is described elsewhere: export selected data for translators, send to the translation unit, receive the translated content, import updated data containing the translations, validate and proofread the translations)			
+			\item [2a1] Additionally, the data authoring officer manages the necessary translations and proof-reading (the process is described elsewhere: export selected data for translators, send to the translation unit, receive the translated content, import updated data containing the translations, validate and proofread the translations)	
 		\end{enumerate}
-% 		\item [4a] Implementation or data is invalid:
-% 		\begin{enumerate}
-% 			\item [4a1] The data authoring officer collects and documents all issues 
-% 			\item [4a2] Return to step 2			
-% 		\end{enumerate}
 	\end{enumerate}
 	
 	\subsubsection{UC4: Validation: Validate the request for change}
@@ -486,7 +461,7 @@
 		\item The request manager sends the publication summary and impact assessment reports to the stakeholders, to inform them of upcoming changes and to collect any pre-publication feedback.
 		\item The publication officer runs the packaging process for each asset (parallel to the impact assessment process) resulting in the generation of: 
 		\begin{enumerate}
-			\item Additional technical metadata (DCAT \citep{dcat2}, METS \citep{mets}, IMMC\footnote{see \url{https://op.europa.eu/en/web/eu-vocabularies/immc}} , etc.)
+			\item Additional technical metadata (DCAT \citep{dcat2}, METS \citep{mets}, IMMC\footnote{see \url{https://op.europa.eu/en/web/eu-vocabularies/immc}}, etc.)
 			\item Packages (ZIP or other) for selected dissemination platforms (Cellar \citep{cdm-francesconi2015ontology}, ODP, Bartoc \citep{ledl2016describing}, Joinup \citep{hillenius2013free}, Wikidata \citep{vrandevcic2014wikidata}, etc.) that contain all the necessary content, documentation and metadata
 		\end{enumerate}
 		\item The publication officer tests the integrity/fitness of the generated packages by using the validation mechanisms offered by the dissemination platforms (validators or test dissemination environments)
@@ -537,71 +512,111 @@
 			\item [6a2] In case the generated package is incorrect, the publication officer corrects the generation processes.
 		\end{enumerate}
 	\end{enumerate}
+    
+    \vspace{2em}
+    
+    \subsection{A note on data stewards and custodians}
+    \label{sec:data-stewards}
+    
+    There are two roles that are not used in this architecture but are of high relevance in this context. In Data Governance groups, responsibilities for data management are increasingly divided between the business process owners and information technology (IT) departments. Two functional titles commonly used for these roles are Data Steward and Data Custodian.
+     
+     Data Stewards are commonly responsible for data content, context, and associated business rules. Data Custodians are responsible for the safe custody, transport, storage of the data and implementation of business rules. Simply put, Data Stewards are responsible for what is stored in a data field, while Data Custodians are responsible for the technical environment and database structure.
+     
+     The data custodians are the agents that ensure that the content is coherent and complete. It is also responsible for the content correctness and harmonisation among multiple stakeholders and its usefulness in broader context of application. 
+     
+     These roles are not explicitly employed neither in the current nor in the new architecture. However other roles cover the very same responsibilities and therefore are worth explaining.  
+     
+     For example, the asset manager define in the previous section is a mix of \textit{operational and business data steward}. The business data steward typically is an individual who knows the business data and works closely with it. Its main responsibilities are the quality and the meaning of the data used in an organisation or across multiple organisations. The operational data steward are helpers of the business stewards, who can step in to ensure that the data specific rules and processes are followed. For example ensuring that specific validation or documentation procedures are applied can be part of its duties. 
+     
+     Another example are the data processing officer and the publication officers, who both cover responsibilities of the data custodian role. Both of them guard the consistency of the data they are responsible for. Moreover, the SU team enjoys a dedicated technical person who takes the responsibility for the consistency and completeness of the SVN repository hosting the data assets.
 
+    Revising the roles used in this architecture in order to accommodate data stewards and custodians can facilitate adoption of data governance policies.  
+    
+    \subsection{New inception and evolution stage}
+	As mentioned above, the inception/evolution stage is identical to the current one. The description from Section \ref{sec:inception-current} holds. So, after the case has been registered and processed, the implementation is scheduled. How it happens in the new workflow is presented in the next section. 
+	
+	The typical unfolding of this stage is described in the use cases UC1 and UC2 provided in Section \ref{sec:uc1} and \ref{sec:uc2}.
+	
 	\subsection{New implementation stage}
 	\label{sec:implementation-new}
 
-	The new implementation process is depicted in Figure \ref{fig:validation-new}. The main digital transformation at this stage is adoption of the RDF asset source, and the switch from MS Excel as the content editor to VocBench3 \citep{stellato2017towards,stellatovocbench} semantic web editor. 
+	The new implementation process is depicted in Figure \ref{fig:implementation-new}. The main change impacting this stage is the adoption of the RDF representation for the asset source and abandoning the CAT-XML format for source representation. This implies a transition from the MS Excel as the content editor towards the VocBench3 \citep{stellato2017towards,stellatovocbench} semantic web editor. 
+	
+	The typical unfolding of this stage is described in the use case UC3 provided in Section \ref{sec:uc3}.		
 	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=1.05\textwidth]{images/business/new/Implementation.png}
-		\caption{The new process for the implementation stage}
+		\caption{The process for the new implementation stage}
 		\label{fig:implementation-new}
 	\end{figure} 
 
-	The overall process looks very similar to the current one; however, the employed technology for the source editing, i.e. VocBench3 \citep{stellatovocbench} and SKOS model(s) \citep{skos-spec}, render an entirely different editing experience when modifying the source content to implement the request case.
+	The overall process looks very similar to the current one described in Section \ref{sec:implementation-current} depicted in Figure \ref{fig:implementation-current}; however, the employed technology for the source editing, i.e. VocBench3 \citep{stellatovocbench} and SKOS model(s) \citep{skos-spec}, render an entirely different editing experience when modifying the source content to implement the request case.
 	
-	When the editing is complete, the content is exported from VocBench into the common repository and a set of asset assessment artefacts are generated. These artefacts include the asset diff report, the fingerprint report and the validation report (based on SHACL \citep{shacl-spec} validation rules). These reports are no longer implemented based on XSLT technology \citep{xslt3-Kay}, because the underlying source is the new RDF representation \citep{rdf11} and no longer (CAT-)XML. More technical details are addressed in the application architecture in Section \ref{sec:implementation-application}.
+	After the source editing in VocBench3 is complete, the content is exported into the common repository and a set of asset assessment artefacts are generated. These artefacts include the asset diff report, the fingerprint report and the validation report (based on SHACL \citep{shacl-spec} validation rules). 
 	
-	The editor (data authoring officer) then verifies that the case is implemented correctly and, if so, then validation is scheduled to be undertaken by the quality assurance office. Otherwise, if some issues are detected, then more editing is performed in VocBench3.
-		
+	These report generation services are no longer implemented based on XSLT technology \citep{xslt3-Kay}, as it is done by the legacy workflow system, because the underlying source is the new RDF representation \citep{rdf11} and no longer (CAT-)XML format. Technical details about these reports are provided in the application architecture in Section \ref{sec:implementation-application}.
 	
+	After the asset assessment artefacts are generated, the editor (data authoring officer) (self-)verifies that the request case is implemented correctly and, if so, then the case is considered complete and the validation is scheduled to be undertaken by the quality assurance office in the next stage. Otherwise, if some issues are detected through the assessment reports, then the process is reverted to the initial step of editing the data content in VocBench3.
+
 	\subsection{New validation stage}
 	\label{sec:validation-new}	
 	
-	The validation stage is new in the asset life-cycle process. Here, the correctness assessment is separated into two steps: verification and validation. This is a continuation of the current conception of how the case implementation is being assessed. The verification primarily focuses on the business aspects of the case implementation, whereas the validation deals with  technical and more formal aspects of the content structure and consistency. As the new technology allows for semantic accounts, then validation also extends to deal with semantics. 	 
-
+	The validation stage is new in the asset life-cycle process. Here, the quality assessment is separated into two steps: verification and validation. This is a continuation of the current conception of how the case implementation is being assessed. The verification primarily focuses on the business aspects of the case implementation, whereas the validation deals with technical and more formal aspects of the content structure and consistency. As the newly adopted technology operating on RDF representation allows for semantic accounts, then validation also extends to cover the asset semantics. 	 
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=.892\textwidth]{images/business/new/Validation.png}
-		\caption{The new process for the validation stage}
+		\caption{The process for the new validation stage}
 		\label{fig:validation-new}
 	\end{figure}
 
-	In case errors are detected in the implementation, the quality assurance officer issues a  change request and the case goes back into the implementation stage. Otherwise, the case implementation is considered correct and, from then on, a release can be scheduled. This is performed by the asset manager. 
+	The typical unfolding of this stage is described in the use case UC4 provided in Section \ref{sec:uc4}. The quality assessment officer commences by verifying that the case implementation is correct and complete. This is done by reading the case description in the ticket management system and comparing with the diff report available from the previous stage. 
+	
+	Then the quality assessment officer checks the validation report and the fingerprinting reports and checks whether the data respects the SRC-AP-VB3 application profile or the profile specific to the subject data asset, in case a specific one is applied. 
+	
+	In case business or technical errors are detected in the implementation, the quality assurance officer issues a  change request and the case goes back into the implementation stage. 
+	\enlargethispage{1em}
+	
+	Otherwise, the case implementation is considered correct and, from then on, a release can be scheduled. This is performed by the asset manager. 
 		
 	\subsection{New release stage}
 	\label{sec:release-new}
 	
-	The new release stage, depicted in Figure \ref{fig:release-new}, differs considerably from the current one. This stage is no longer one of simply marking the asset implementation as ``fit for publication'', but deals with all data transformations and preparation of artefacts necessary in the publication stage.
+	The new release stage, depicted in Figure \ref{fig:release-new}, differs considerably from the current one. This stage is no longer one of simply marking the asset implementation as ``fit for publication'', as done in the current release stage, but deals with all data transformations and preparation of artefacts which is dealt with by the current publication stage. This way the burden of the data transformation is transferred from the publication stage into the release stage.
 	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=1.05\textwidth]{images/business/new/Release.png}
-		\caption{The new process for the release stage}
+		\caption{The process for the new release stage}
 		\label{fig:release-new}
 	\end{figure}
 
-	The release starts when all change request cases, in the scope of the scheduled publication, have been implemented and validated. Then, the primary release artefacts are generated from the RDF source is expressed in SRC-AP form \citep{src-ap-vb3}. The main artefacts are the source in SKOS-AP-EU form \citep{skos-ap-eu}, a special extension of the SKOS-AP-EU which is necessary for publishing the content in Cellar because of backward compatibility issues (called SKOS-AP-EU-Act), and the SKOS core \citep{skos-spec} representation. These artefacts are also generated in RDF/XML \citep{rdf-xml-Schreiber:14:RXS,rdf-xml-Beckett:04:RSS}, Turtle \citep{turtle-Carothers:14:RT} and JSON-LD \citep{sporny2014json,spornyjson} formats. 
+	The release starts when all change request cases, in the scope of the scheduled publication, have been implemented and validated. The typical unfolding of this stage is detailed in the use case UC5 provided in Section \ref{sec:uc5}. The process is separated into two phases.
 	
-	The transformation process is accompanied by a set of validation processes meant to safeguard the output and ensure that the transformations are executed correctly. The validation reports are checked by the data processing officer. If process-related issues are detected, then most likely the processes contain bugs and need to be fixed. If content related issues are spotted, then a new change request is created and the process reverts to the implementation stage. 
+	In the first phase the ``primary release artefacts'' are generated, which are RDF artefacts generated directly from the asset RDF source ( SRC-AP\citep{src-ap-vb3}). These primary artefacts represent the asset data re-expressed in: (a) SKOS-AP-EU form \citep{skos-ap-eu}, (b) in simple SKOS\citep{skos-spec} form (also known as SKOS-core) and (c) a special extension of the SKOS-AP-EU containing additional properties necessary for activation in Cellar for backwards compatibility reasons (called SKOS-AP-EU-Act). 
 	
-	After primary release artefacts are created, then secondary release artefacts are created. All of them are non-RDF forms that are currently produced for clients (CAT-XML, XSD, Genericode, MS Excel/CSV, MarcXML, GeoJSON, etc.) and must continue so. An automated validation of the generated assets, to the greatest extent possible, secures and ensures quality of the output. As in the case of primary artefacts, if errors are detected then depending on their nature, either the data transformation process must be updated or a content change request is issued and the process reverts to the implementation stage. 
+	\enlargethispage{3em}
+	
+	Each of these representations are serialised in RDF/XML \citep{rdf-xml-Schreiber:14:RXS,rdf-xml-Beckett:04:RSS}, Turtle \citep{turtle-Carothers:14:RT} and JSON-LD \citep{sporny2014json,spornyjson} formats. 
+	
+	The transformation process is accompanied by a set of SHACL validation processes meant to safeguard the output and ensure that the transformations are executed correctly. The validation reports are checked by the data processing officer. If process-related issues are detected, then most likely the processes contain bugs and need to be fixed. If content related issues are spotted, then a new change request is created and the process reverts to the implementation stage. 
+	
+	After primary release artefacts are created, the second release phase starts, where ``secondary release artefacts'' are created. The secondary release artefacts are non-RDF forms that are currently produced for clients (CAT-XML, XSD, Genericode, MS Excel/CSV, MarcXML, GeoJSON, etc.) and must continue so. An automated validation of the generated assets, to the extent possible, secures and ensures quality of the output. This validation is based on XSD scheme validation as currently performed in the legacy workflow. Just like in the case of primary artefacts, if errors are detected in the validation reports, then depending on the error nature, either the data transformation process must be updated or a content change request is issued and the life-cycle process moves back to the implementation stage.
 	
 	The transformation technology employed here needs to provide ETL\footnote{Extract, transform, load (ETL) is the general procedure of copying data from one or more sources into a destination system which represents the data differently from the source(s) or in a different context than the source(s).}/ELT\footnote{Extract, load, transform (ELT) is a variant of ETL where the extracted data is loaded into the target system first.}-like capabilities for both RDF and data formats. An extended discussion about application capabilities is covered in Section \ref{sec:release-application}.
+	\enlargethispage{1em}
 	
-	At the end of this stage, all important asset transformations and data conversions must be complete and the necessary forms and formats consumed by target clients shall be available for publication. Finally, assets are copied into the special place within the common repository available to the publication process. 
+	At the end of release stage, all important asset transformations and data conversions must be complete and the necessary forms and formats,which can be consumed by the target clients, shall be available for publication. Finally, assets are marked ``ready for publication'' and copied into the special place within the common repository available to the publication process, which is described in the next section. 
 	
 	\subsection{New publication stage}
 	\label{sec:publication-new}
 	
-	The new publication stage process is depicted in Figure \ref{fig:publication-new}. This process is very similar to the one currently performed and that is described in Section \ref{sec:publication-current}.
+	The new publication stage process is depicted in Figure \ref{fig:publication-new}. This process is similar to the current one that is described in Section \ref{sec:publication-current}.
 	
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=1.05\textwidth]{images/business/new/Publication.png}
-		\caption{The new process for the release stage}
+		\caption{The process for the new publication stage}
 		\label{fig:publication-new}
 	\end{figure}
 
