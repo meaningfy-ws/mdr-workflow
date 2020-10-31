@@ -40,11 +40,15 @@ def the_shacl_file_somefile(scenario_context, file_id, somefile):
 
 @given(parsers.cfparse('the baseURI {baseUri:String}', extra_types=dict(String=str)))
 def the_baseuri_httpxxxx(browser, scenario_context, baseUri):
-    if baseUri == "VALIDATOR_UI_URL":
+    if baseUri == "RDF_VALIDATOR_UI_URL":
         scenario_context["baseURI"] = RDF_VALIDATOR_UI_URL
     elif baseUri == "DIFFER_UI_URL":
         scenario_context["baseURI"] = DIFFER_UI_URL
 
+@when(parsers.cfparse('I click on the element with XPath {xpath:String}', extra_types=dict(String=str)))
+def i_click_on_the_element_with_x_path(browser, scenario_context, xpath):
+    button = browser.find_element_by_xpath(xpath)
+    button.click()
 
 @when(parsers.cfparse('I click on the button with id {control_id:String}', extra_types=dict(String=str)))
 def i_click_on_the_button_with_id_validate_button_id(browser, scenario_context, control_id):
