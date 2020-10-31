@@ -74,8 +74,8 @@ services:
     container_name: jenkins-automation
     image: jenkins/jenkins:latest
     ports:
-      - 8080:8080
-      - 50000:50000
+      - ${JENKINS_UI_PORT}:8080
+      - ${JENKINS_AGENTS_PORT}:50000
     env_file: .env
     restart: always
     volumes:
@@ -186,6 +186,44 @@ services:
       - ${LP_ETL_FUSEKI_PORT}:3030
     networks:
       - mydefault
+
+  rdf-fingerprinter-api:
+    container_name: rdf-fingerprinter-api
+    image: meaningfy/rdf-fingerprinter-api:latest
+    ports:
+      - ${RDF_FINGERPRINTER_API_PORT}:${RDF_FINGERPRINTER_API_PORT}
+    env_file: .env
+    restart: always
+    networks:
+      - mydefault
+
+  rdf-fingerprinter-ui:
+    container_name: rdf-fingerprinter-ui
+    image: meaningfy/rdf-fingerprinter-ui:latest
+    ports:
+      - ${RDF_FINGERPRINTER_UI_PORT}:${RDF_FINGERPRINTER_UI_PORT}
+    env_file: .env
+    depends_on:
+      - "rdf-fingerprinter-api"
+    restart: always
+    networks:
+      - mydefault
+
+  rdf-fingerprinter-fuseki:
+    container_name: fuseki-fingerprinter
+    image: meaningfy/fuseki:latest
+    env_file:
+      - .env
+    environment:
+      - ADMIN_PASSWORD=${RDF_FINGERPRINTER_FUSEKI_ADMIN_PASSWORD}
+      - JVM_ARGS=${RDF_FINGERPRINTER_FUSEKI_JVM_ARGS}
+    ports:
+      - ${RDF_FINGERPRINTER_FUSEKI_PORT}:3030
+    volumes:
+          - rdf-fingerprinter-fuseki:/fuseki
+    networks:
+      - mydefault
+
 
 volumes:
   jenkins-home:

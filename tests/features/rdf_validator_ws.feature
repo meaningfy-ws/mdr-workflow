@@ -6,7 +6,7 @@
 Feature: Test functionality of rdf-validator-ws running in a docker container
 
   Background:
-    Given the baseURI VALIDATOR_UI_URL
+    Given the baseURI RDF_VALIDATOR_UI_URL
 
   Scenario: Main success scenario for SPARQL endpoint and RDF validation report
     Given the SCHEMA file /tests/test_data/skosShapes.shapes.ttl

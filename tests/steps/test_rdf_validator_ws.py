@@ -15,7 +15,7 @@ from pytest_bdd import (
     when, parsers,
 )
 
-from tests.config import VALIDATOR_UI_URL, DIFFER_UI_URL
+from tests.config import RDF_VALIDATOR_UI_URL, DIFFER_UI_URL
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +41,7 @@ def the_shacl_file_somefile(scenario_context, file_id, somefile):
 @given(parsers.cfparse('the baseURI {baseUri:String}', extra_types=dict(String=str)))
 def the_baseuri_httpxxxx(browser, scenario_context, baseUri):
     if baseUri == "VALIDATOR_UI_URL":
-        scenario_context["baseURI"] = VALIDATOR_UI_URL
+        scenario_context["baseURI"] = RDF_VALIDATOR_UI_URL
     elif baseUri == "DIFFER_UI_URL":
         scenario_context["baseURI"] = DIFFER_UI_URL
 
