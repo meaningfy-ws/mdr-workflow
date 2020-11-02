@@ -15,7 +15,7 @@ from pytest_bdd import (
     when, parsers,
 )
 
-from tests.config import RDF_VALIDATOR_UI_URL, DIFFER_UI_URL
+from tests.config import RDF_VALIDATOR_UI_URL, DIFFER_UI_URL, LINKEDPIPES_ETL_UI_URL
 
 logger = logging.getLogger(__name__)
 
@@ -29,9 +29,16 @@ def test_main_success_scenario_for_rdf_file_and_html_validation_report():
 def test_main_success_scenario_for_sparql_endpoint_and_rdf_validation_report():
     """Main success scenario for SPARQL endpoint and RDF validation report."""
 
+
 @scenario('../features/rdf_differ.feature', 'Main success scenario')
 def test_main_success_scenario():
     """Main success scenario."""
+
+
+@scenario('../features/linkedpipes.feature', 'Main landing page load scenario')
+def test_main_landing_page_load_scenario():
+    """Main success scenario."""
+
 
 @given(parsers.cfparse('the {file_id:String} file {somefile:String}', extra_types=dict(String=str)))
 def the_shacl_file_somefile(scenario_context, file_id, somefile):
@@ -44,11 +51,15 @@ def the_baseuri_httpxxxx(browser, scenario_context, baseUri):
         scenario_context["baseURI"] = RDF_VALIDATOR_UI_URL
     elif baseUri == "DIFFER_UI_URL":
         scenario_context["baseURI"] = DIFFER_UI_URL
+    elif baseUri == "LINKEDPIPES_ETL_URL":
+        scenario_context["baseURI"] = LINKEDPIPES_ETL_UI_URL
+
 
 @when(parsers.cfparse('I click on the element with XPath {xpath:String}', extra_types=dict(String=str)))
 def i_click_on_the_element_with_x_path(browser, scenario_context, xpath):
     button = browser.find_element_by_xpath(xpath)
     button.click()
+
 
 @when(parsers.cfparse('I click on the button with id {control_id:String}', extra_types=dict(String=str)))
 def i_click_on_the_button_with_id_validate_button_id(browser, scenario_context, control_id):
@@ -84,6 +95,14 @@ def step_impl(scenario_context, field, value):
     scenario_context[field] = value
 
 
-@then(parsers.cfparse('the resulting page contains {content:String} in the element with id {field_id:String}', extra_types=dict(String=str)))
+@then(parsers.cfparse('the resulting page contains {content:String} in the element with id {field_id:String}',
+                      extra_types=dict(String=str)))
 def the_result_page_contains(browser, scenario_context, content, field_id):
     pass
+
+
+@then(parsers.cfparse('the resulting page contains {content:String} in the element with XPath {xpath:String}',
+                      extra_types=dict(String=str)))
+def the_result_page_contains(browser, scenario_context, content, xpath):
+    element = browser.find_element_by_xpath(xpath)
+    assert element.text == content

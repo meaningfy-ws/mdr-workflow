@@ -23,6 +23,7 @@ def browser():
     chrome_options.add_argument("--no-sandbox")
     chrome_driver_args = ["--whitelisted-ips=", "--log-path=chromedriver.log"]
     _browser = WebDriver(chrome_options=chrome_options, service_args=chrome_driver_args)
+    _browser.maximize_window()
     yield _browser
     _browser.close()
     _browser.quit()
