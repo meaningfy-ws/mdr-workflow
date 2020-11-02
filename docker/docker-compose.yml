@@ -230,7 +230,7 @@ services:
     container_name: camunda
     image: camunda/camunda-bpm-workbench:latest
     ports:
-      - 8080:8080
+      - ${CAMUNDA_UI_PORT}:8080
     volumes:
     - rdf-camunda:/camunda/conf/
     networks:
