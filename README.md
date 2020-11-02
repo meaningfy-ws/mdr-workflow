@@ -71,6 +71,8 @@ This service encapsulates the actual validation engine and exposes its functiona
 |------------|-------|--------------------|
 | Port | 4010 | VALIDATOR_API_PORT|
 
+*NOTE:* When validating SPARQL endpoints, the fully qualified domain name of the machine must be specified. As a consequence, `localhost` will never work.
+
 
 **RDF Validator UI**
 
@@ -78,6 +80,8 @@ This service encapsulates the actual validation engine and exposes its functiona
 |------------|-------|--------------------|
 | Port | 8010 | VALIDATOR_UI_PORT|
 | URL| http://dev.meaningfy.ws:8010| RDF_VALIDATOR_UI_URL|
+
+*NOTE:* When validating SPARQL endpoints, the fully qualified domain name of the machine must be specified. As a consequence, `localhost` will never work.
 
 **Splash page**
 
@@ -173,6 +177,18 @@ This is the storage engine that is being used by RDF Fingerprinter.
 | Internal port| 3030 ||
 
 # Requirements
+
+**Hardware requirements**
+
+At least 16GB of RAM.
+At least a 4 core CPU.
+At least 64GB of free space.
+
+**Software requirements** 
+
+A Linux distribution having a kernel with a version higher than 5.4.0.
+
+**Ports**
 
 The following ports must be available on the host machine, as they will be bound to by different docker services:
 
