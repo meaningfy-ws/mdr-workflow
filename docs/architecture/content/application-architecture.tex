@@ -138,9 +138,6 @@
 	
 	Operationally, the vocabulary table is used by the legacy system for deciding what chains of operations shall be executed start to end, without the possibility to monitor or manage the process steps. It is also becoming increasingly difficult to maintain, adapt and extend workflow descriptions indicated in the vocabulary table. This challenge can be overcome by adopting a modern workflow management system. 
 	
-	% rephrase
-	%For this reason, we say the it is ``workflow design management'' and not the actual ``workflow management'',  because we deal here with description and configuration of the execution paths and decision rules (plus asset metadata) which are enacted by the legacy workflow system. This aggregation of the two responsibilities complicates both the maintenance and evolution both shall be separated in the future.  
-	
 	Later, after adoption of the digital transformation proposed in this architecture, the asset metadata and workflow design management service need to be broken down into two parts: asset metadata management and workflow management. The metadata management can be realised through a DCAT \citep{dcat2} cataloguing software. 
 	
 	Workflow management could be taken over by any workflow management and execution engine that implements service orchestration\footnote{In system administration, orchestration is the automated configuration, coordination, and management of computer systems and software. A number of tools exist for automation of server configuration and management, including Ansible, Puppet, Salt, Terraform, and AWS CloudFormation.} or choreography\footnote{Service choreography is a form of service composition in which the interaction protocol between several partner services is defined from a global perspective.}. 
