@@ -8,6 +8,7 @@
 import logging
 from pathlib import Path
 
+import pytest
 from pytest_bdd import (
     given,
     scenario,
@@ -37,6 +38,11 @@ def test_main_success_scenario():
 
 @scenario('../features/linkedpipes.feature', 'Main landing page load scenario')
 def test_main_landing_page_load_scenario():
+    """Main success scenario."""
+
+
+@scenario('../features/linkedpipes.feature', 'Pipelines storage not failing')
+def test_pipelines_storage_not_failing():
     """Main success scenario."""
 
 
@@ -106,3 +112,9 @@ def the_result_page_contains(browser, scenario_context, content, field_id):
 def the_result_page_contains(browser, scenario_context, content, xpath):
     element = browser.find_element_by_xpath(xpath)
     assert element.text == content
+
+
+@then(parsers.cfparse('the resulting page does not contain the element with XPath {xpath:String}',
+                      extra_types=dict(String=str)))
+def the_result_page_contains(browser, scenario_context, xpath):
+    assert browser.find_element_by_xpath(xpath).text == ''
