@@ -16,7 +16,7 @@ test:
 	@ pytest
 
 set-linekdpipes-etl-configurations:
-	@ echo "$(BUILD_PRINT)Setting configuratiosn fro LinkedPipes ETL"
+	@ echo "$(BUILD_PRINT)Setting configuratiosn for LinkedPipes ETL"
 	@ docker rm temp | true
 	@ docker volume rm linkedpipes-configuration | true
 	@ docker volume create linkedpipes-configuration
