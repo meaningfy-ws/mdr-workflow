@@ -218,7 +218,7 @@ services:
       - ADMIN_PASSWORD=${RDF_FINGERPRINTER_FUSEKI_ADMIN_PASSWORD}
       - JVM_ARGS=${RDF_FINGERPRINTER_FUSEKI_JVM_ARGS}
     ports:
-      - ${RDF_FINGERPRINTER_FUSEKI_PORT}:3030
+      - 3020:3030
     volumes:
           - rdf-fingerprinter-fuseki:/fuseki
     networks:
