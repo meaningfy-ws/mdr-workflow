@@ -210,7 +210,7 @@ services:
       - mydefault
 
   rdf-fingerprinter-fuseki:
-    container_name: fuseki-fingerprinter
+    container_name: rdf-fingerprinter-fuseki
     image: meaningfy/fuseki:latest
     env_file:
       - .env
