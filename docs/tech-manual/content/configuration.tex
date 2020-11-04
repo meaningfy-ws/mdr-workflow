@@ -1,7 +1,8 @@
 \section{Configuration}
 \label{sec:configuration}
-
-	The service configurations are provided through OS environment variables provided in the \textit{.env} file. This section describes the important configurations options available for each of the services.
+    
+    The deployment suite of micro-services is defined docker-compose.yml file. At deployment and at runtime, the service configurations are provided through OS environment variables available in the \textit{.env} file. The role of the .env file is to enable the system administrators to easily change default configurations as necessary in the context of their environment. 
+    This section describes the important configurations options available for each of the services.
 	
 	\subsection{RDF differ}
 	
@@ -64,7 +65,7 @@
 	
 	\subsection{RDF fingerprinter}
 	
-	RDF fingerprinter service is based on executing SPARQL queries on given data and therefore also needs a dedicated triple store service. 
+	RDF fingerprinter application exposes an API and an UI. It is based on executing SPARQL queries on given data and therefore also needs a dedicated triple store service. 
 
 	\begin{longtable}[c]{@{}p{3.8cm}p{3cm}l@{}}
 		\toprule
@@ -84,7 +85,7 @@
 		Service UI port & 8020 & RDF\_FINGERPRINTER\_UI\_PORT \\
 		Service API domain & http://rdf-fingerprinter-api & RDF\_FINGERPRINTER\_API\_LOCATION \\
 		Service API port & 4020 & RDF\_FINGERPRINTER\_API\_PORT \\* \bottomrule
-		\caption{}
+		\caption{RDF fingerprinter configuration}
 		\label{tab:my-table7}\\
 	\end{longtable}
 
@@ -95,7 +96,8 @@
 	Fuseki triple store is used as the supporting triple store for this service.
 	The available configurations for the Fuseki are described below. 
 	
-	\begin{longtable}[c]{@{}p{4cm}p{2cm}l@{}}
+	
+	\begin{longtable}[c]{@{}p{4cm}p{2.5cm}l@{}}
 		\toprule
 		Description & Value & Associated variable \\* \midrule
 		\endfirsthead
@@ -109,21 +111,21 @@
 		%
 		\endlastfoot
 		%
-		Admin account password & admin & RDF\_DIFFER\_FUSEKI\_ADMIN\_PASSWORD \\
-		User name & admin & RDF\_FINGERPRINTER\_FUSEKI\_USERNAME \\
-		Password & admin & RDF\_FINGERPRINTER\_FUSEKI\_PASSWORD \\
-		Folder where Fuseki stores data & ./data/fingerprinter & RDF\_FINGERPRINTER\_FUSEKI\_DATA\_FOLDER \\
-		External port & 3020 & RDF\_FINGERPRINTER\_FUSEKI\_PORT \\
-		Internal port & 3030 &  \\
-		Additional arguments passed to JVM & -Xmx2g & RDF\_DIFFER\_FUSEKI\_JVM\_ARGS \\
-		URL & http://rdf-differ-fuseki & RDF\_DIFFER\_FUSEKI\_LOCATION \\* \bottomrule
+		Admin password & admin & \footnotesize RDF\_DIFFER\_FUSEKI\_ADMIN\_PASSWORD \\
+		User name & admin & \footnotesize RDF\_FINGERPRINTER\_FUSEKI\_USERNAME \\
+		Password & admin & \footnotesize RDF\_FINGERPRINTER\_FUSEKI\_PASSWORD \\
+		Fuseki data folder & ./data & \footnotesize RDF\_FINGERPRINTER\_FUSEKI\_DATA\_FOLDER \\
+		External port & 3020 & \footnotesize RDF\_FINGERPRINTER\_FUSEKI\_PORT \\
+		Additional JVM arguments & -Xmx2g & \footnotesize RDF\_DIFFER\_FUSEKI\_JVM\_ARGS \\
+		Service URL & http://rdf-differ-fuseki & \footnotesize RDF\_DIFFER\_FUSEKI\_LOCATION \\* \bottomrule
 		\caption{RDF differ dedicated triple store configurations}
 		\label{tab:my-table8}\\
 	\end{longtable}
+
 	
 	\subsection{RDF validator}
 	
-	RDF validator does not depend on any additional services as everything is encapsulated into the Docker image. The configuration options are summarised below. 
+	RDF validator application exposes an API and an UI and does not depend on any additional services as everything is encapsulated into the Docker image. The configuration options are summarised below. 
 	
 	\begin{longtable}[c]{@{}p{4cm}p{5cm}l@{}}
 		\toprule

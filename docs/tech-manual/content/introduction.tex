@@ -1,7 +1,12 @@
 \section{Introduction}
 \label{sec:introduction}	
 
-
+    The Standardisation Unit (SU) at the Publications Office of the European Union (OP) is engaged in a digital transformation process oriented towards semantic technologies. In \citep{costetchi2020d} is described a working definition of the architectural stance and design decisions that are to be adopted for the asset publication life-cycle process. The report describes the baseline (current) solution and the (new) target solution for the asset publication workflow that is part of the life-cycle process. 
+    
+    The software components building up the target publication workflow solution have been packaged as into a suite of interconnected Docker images \citep{docker-merkel2014docker}, which is motivated in Section \ref{sec:background}.
+    
+    This document describes the installation and configuration procedures along with stating the scope, target audience and introducing briefly the Docker technology.
+    
 \section{Scope}
 \label{sec:scope}
 
@@ -11,13 +16,12 @@
 		\item RDF differ
 		\item RDF validator
 		\item RDF fingerprinter
-		\item Fuseki triplestore
-		\item LinkedPipes ETL
-		\item Jenkins automation server
-		\item Camunda BPMN platform
-		\item NginX HTTP server
+		\item Fuseki triplestore \cite{fuseki}
+		\item LinkedPipes ETL  \citep{linkedpipes-klimek2016linkedpipes,linkedpipes-klimek2017linkedpipes}
+		\item Jenkins automation server \citep{jenkins}
+		\item Camunda BPMN platform \citep{camunda}
+		\item NginX HTTP server \citep{reese2008nginx}
 	\end{enumerate}
-
 
 \section{Target audience}
 \label{sec:audience}
@@ -35,7 +39,7 @@
 \section{Technology background}
 \label{sec:background}
 
-	Infrastructure and deployment configuration rely on the \textit{Docker technology} \citep{docker-merkel2014docker}. Docker is a set of platform as a service (PaaS) products that use OS-level virtualization to deliver software in packages called containers. Containers are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through well-defined channels. All containers are run by a single operating system kernel and therefore use fewer resources than virtual machines.
+	Infrastructure and deployment configuration rely on the \textit{Docker technology} \citep{docker-merkel2014docker, docker}. Docker is a set of platform as a service (PaaS) products that use OS-level virtualisation to deliver software in packages called containers. Containers are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through well-defined channels. All containers are run by a single operating system kernel and therefore use fewer resources than virtual machines.
 
 	Docker technology is chosen because it solves the problem known in the system administration world as the ``dependency hell'', which refers to three specific issues: conflicting dependencies, missing dependencies, and platform differences.
 
