@@ -1,0 +1,110 @@
+\section{Requirements}
+\label{sec:requirements}
+
+	Although Docker can be executed on any platform, for performance and security reasons we recommend using a Linux OS with kernel version 5.4x or higher. The services have been tested on Ubuntu 20 server. 
+		
+	There is a range of ports that must be available on the host machine as they will be bound to by different docker services. Although the system administrator may choose to change them by changing the values in of specific environment variables. The inventory of pre-configured ports is provided in Table \ref{tab:port-inventory}.
+
+	\begin{longtable}[c]{@{}p{3.64cm}p{1.25cm}p{1.25cm}p{1.9cm}p{5cm}@{}}
+		\toprule
+		Service name & HTTP port UI & HTTP port API & FTP port & Mounted volume \\* \midrule
+		\endfirsthead
+		%
+		\multicolumn{5}{c}%
+		{{\bfseries Table \thetable\ continued from previous page}} \\
+		\endhead
+		%
+		\bottomrule
+		\endfoot
+		%
+		\endlastfoot
+		%
+		RDF differ & 8030 & 4030 &  &  \\* \hline
+		RDF differ dedicated Fuseki &  & 3030 &  & rdf-differ-fuseki \\* \hline
+		RDF validator & 8010 & 4010 &  &  \\* \hline
+		RDF fingerprinter & 8020 & 4020 &  &  \\* \hline
+		RDF fingerprinter dedicated Fuseki &  & 3020 &  & rdf-fingerprinter-fuseki \\* \hline
+		LinkedPipes ETL - storage &  & 8063 &  & linkedpipes-logs, linkedpipes-data-storage, linkedpipes-configuration \\* \hline
+		LinkedPipes ETL - executor &  & 8065 &  & linkedpipes-logs, linkedpipes-data-execution, linkedpipes-configuration \\* \hline
+		LinkedPipes ETL - monitor &  & 8061 & 2221, 2222, 2225 & linkedpipes-logs, linkedpipes-data-execution, linkedpipes-configuration \\* \hline
+		LinkedPipes ETL - frontend & 8060 &  &  & linkedpipes-logs, linkedpipes-configuration \\* \hline
+		LinkedPipes ETL - dedicated Fuseki &  & 3060 &  & linkedpipes-fuseki \\* \hline
+		Jenkins & 8080 & 50000 &  & jenkins-home \\* \hline
+		Camunda BPMN engine & 8040 &  &  & rdf-camunda \\* \bottomrule
+		\caption{Port usage inventory}
+		\label{tab:port-inventory}\\
+	\end{longtable}
+
+%	\vfil
+	The minimal hardware requirements are as follows 
+	\begin{enumerate}
+		\item CPU: 3.2 Ghz quad core 
+		\item RAM: 16GB 
+		\item SDD system: 32GB 
+		\item SDD data: 128GB 
+	\end{enumerate}	
+
+\section{Installation}
+\label{sec:installation}
+
+	In order to run the services it is necessary to have Docker server and docker-compose tool installed. To install them following the instructions provided at the following locations
+	
+	\begin{enumerate}
+		\item Docker - \url{https://docs.docker.com/engine/install}
+		\item Docker Compose - \url{https://docs.docker.com/compose/install}
+	\end{enumerate}
+	
+	In case you are using Debian-like OS such as Ubuntu, you may simply run the following Bash commands to install and set the appropriate permissions. 
+	
+	\begin{lstlisting}[language=bash,]
+sudo apt -y install docker.io docker-compose git make
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+	\end{lstlisting}
+	
+	Next, clone the Git repository containing the \textit{docker-compose.yml}, \textit{.env} file and the \textit{Makefile}.
+	
+\begin{lstlisting}[language=bash,]
+git clone https://github.com/meaningfy-ws/mdr-workflow.git
+cd mdr-workflow
+\end{lstlisting}	
+	
+	Then change directory into the \textit{mdr-workflow} folder and Makefile commands to start and stop services will be available. 	
+	
+	Downloading the Docker images will be triggered automatically on first request to start the services. 
+	
+	To start the services using Makefile
+
+\begin{lstlisting}[language=bash,]
+make start-services
+\end{lstlisting}
+
+	To stop the services using Makefile
+	
+\begin{lstlisting}[language=bash,]
+make stop-services
+\end{lstlisting}		
+
+	To start services without Makefile first prepare the volume with LinkedPipes ETL configurations file like this
+	
+\begin{lstlisting}[language=bash,]
+docker rm temp | true
+docker volume rm linkedpipes-configuration | true
+docker volume create linkedpipes-configuration
+docker container create --name temp -v linkedpipes-configuration:/data busybox
+docker cp ./docker/linkedpipes-etl/configuration/configuration.properties temp:/data
+docker rm temp
+\end{lstlisting}		
+
+	then start the services
+	
+\begin{lstlisting}[language=bash,]
+docker-compose --file docker/docker-compose.yml --env-file docker/.env up -d
+\end{lstlisting}
+
+	To stop the services run
+
+\begin{lstlisting}[language=bash,]
+docker-compose --file docker/docker-compose.yml --env-file docker/.env down
+\end{lstlisting}

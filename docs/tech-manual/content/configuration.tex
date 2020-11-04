@@ -1,0 +1,255 @@
+\section{Configuration}
+\label{sec:configuration}
+
+	The service configurations are provided through OS environment variables provided in the \textit{.env} file. This section describes the important configurations options available for each of the services.
+	
+	\subsection{RDF differ}
+	
+	The RDF differ application exposes an API and an UI and depends on a dedicated triple store. the RDF diff API is the core service providing the RDF diffing functionality. The URL and port are described below, as well as the request timeout:
+	
+	\begin{longtable}[c]{@{}p{3.5cm}p{3.5cm}l@{}}
+		\toprule
+		Description & Value & Associated variable \\* \midrule
+		\endfirsthead
+		%
+		\multicolumn{3}{c}%
+		{{\bfseries Table \thetable\ continued from previous page}} \\
+		\endhead
+		%
+		\bottomrule
+		\endfoot
+		%
+		\endlastfoot
+		%
+		Service URL & http://rdf-differ-api & RDF\_DIFFER\_API\_LOCATION \\
+		Service API port & 4030 & RDF\_DIFFER\_API\_PORT \\
+		Is in debug mode & True & RDF\_DIFFER\_DEBUG \\
+		Service UI port & 8030 & RDF\_DIFFER\_UI\_PORT \\
+		Web server worker process timeout & 1200 & RDF\_DIFFER\_GUNICORN\_TIMEOUT \\* \bottomrule
+		\caption{RDF differ configurations}
+		\label{tab:my-table1}\\
+	\end{longtable}
+
+	Please note that the domain specified in in the URL is only available inside the Docker network and is not visible from the outside. Its purpose is to provide a named way for a service to connect to another service. 
+	
+	\subsection{RDF differ dedicated triple store}
+	
+	RDF differ depends on a Fuseki triple store to calculate and persist the diffs. The available configurations are described below. 
+
+	\begin{longtable}[c]{@{}p{4cm}p{2cm}l@{}}
+		\toprule
+		Description & Value & Associated variable \\* \midrule
+		\endfirsthead
+		%
+		\multicolumn{3}{c}%
+		{{\bfseries Table \thetable\ continued from previous page}} \\
+		\endhead
+		%
+		\bottomrule
+		\endfoot
+		%
+		\endlastfoot
+		%
+		Admin account password & admin & RDF\_DIFFER\_FUSEKI\_ADMIN\_PASSWORD \\
+		User name & admin & RDF\_DIFFER\_FUSEKI\_USERNAME \\
+		Password & admin & RDF\_DIFFER\_FUSEKI\_PASSWORD \\
+		Folder where Fuseki stores data & ./data/diff & RDF\_DIFFER\_FUSEKI\_DATA\_FOLDER \\
+		External port & 3030 & RDF\_DIFFER\_FUSEKI\_PORT \\
+		Internal port & 3030 &  \\
+		Additional arguments passed to JVM & -Xmx2g & RDF\_DIFFER\_FUSEKI\_JVM\_ARGS \\
+		URL & http://rdf-differ-fuseki & RDF\_DIFFER\_FUSEKI\_LOCATION \\* \bottomrule
+		\caption{RDF differ dedicated triple store configurations}
+		\label{tab:my-table2}\\
+	\end{longtable}
+	
+	\subsection{RDF fingerprinter}
+	
+	RDF fingerprinter service is based on executing SPARQL queries on given data and therefore also needs a dedicated triple store service. 
+
+	\begin{longtable}[c]{@{}p{3.8cm}p{3cm}l@{}}
+		\toprule
+		Description & Value & Associated variable \\* \midrule
+		\endfirsthead
+		%
+		\multicolumn{3}{c}%
+		{{\bfseries Table \thetable\ continued from previous page}} \\
+		\endhead
+		%
+		\bottomrule
+		\endfoot
+		%
+		\endlastfoot
+		%
+		Service UI domain & http://rdf-fingerprinter-ui & RDF\_FINGERPRINTER\_UI\_LOCATION \\
+		Service UI port & 8020 & RDF\_FINGERPRINTER\_UI\_PORT \\
+		Service API domain & http://rdf-fingerprinter-api & RDF\_FINGERPRINTER\_API\_LOCATION \\
+		Service API port & 4020 & RDF\_FINGERPRINTER\_API\_PORT \\* \bottomrule
+		\caption{}
+		\label{tab:my-table7}\\
+	\end{longtable}
+
+	Please note that the URL is only available inside the same Docker network and is not visible from the outside. Its purpose is to provide a named way for a service to connect to another service.
+	
+	\subsection{RDF fingerprinter dedicated triple store}
+	
+	Fuseki triple store is used as the supporting triple store for this service.
+	The available configurations for the Fuseki are described below. 
+	
+	\begin{longtable}[c]{@{}p{4cm}p{2cm}l@{}}
+		\toprule
+		Description & Value & Associated variable \\* \midrule
+		\endfirsthead
+		%
+		\multicolumn{3}{c}%
+		{{\bfseries Table \thetable\ continued from previous page}} \\
+		\endhead
+		%
+		\bottomrule
+		\endfoot
+		%
+		\endlastfoot
+		%
+		Admin account password & admin & RDF\_DIFFER\_FUSEKI\_ADMIN\_PASSWORD \\
+		User name & admin & RDF\_FINGERPRINTER\_FUSEKI\_USERNAME \\
+		Password & admin & RDF\_FINGERPRINTER\_FUSEKI\_PASSWORD \\
+		Folder where Fuseki stores data & ./data/fingerprinter & RDF\_FINGERPRINTER\_FUSEKI\_DATA\_FOLDER \\
+		External port & 3020 & RDF\_FINGERPRINTER\_FUSEKI\_PORT \\
+		Internal port & 3030 &  \\
+		Additional arguments passed to JVM & -Xmx2g & RDF\_DIFFER\_FUSEKI\_JVM\_ARGS \\
+		URL & http://rdf-differ-fuseki & RDF\_DIFFER\_FUSEKI\_LOCATION \\* \bottomrule
+		\caption{RDF differ dedicated triple store configurations}
+		\label{tab:my-table8}\\
+	\end{longtable}
+	
+	\subsection{RDF validator}
+	
+	RDF validator does not depend on any additional services as everything is encapsulated into the Docker image. The configuration options are summarised below. 
+	
+	\begin{longtable}[c]{@{}p{4cm}p{5cm}l@{}}
+		\toprule
+		Description & Value & Associated variable \\* \midrule
+		\endfirsthead
+		%
+		\multicolumn{3}{c}%
+		{{\bfseries Table \thetable\ continued from previous page}} \\
+		\endhead
+		%
+		\bottomrule
+		\endfoot
+		%
+		\endlastfoot
+		%
+		Service UI port & 8010 & VALIDATOR\_UI\_PORT \\
+		URL & http://rdf-validarot-ui:8010 & RDF\_VALIDATOR\_UI\_URL \\
+		Service API port & 4010 & VALIDATOR\_API\_PORT \\* \bottomrule
+		\caption{RDF validator configurations}
+		\label{tab:my-table3}\\
+	\end{longtable}
+
+	Note, when validating SPARQL endpoints, the fully qualified domain name of the machine must be specified. As a consequence, ``localhost'' domain will not work as expected.
+
+	\subsection{Nginx server}
+	
+	Nginx is a web server and in this context it serves on the port 80 (default HTTP) a splash page. However it can be configured in the future to operate as a reverse proxy as it may be necessary in the deployed environment. No configurations are foreseen for this service at the moment. 
+	
+	\subsection{Jenkins automation server}
+	
+	Jenkins automation server can be used to orchestrate some workflows especially those that may be triggered by operations on the SVN common repository. Only the port configurations are foreseen at the moment through environment variables. Additional ones can be done by following the official Jenkins installation manual. 
+	
+	\begin{longtable}[c]{@{}p{4cm}p{5cm}l@{}}
+		\toprule
+		Description & Value & Associated variable \\* \midrule
+		\endfirsthead
+		%
+		\multicolumn{3}{c}%
+		{{\bfseries Table \thetable\ continued from previous page}} \\
+		\endhead
+		%
+		Service UI portUI & 8080 & JENKINS\_UI\_PORT \\
+		Agent port & 50000 & JENKINS\_AGENTS\_PORT \\* \bottomrule
+		\caption{Jenkins automation server configurations}
+		\label{tab:my-table4}\\
+	\end{longtable}
+	
+	\subsection{LinkedPipes ETL services}
+	
+	LinkedPipes ETL is deployed as a set of four services: storage, executor, executor monitor and the user interface. Additionally a dedicated triple store is provided. 
+	
+	A special configurations file (\textit{configurations.properties}) is available in the cloned Git repository. This configurations file mirrors the currently established environment variables, which are enumerated below. 
+	
+
+	\begin{longtable}[c]{@{}p{5cm}p{4cm}l@{}}
+		\toprule
+		Description & Value & Associated variable \\* \midrule
+		\endfirsthead
+		%
+		\multicolumn{3}{c}%
+		{{\bfseries Table \thetable\ continued from previous page}} \\
+		\endhead
+		%
+		\bottomrule
+		\endfoot
+		%
+		\endlastfoot
+		%
+		Storage service port & 8063 & LP\_ETL\_STORAGE\_PORT \\
+		Storage domain & http://localhost:8060 & LP\_ETL\_DOMAIN \\
+		Executor service port & 8065 & LP\_ETL\_EXECUTOR\_PORT \\
+		Executor domain & http://localhost:8060 & LP\_ETL\_DOMAIN \\
+		Executor monitor service port & 8061 & LP\_ETL\_MONITOR\_PORT \\
+		Executor monitor domain & http://localhost:8060 & LP\_ETL\_DOMAIN \\
+		Service UI port & 8060 & LP\_ETL\_PORT \\
+		UI domain & http://localhost:8060 & LP\_ETL\_DOMAIN \\* \bottomrule
+		\caption{LinkedPipes ETL services configurations}
+		\label{tab:my-table5}\\
+	\end{longtable}
+	
+	\subsection{LinkedPipes ETL dedicated triple store}
+	
+	LinkedPipes ETL dedicated triple store is provided as an operational space to support the ETL workflows. The configurations are minimal as indicated below. 
+	
+	\begin{longtable}[c]{@{}p{4cm}p{2cm}l@{}}
+		\toprule
+		Description & Value & Associated variable \\* \midrule
+		\endfirsthead
+		%
+		\multicolumn{3}{c}%
+		{{\bfseries Table \thetable\ continued from previous page}} \\
+		\endhead
+		%
+		\bottomrule
+		\endfoot
+		%
+		\endlastfoot
+		%
+		Admin password & admin & LP\_ETL\_FUSEKI\_ADMIN\_PASSWORD \\
+		Additional arguments passed to JVM & -Xmx2g & LP\_ETL\_FUSEKI\_JVM\_ARGS \\
+		Fuseki port & 3060 & LP\_ETL\_FUSEKI\_PORT \\* \bottomrule
+		\caption{LinkedPipes ETL dedicated triple store configurations}
+		\label{tab:my-table6}\\
+	\end{longtable}
+	
+	\subsection{Camnunda BPMN engine}
+
+	Camnunda BPMN engine is deployed as a stand alone service.  A minimal set of configurations are provided here and more advanced ones shall be performed following the official installation manual. 
+	
+ 	\begin{longtable}[c]{@{}p{4cm}p{2cm}l@{}}
+	 	\toprule
+	 	Description & Value & Associated variable \\* \midrule
+	 	\endfirsthead
+	 	%
+	 	\multicolumn{3}{c}%
+	 	{{\bfseries Table \thetable\ continued from previous page}} \\
+	 	\endhead
+	 	%
+	 	\bottomrule
+	 	\endfoot
+	 	%
+	 	\endlastfoot
+	 	%	 	
+	 	Service UI port & 8080 & CAMUNDA\_UI\_PORT \\* \bottomrule
+	 	\caption{Camnunda BPMN service configurations}
+	 	\label{tab:my-table9}\\
+	 \end{longtable}
+	
+	
