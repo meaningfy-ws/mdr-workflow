@@ -40,7 +40,7 @@ services:
     container_name: rdf-validator-api
     image: meaningfy/rdf-validator-api:latest
     ports:
-      - ${VALIDATOR_API_PORT}:${VALIDATOR_API_PORT}
+      - ${RDF_VALIDATOR_API_PORT}:${RDF_VALIDATOR_API_PORT}
     env_file: .env
     restart: always
     networks:
@@ -50,7 +50,7 @@ services:
     container_name: rdf-validator-ui
     image: meaningfy/rdf-validator-ui:latest
     ports:
-      - ${VALIDATOR_UI_PORT}:${VALIDATOR_UI_PORT}
+      - ${RDF_VALIDATOR_UI_PORT}:${RDF_VALIDATOR_UI_PORT}
     env_file: .env
     restart: always
     depends_on:
