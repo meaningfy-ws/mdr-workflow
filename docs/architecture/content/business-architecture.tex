@@ -91,6 +91,8 @@
 	\textit{Client} (\textit{change requester} and \textit{data user}) is a generic external role who, on one side, consumes data and services provided by the Standardisation Unit and, on the other side, suggests publication of new assets or modification of existing ones. 
 	
 	\textit{Data disseminator} is an external role providing the Standardisation Unit with reliable data dissemination capabilities which are meant to make assets available for clients.
+	
+	\enlargethispage{1em}
 
 	The external roles and stakeholders have already been addressed in the motivations structure depicted in Figure \ref{fig:stakehodlers-roles}. Each of these roles has a corresponding element in the business model and will be employed accordingly.
 
@@ -173,6 +175,8 @@
 
 	If issues are identified in the case implementation, the quality assurance officer creates a new request for changes and the case returns to the implementation stage; otherwise, the case implementation is validated and the asset is marked as ready for release. 
 	
+	\enlargethispage{1em}
+	
 	This process involves mostly manual steps. Some minor content transformation can take place such as improving the serialisation of RDF files (called internally as RDF ``prettification''), as well as an additional validation of record identifiers in the XML file. These operations, however, are mostly technical and the only business relevance being the management of the generated diff reports in the common repository. Therefore they are omitted in the process diagram from Figure \ref{fig:pre-release-current}. 
 
 	\subsection{Current release stage}
@@ -205,6 +209,8 @@
 	
 	Next, the publication notes are prepared together with a few different impact assessments and written procedure notes prepared for targeted stakeholders. These communication artefacts are checked for correctness and sent to the corresponding stakeholders. After a predefined number of days (up to four weeks) the feedback, if any, is collected. Reception of no feedback is considered as a tacit acceptance of the current publication and that the process can continue. Seldom is blocking / non-blocking feedback received which leads to creation of new change requests and, depending on the situation, last-minute changes are executed. On the other hand, if the feedback received is non-blocking, the intervention is scheduled for the next publication. 
 	
+	\enlargethispage{1em}
+	
 	In parallel with the stakeholder communication, a packaging process is executed during which the assets are prepared for dissemination. They are assembled in packages accompanied by their content-related and technical metadata, user manuals, format documentation and, of course, the asset itself expressed in all pre-generated forms and formats, the release artefacts. The packages are verified to establish if they can be accepted by the target dissemination platforms.
 	
 	Finally, the packages are disseminated and the successful publication is announced to the broad public. The dissemination is done primarily through Cellar\citep{cdm-francesconi2015ontology} and EU Vocabularies website, although other dissemination channels are also employed, among which are Wikidata\citep{vrandevcic2014wikidata}, Publications Office Open Data Portal (ODP), Bartoc \citep{ledl2016describing}, JoinUp platform \citep{hillenius2013free}.
@@ -216,7 +222,7 @@
 	\section{New asset life-cycle}
 	\label{sec:lifecycle-new}	
 	
-    The current asset life-cycle process is organised in six stages: \textit{inception (or evolution)}, \textit{implementation}, \textit{validation}, \textit{release}, \textit{publication} and \textit{consumption}. Each of the stages represents a business sub-process. Figure \ref{fig:lifecycle-current-stages} depicts the order in which stages flow and indicates that each stage process accesses a data asset, the central artefact in the diagram.
+    The new asset life-cycle process is organised in six stages: \textit{inception (or evolution)}, \textit{implementation}, \textit{validation}, \textit{release}, \textit{publication} and \textit{consumption}. Each of the stages represents a business sub-process. Figure \ref{fig:lifecycle-new-stages} depicts the order in which stages flow and indicates that each stage process accesses a data asset, the central artefact in the diagram.
 	
 	%TODO: place the new one here
 	\begin{figure}[h]
@@ -231,11 +237,11 @@
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=1.05\textwidth]{images/business/Lifecycle (new).png}
-		\caption{The current asset life-cycle stages and roles}
+		\caption{The new asset life-cycle stages and roles}
 		\label{fig:lifecycle-new}
 	\end{figure}
 	
-	This process is similar, in structure and stage names, to the current one: i.e. six stages are circularly linked: inception/evolution, implementation, \textit{validation}, release, publication and consumption. The main difference in the stages is the replacement of the pre-release by a validation stage. Also, there are significant changes in the process structure of three stages, namely: implementation, validation and release. The inception/evolution stage is identical to the current one, and the publication stage is almost unchanged. 
+	This process is similar, in structure and stage names, except one, to the current one: i.e. six stages are circularly linked: inception/evolution, implementation, \textit{validation}, release, publication and consumption. The main difference in the stages is the replacement of the pre-release by the validation stage. Also, there are significant changes in the process structure of three stages, namely: implementation, validation and release. The inception/evolution stage is identical to the current one, and the publication stage is almost unchanged. 
 	
 	In the following sections, the stages different from the baseline lifecycle are described in detail, while the unchanged ones are skipped.
 		
@@ -626,5 +632,9 @@
 	
 	What is left, at this stage, from the technical point of view, is packaging and distributing the publication packages to the data disseminators. The process ends when the latest version of published assets are accessible via the selected data disseminators and the broad public is informed. 
 	
+	\enlargethispage{3em}
+	
 	This section finishes the description of the business architecture. Next is presented the application architecture accounting for necessary services and capabilities that must be in place to serve the current business processes along with an account of what components realise such services. 
+	
+	
 	

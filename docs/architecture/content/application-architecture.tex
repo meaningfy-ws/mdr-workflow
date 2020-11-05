@@ -132,6 +132,8 @@
 	
 	File management \& versioning is realised through SVN \cite{svn}. In the current application architecture this serves as a foundation for process automation, the triggers being any operations within the SVN repository. The mechanisms employed are similar to what an automation server is doing in the software development context: triggering automatic building, testing and deploying, facilitating continuous integration and continuous delivery. No such automation server is, however, used due to infrastructure limitations that existed in the past and a custom SVN handler component was developed within the legacy workflow system. 
 	
+	\enlargethispage{1em}
+	
 	In the new architecture, the possibility to continue the same practice of automating process executions based on SVN triggers is still there. Moreover, it is advisable replacing the current SVN handler by an automation system, such as Jenkins \citep{jenkins} or Bamboo \cite{bamboo}. This suggestion is not depicted in the diagram because the current workflow SVN handler could still serve in the immediate future; however, in the long run, the alternative is recommended.
 	
 	In the current system, the asset metadata and workflow design management is centralised in a custom-built XML file called the ``Vocabulary table''. The vocabulary table is an XML file which serves three functions. It contains descriptions of currently-administered digital assets, descriptions of generic process execution flows and decision rules for alternative flows specific to some assets. This aggregation of multiple responsibilities complicates both the maintenance and evolution and shall be separated in the future. 
@@ -143,6 +145,8 @@
 	Workflow management could be taken over by any workflow management and execution engine that implements service orchestration\footnote{In system administration, orchestration is the automated configuration, coordination, and management of computer systems and software. A number of tools exist for automation of server configuration and management, including Ansible, Puppet, Salt, Terraform, and AWS CloudFormation.} or choreography\footnote{Service choreography is a form of service composition in which the interaction protocol between several partner services is defined from a global perspective.}. 
 	
 	This could be taken one step further towards a BPMN \citep{bpmn-introduction} execution engine such as Camunda BPM, Flowable and Bonita BPM. There is an installation and configuration overhead for such a system, but the investment is worth considering knowing that they ship with tools for creating workflow and decision models, operating deployed models in production, and allowing users to execute workflow tasks assigned to them. 
+	
+	\enlargethispage{1em}
 	
 	Now we should focus on the top of the middle lane, to the data validation and version diffing services. The components that realise them are split between the left and right lanes. This means that currently validation is performed using the XML validator and the version diffing is performed using XML differ, while in the new application, validation is realised using a SHACL \citep{shacl-spec} validator, and version diffing using an RDF differ. The SHACL validator and RDF differ are custom components developed for the new application context.
 	
@@ -188,12 +192,8 @@
 		\label{fig:application-release}
 	\end{figure}
 
-    \enlargethispage{3em}
-    
 	Currently, in the release stage described in Section \ref{sec:release-current}, the asset(s) are mainly copied from one part of the common repository into a another which is dedicated to the artefacts that follow to be published. 
-	
-	
-	
+
 	In the new release stage, in addition to the copying operation, all data transformation operations described in Section \ref{sec:publication-current} are also executed leaving the (new) publication stage to deal with packaging and dissemination mainly (from a technical perspective).
 	
 	This is reflected in the new application architecture depicted in the right lane. The data transformation services are employed here, not only in their current form, dealing with various formats consumed by the current clients (XSD, MarkXML, GeoJSON, etc.), but also with complex transformation operations on RDF representation. The former is realised through the same XSLT engine component, while the latter is realised through a new component called LinkedPipes ETL \citep{linkedpipes-klimek2016linkedpipes,linkedpipes-klimek2017linkedpipes}.

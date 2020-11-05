@@ -43,3 +43,27 @@
 	SOA is believed to help businesses respond more quickly and more cost-effectively to changing market conditions. This style of architecture promotes high component reuse and facilitates interconnection between components. The SOA systems are known to be resilient in the light of changing technologies because the components are loosely coupled and could easily be replaced by alternative implementations exposing with the same interfaces.	SOA could be regarded as an architectural evolution rather than as a revolution. It captures many of the best practices of previous software architectures and it is a practical approach for cloud computing \citep{velte2019cloud}.
 	
 	Service-oriented architecture can be implemented with web services or Micro-services \citep{brandner2004web}. This is done to make the functional building-blocks accessible over standard Internet protocols that are independent of platforms and programming languages. These services can represent either new applications or just wrappers around existing legacy systems to make them network-enabled \citep{channabasavaiah2003migrating}. We recommend this approach for the transition to a micro-service based application. First the micro-services can be implemented as wrappers around existent components and at a later stage the components can be replaced by modern implementations. 
+	
+	\section{Target architecture overview}
+	
+	The new asset life-cycle process is organised in six stages: \textit{inception (or evolution)}, \textit{implementation}, \textit{validation}, \textit{release}, \textit{publication} and \textit{consumption}. Each of the stages represents a business sub-process. Figure \ref{fig:lifecycle-new-stages-overview} depicts the order in which stages flow and indicates that each stage process accesses a data asset, the central artefact in the diagram.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{docs/architecture/images/business/Lifecycle process only (new).png}
+		\caption{The target architecture of the asset publishing life-cycle}
+		\label{fig:lifecycle-new-stages-overview}
+	\end{figure}
+	
+	A more detailed representation of the process life-cycle is provided in Figure \ref{fig:lifecycle-new-overview} below. It is provided here for introducing the reader to the target architecture. The details surrounding this overview are laid out in the next sections. 
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.05\textwidth]{images/business/Lifecycle (new).png}
+		\caption{The new asset life-cycle stages and roles}
+		\label{fig:lifecycle-new-overview}
+	\end{figure}
+	
+	The life-cycle process stages, represented by red rectangles with an arrow symbol inside, are linearly sequenced inside the asset lifecycle process, which is placed inside the ``standardisation unit'' box signifying that these processes are executed by the SU, while the ``Consumption'' stage is placed outside meaning that it is an external process and is not in scope. The detailed description of the life-cycle architecture is provided in Section \ref{sec:lifecycle-new}.
+	
+	The yellow boxes, resembling a cylinder placed around the perimeter of the asset lifecycle, represent agent roles involved in process stages. The arrows indicate in which stage each role participate. As can be seen, one role can participate in multiple stages an required. The derailed definition of roles is provided in Section \ref{sec:lifecycle-roles} and how they are involved is described in Section \ref{sec:lifecycle-new}. Additional details are specified in the business use case scenarios covered in Section \ref{sec:business-use cases} while a contrast to the workflows can be established through Section\ref{sec:lifecycle-current-stages}.
