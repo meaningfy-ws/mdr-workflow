@@ -40,7 +40,7 @@ services:
     container_name: rdf-validator-api
     image: meaningfy/rdf-validator-api:latest
     ports:
-      - ${VALIDATOR_API_PORT}:${VALIDATOR_API_PORT}
+      - ${RDF_VALIDATOR_API_PORT}:${RDF_VALIDATOR_API_PORT}
     env_file: .env
     restart: always
     networks:
@@ -50,7 +50,7 @@ services:
     container_name: rdf-validator-ui
     image: meaningfy/rdf-validator-ui:latest
     ports:
-      - ${VALIDATOR_UI_PORT}:${VALIDATOR_UI_PORT}
+      - ${RDF_VALIDATOR_UI_PORT}:${RDF_VALIDATOR_UI_PORT}
     env_file: .env
     restart: always
     depends_on:
@@ -218,7 +218,7 @@ services:
       - ADMIN_PASSWORD=${RDF_FINGERPRINTER_FUSEKI_ADMIN_PASSWORD}
       - JVM_ARGS=${RDF_FINGERPRINTER_FUSEKI_JVM_ARGS}
     ports:
-      - 3020:3030
+      - ${RDF_FINGERPRINTER_FUSEKI_PORT}:3030
     volumes:
           - rdf-fingerprinter-fuseki:/fuseki
     networks:
