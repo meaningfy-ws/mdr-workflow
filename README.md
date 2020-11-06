@@ -4,19 +4,15 @@ This repository provides the enterprise architecture and description of capabili
 # Documents
 * The *architectural design* and the detailed deployment specifications are provided in the [Enterprise Architecture document](docs/architecture/enterprise-architecture.pdf). 
 * The *enterprise architecture model* is provided in the [Workflow model](docs/workflow-ea.eapx)
-
+* The *technical guide* for installing and runnign the services are provided in the [Installation guide for the asset publishing workflow services](docs/tech-manual/tech-manual.pdf). 
 
 
 # Repository Structure
-
-* /deliveables - the set of delievrables as agreed in the project proposal
-* /deliveables/wp1.1-2 - Work packages WP1.1 and WP1.2 aggregated as Delivery bulk A
-
-
 * /docs - the documentation specific to this project
 * /docs/architecture - the LaTeX source of the enterprise architecture document
-* /docs/architecture - database of literature references used in the enterprise architecture document 
-
+* /docs/references - a database of literature references used in the enterprise architecture document and technical user manual 
+* /docs/tech-manual - the technical user manual for installing and runnign the services
+* /docker -the docker files representing specification and configurations for running the services on a target server
 * README.md - this file
 
 # Services and their respective configurations
