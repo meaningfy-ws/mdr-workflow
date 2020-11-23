@@ -10,7 +10,7 @@ Feature: Test functionality of rdf-validator-ws running in a docker container
 
   Scenario: Main success scenario for SPARQL endpoint and RDF validation report
     Given the SCHEMA file /tests/test_data/skosShapes.shapes.ttl
-    And the URL with value http://localhost:3030/treaty-fragment/query
+    And the URL with value http://localhost:3030/treaty-demo/query
     When I navigate to the location /validate-sparql-endpoint
     And I upload in the field schema_files with SCHEMA
     And I fill in the field endpoint_url with URL
