@@ -1,7 +1,33 @@
 \section{Configuration}
 \label{sec:configuration}
+	The deployment suite of micro-services is defined docker-compose.yml file. At deployment and at runtime, the service configurations are provided through OS environment variables available in the \textit{.env} file. The role of the .env file is to enable the system administrators to easily change default configurations as necessary in the context of their environment.
+
+    The suite of micro-services is built, started and shut down via docker-compose, a tool designed especially for managing multi-container Docker applications, by describing them in a single file. Then, with a single command, you create and build, start or stop all the services using that configuration file.
     
-    The deployment suite of micro-services is defined docker-compose.yml file. At deployment and at runtime, the service configurations are provided through OS environment variables available in the \textit{.env} file. The role of the .env file is to enable the system administrators to easily change default configurations as necessary in the context of their environment. 
+    In order to avoid hard coding parameters, docker-compose allows you to define them externally. You have the option to define them as operating system level environment variables or provide them in a single file, which is passed as a parameter to the docker-compose tool using the \textit{--env-file} command line argument. Having them in a single file makes much more sense and it is more pragmatic, as you can see and manage all parameters in one place, add the file to the version control system (the contents of the file will evolve and be in sync with the actual code) and have different files for different environments.
+    
+    The file is usually named \textit{.env} and contains all of the parameters that you want to be able to change and that you need to build and run the defined containers. 
+    
+    Having the parameters in an \textit{.env} file is very useful in a multitude of scenarios, where you would want to have different configurations for different environments where you might want to deploy. As a more specific example, consider a continuous delivery pipeline and the URLs and ports you want your containers to bind (or to connect) to. You thus can easily have two \textit{.env} files, one named \textit{test.env} and one named \textit{acceptance.env}. Each file would have the same declared variables, but with different values for each of the continuous delivery pipeline stage where it’s being deployed. The benefit is that you deploy and test/use the same containers/artifacts and are able to configure them, on the spot, according to the environment that they are integrated with.
+    
+    
+    Let’s take, for example, the RDF Differ user interface Docker container, which is defined, in the \textit{docker-compose.yml} file as it follows:
+\begin{lstlisting}[]
+    rdf-differ-ui:
+    	container_name: rdf-differ-ui
+    	image: meaningfy/rdf-differ-ui:latest
+    	ports:
+    		- ${RDF_DIFFER_UI_PORT}:${RDF_DIFFER_UI_PORT}
+    	env_file: .env
+    	restart: always
+    	networks:
+    		- mydefault
+\end{lstlisting}
+    The variable used in the definition of this service is just one, \textbf{\textit{RDF\_DIFFER\_UI\_PORT}}. And the place where docker-compose will look for that variable is specified in the \textbf{\textit{env\_file: .env}} line.
+    
+    Now, if you look in the “.env” file, you will quickly see that the variable is defined as \textbf{\textit{RDF\_DIFFER\_UI\_PORT=8030}}. Change the value of the port, rebuild the micro-services and RDF Differ will no longer be listening on 8030, but on the new port that you specified.
+    
+    
     This section describes the important configurations options available for each of the services.
 	
 	\subsection{RDF differ}
