@@ -37,6 +37,8 @@ stop-services:
 #-----------------------------------------------------------------------------
 build-template-volumes:
 	@ docker volume create rdf-differ-template
+	@ docker volume create rdf-validator-template
+	@ docker volume create rdf-fingerprinter-template
 
 differ-set-report-template:
 	@ [ "$(location)" ] || ( echo ">> template 'location' is not set"; exit 1 )
@@ -45,5 +47,25 @@ differ-set-report-template:
 	@ docker volume rm rdf-differ-template | true
 	@ docker volume create rdf-differ-template
 	@ docker container create --name temp -v rdf-differ-template:/data busybox
+	@ docker cp $(location). temp:/data
+	@ docker rm temp
+
+validator-set-report-template:
+	@ [ "$(location)" ] || ( echo ">> template 'location' is not set"; exit 1 )
+	@ echo "$(BUILD_PRINT)Copying custom validator template"
+	@ docker rm temp | true
+	@ docker volume rm rdf-validator-template | true
+	@ docker volume create rdf-validator-template
+	@ docker container create --name temp -v rdf-validator-template:/data busybox
+	@ docker cp $(location). temp:/data
+	@ docker rm temp
+
+fingerprinter-set-report-template:
+	@ [ "$(location)" ] || ( echo ">> template 'location' is not set"; exit 1 )
+	@ echo "$(BUILD_PRINT)Copying custom fingerprinter template"
+	@ docker rm temp | true
+	@ docker volume rm rdf-fingerprinter-template | true
+	@ docker volume create rdf-fingerprinter-template
+	@ docker container create --name temp -v rdf-fingerprinter-template:/data busybox
 	@ docker cp $(location). temp:/data
 	@ docker rm temp
