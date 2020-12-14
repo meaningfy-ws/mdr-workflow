@@ -6,6 +6,8 @@ services:
     image: meaningfy/rdf-differ-api:latest
     ports:
       - ${RDF_DIFFER_API_PORT}:${RDF_DIFFER_API_PORT}
+    volumes:
+      - rdf-differ-template:${RDF_DIFFER_TEMPLATE_LOCATION}
     env_file: .env
     restart: always
     networks:
@@ -248,7 +250,13 @@ volumes:
   linkedpipes-configuration:
     name: linkedpipes-configuration
     external: true
+  rdf-differ-template:
+    external: true
 
 networks:
   mydefault:
     name: globalnet
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.57.0/24

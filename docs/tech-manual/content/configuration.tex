@@ -58,6 +58,49 @@
 	\end{longtable}
 
 	Please note that the domain specified in in the URL is only available inside the Docker network and is not visible from the outside. Its purpose is to provide a named way for a service to connect to another service. 
+
+		\subsubsection{Custom Template Configuration}
+		The \textbf{default diff report} template resides in \\ \texttt{/usr/src/app/resources/templates/diff\_report}.
+
+		The custom template functionality is implemented using \textbf{\href{https://docs.docker.com/storage/volumes/}{docker's volumes}} mechanism. This implementation has been chosen as it requires no code modifications from the end-user's side.
+		
+		An externally defined volume \texttt{rdf-differ-template} which will contain the externally defined template (aka: the custom template), which in turn is coupled with the \texttt{rdf-differ-api} docker container to use when generating the reports.
+		\begin{lstlisting}[]
+volumes:
+- rdf-differ-template:${RDF_DIFFER_TEMPLATE_LOCATION}
+		\end{lstlisting}
+		The lines above map the custom template that has been copied to the docker volume with the internal location of the container which has been defined in the \texttt{.env} file.
+		
+		To configure your own template you can copy the default report template and adjust it to your needs. Read more about the required structure of the template on the \href{https://eds4jinja2.readthedocs.io/en/latest/#target-directory-layout}{\underline{eds4jinja2}} documentation page.
+ 
+		\subsubsection{Use the custom template}
+		After you have your custom template, run the \texttt{make} command, indicating the location of your template through the \texttt{location} variable. fdsfdsafa
+		\begin{lstlisting}[language=bash]
+make location=<location to template> differ-set-report-template
+		\end{lstlisting}
+
+		\textbf{NOTE}: Make sure that the location specified ends with a trailing slash \texttt{/}, otherwise the command will not work propery and the templates will not be copied to the docker volume.
+
+		Example:
+		\begin{lstlisting}[language=bash]
+make location=~/template/location/ differ-set-report-template
+		\end{lstlisting}
+		 
+		\subsubsection{Use the custom template}
+		After you have your custom template, run the \texttt{make} command, indicating the location of your template through the \texttt{location} variable. fdsfdsafa
+		\begin{lstlisting}[language=bash]
+make location=<location to template> differ-set-report-template
+		\end{lstlisting}
+
+		\textbf{NOTE}: Make sure that the location specified ends with a trailing slash \texttt{/}, otherwise the command will not work propery and the templates will not be copied to the docker volume.
+
+		Example:
+		\begin{lstlisting}[language=bash]
+make location=~/template/location/ set-report-template
+		\end{lstlisting}
+
+		After this, restart the \texttt{rdf-differ-api} container for the effects to take place.
+
 	
 	\subsection{RDF differ dedicated triple store}
 	
