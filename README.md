@@ -2,9 +2,9 @@
 This repository provides the enterprise architecture and description of capabilities necessary for the digital transformation of the asset publishing life-cycle workflow.   
 
 # Documents
-* The *architectural design* and the detailed deployment specifications are provided in the [Enterprise Architecture document](docs/architecture/enterprise-architecture.pdf). 
-* The *enterprise architecture model* is provided in the [Workflow model](docs/workflow-ea.eapx)
-* The *technical guide* for installing and runnign the services are provided in the [Installation guide for the asset publishing workflow services](docs/tech-manual/tech-manual.pdf). 
+* The *architectural design* and the detailed deployment specifications are provided in the [Enterprise Architecture document](./architecture/enterprise-architecture.pdf). 
+* The *enterprise architecture model* is provided in the [Workflow model](./workflow-ea.eapx)
+* The *technical guide* for installing and running the services are provided in the [Installation guide for the asset publishing workflow services](./tech-manual/tech-manual.pdf). 
 
 
 # Repository Structure
