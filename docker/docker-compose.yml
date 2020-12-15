@@ -6,6 +6,8 @@ services:
     image: meaningfy/rdf-differ-api:latest
     ports:
       - ${RDF_DIFFER_API_PORT}:${RDF_DIFFER_API_PORT}
+    volumes:
+      - rdf-differ-template:${RDF_DIFFER_TEMPLATE_LOCATION}
     env_file: .env
     restart: always
     networks:
@@ -41,6 +43,8 @@ services:
     image: meaningfy/rdf-validator-api:latest
     ports:
       - ${RDF_VALIDATOR_API_PORT}:${RDF_VALIDATOR_API_PORT}
+    volumes:
+      - rdf-validator-template:${RDF_VALIDATOR_TEMPLATE_LOCATION}
     env_file: .env
     restart: always
     networks:
@@ -192,6 +196,8 @@ services:
     image: meaningfy/rdf-fingerprinter-api:latest
     ports:
       - ${RDF_FINGERPRINTER_API_PORT}:${RDF_FINGERPRINTER_API_PORT}
+    volumes:
+      - rdf-fingerprinter-template:${RDF_FINGERPRINTER_TEMPLATE_LOCATION}
     env_file: .env
     restart: always
     networks:
@@ -247,6 +253,12 @@ volumes:
   linkedpipes-data-storage:
   linkedpipes-configuration:
     name: linkedpipes-configuration
+    external: true
+  rdf-differ-template:
+    external: true
+  rdf-validator-template:
+    external: true
+  rdf-fingerprinter-template:
     external: true
 
 networks:

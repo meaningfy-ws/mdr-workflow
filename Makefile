@@ -16,7 +16,7 @@ test:
 	@ pytest
 
 set-linekdpipes-etl-configurations:
-	@ echo "$(BUILD_PRINT)Setting configuratiosn for LinkedPipes ETL"
+	@ echo "$(BUILD_PRINT)Setting configuration for LinkedPipes ETL"
 	@ docker rm temp | true
 	@ docker volume rm linkedpipes-configuration | true
 	@ docker volume create linkedpipes-configuration
@@ -31,3 +31,41 @@ start-services: set-linekdpipes-etl-configurations
 stop-services:
 	@ echo "$(BUILD_PRINT)Stopping the Docker compose services"
 	@ docker-compose --file docker/docker-compose.yml --env-file docker/.env down
+
+#-----------------------------------------------------------------------------
+# Template commands
+#-----------------------------------------------------------------------------
+build-template-volumes:
+	@ docker volume create rdf-differ-template
+	@ docker volume create rdf-validator-template
+	@ docker volume create rdf-fingerprinter-template
+
+differ-set-report-template:
+	@ [ "$(location)" ] || ( echo ">> template 'location' is not set"; exit 1 )
+	@ echo "$(BUILD_PRINT)Copying custom differ template"
+	@ docker rm temp | true
+	@ docker volume rm rdf-differ-template | true
+	@ docker volume create rdf-differ-template
+	@ docker container create --name temp -v rdf-differ-template:/data busybox
+	@ docker cp $(location). temp:/data
+	@ docker rm temp
+
+validator-set-report-template:
+	@ [ "$(location)" ] || ( echo ">> template 'location' is not set"; exit 1 )
+	@ echo "$(BUILD_PRINT)Copying custom validator template"
+	@ docker rm temp | true
+	@ docker volume rm rdf-validator-template | true
+	@ docker volume create rdf-validator-template
+	@ docker container create --name temp -v rdf-validator-template:/data busybox
+	@ docker cp $(location). temp:/data
+	@ docker rm temp
+
+fingerprinter-set-report-template:
+	@ [ "$(location)" ] || ( echo ">> template 'location' is not set"; exit 1 )
+	@ echo "$(BUILD_PRINT)Copying custom fingerprinter template"
+	@ docker rm temp | true
+	@ docker volume rm rdf-fingerprinter-template | true
+	@ docker volume create rdf-fingerprinter-template
+	@ docker container create --name temp -v rdf-fingerprinter-template:/data busybox
+	@ docker cp $(location). temp:/data
+	@ docker rm temp
