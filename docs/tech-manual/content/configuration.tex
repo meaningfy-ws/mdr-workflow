@@ -302,11 +302,11 @@ make location=~/template/location/ validator-set-report-template
 	
 	\subsection{LinkedPipes ETL services}
 	
-	LinkedPipes ETL is deployed as a set of four services: storage, executor, executor monitor and the user interface. Additionally a dedicated triple store is provided. 
+	LinkedPipes ETL is deployed as a set of four dockerised services: storage, executor, executor monitor and the user interface. Additionally a dedicated triple store is also considered and described in the next section. 
 	
-	A special configurations file (\textit{configurations.properties}) is available in the cloned Git repository. This configurations file mirrors the currently established environment variables, which are enumerated below. 
-	
+	LinekdPipes ETL services are configured with  (a) a set of environment variables to control the Docker containers and (b) a special configurations file (\textit{configurations.properties}), which is used natively by the LinkedPipes ETL components (running inside the container). This configurations file mirrors the  established environment variables enumerated below.
 
+	
 	\begin{longtable}[c]{@{}p{5cm}p{4cm}l@{}}
 		\toprule
 		Description & Value & Associated variable \\* \midrule
@@ -321,17 +321,18 @@ make location=~/template/location/ validator-set-report-template
 		%
 		\endlastfoot
 		%
-		Storage service port & 8063 & LP\_ETL\_STORAGE\_PORT \\
-		Storage domain & http://localhost:8060 & LP\_ETL\_DOMAIN \\
+		Storage service port & 8063 & LP\_ETL\_STORAGE\_PORT \\		
 		Executor service port & 8065 & LP\_ETL\_EXECUTOR\_PORT \\
-		Executor domain & http://localhost:8060 & LP\_ETL\_DOMAIN \\
-		Executor monitor service port & 8061 & LP\_ETL\_MONITOR\_PORT \\
-		Executor monitor domain & http://localhost:8060 & LP\_ETL\_DOMAIN \\
+		Executor monitor service port & 8061 & LP\_ETL\_MONITOR\_PORT \\		
 		Service UI port & 8060 & LP\_ETL\_PORT \\
-		UI domain & http://localhost:8060 & LP\_ETL\_DOMAIN \\* \bottomrule
+		Service domain & http://localhost:8060 & LP\_ETL\_DOMAIN \\* \bottomrule
 		\caption{LinkedPipes ETL services configurations}
 		\label{tab:my-table5}\\
 	\end{longtable}
+	
+	Note that it is important to change the LP\_ETL\_DOMAIN each time the deployment environment changes. If it runs locally please set the value to be \textit{http://localhost:8060}, otherwise if it runs on a dedicated domain, the variable value must be set accordingly. If this is not done, the services will run but will not be able to load any pipelines because of a mismatch between the domain in the pipeline URI (created by using the variable value) and the domain of the service host. 
+	
+	The special \textit{configuration.properties} file, as mentioned above must be in synch with the port numbers of the environment variables. The meaning of these variables is explained on the LinkedPipes ETL website. They have been preconfigured, so that no changes are necessary there but of course they can be adjusted if needed. The native configuration file is available next to the \textit{docker-compose.yml} in the subfolder \textit{linkedpipes-etl/configuration}. The content of this file with descriptions of parameters as provided by the LinkedPipes ETL authors is available in the Section \ref{sec:appendinx1}. 	
 	
 	\subsection{LinkedPipes ETL dedicated triple store}
 	
