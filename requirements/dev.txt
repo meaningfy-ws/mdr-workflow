@@ -11,8 +11,9 @@ beautifulsoup4
 flake8
 
 # Documentation Dependencies
-myst-parser
-sphinx<3
+sphinx
+sphinx-markdown-tables
+recommonmark
 sphinxcontrib-apidoc
 
 
