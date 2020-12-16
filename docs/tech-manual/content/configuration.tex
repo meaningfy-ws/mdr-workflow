@@ -59,23 +59,24 @@
 
 	Please note that the domain specified in in the URL is only available inside the Docker network and is not visible from the outside. Its purpose is to provide a named way for a service to connect to another service. 
 
-		\subsubsection{Custom Template Configuration}
+		\subsubsection{Custom template configuration}
 		The \textbf{default diff report} template resides in \\ \texttt{/usr/src/app/resources/templates/diff\_report}.
 
 		The custom template functionality is implemented using \textbf{\href{https://docs.docker.com/storage/volumes/}{docker's volumes}} mechanism. This implementation has been chosen as it requires no code modifications from the end-user's side.
 		
-		An externally defined volume \texttt{rdf-differ-template} which will contain the externally defined template (aka: the custom template), which in turn is coupled with the \texttt{rdf-differ-api} docker container to use when generating the reports.
+		An externally defined volume \texttt{rdf-differ-template} which will contain the externally defined template (i.e. the custom template), which in turn is coupled with the \texttt{rdf-differ-api} docker container to use when generating the reports. The coupling of the volume to the service container is done with the following statement, which is included in the default docker compose configuration. 
 
 		\begin{lstlisting}[]
 volumes:
 - rdf-differ-template:${RDF_DIFFER_TEMPLATE_LOCATION}
 		\end{lstlisting}
 
-		\texttt{RDF\_DIFFER\_TEMPLATE\_LOCATION} is an environment variable used in the internal implementation of the \texttt{rdf-differ} service.
-
 		The lines above map the custom template that has been copied to the docker volume with the internal location of the container which has been defined in the \texttt{.env} file.
 		
-		To configure your own template you can copy the default report template and adjust it to your needs. Read more about the required structure of the template on the \href{https://eds4jinja2.readthedocs.io/en/latest/#target-directory-layout}{\underline{eds4jinja2}} documentation page.
+		\texttt{RDF\_DIFFER\_TEMPLATE\_LOCATION} is an environment variable used in the internal implementation of the \texttt{rdf-differ} service. Because it is internal it was not mentioned in Table \ref{tab:my-table1}.
+		
+		To configure your own template you can copy the default report template and adjust it to your needs or design a new one from scratch. 
+		The templates are written in \textit{Jinja2} templating language \citep{jinja2}. The data source access is facilitated through the \textit{eds4jinja2} library \citep{eds4jinja2}. If you are familiar with Jinja2 language a short introduction to how to use eds4jinja2 is available on the documentation page\footnote{\url{https://eds4jinja2.readthedocs.io/en/latest/}}. Also the default template can be seen as an example accessible in the repository\footnote{\url{https://github.com/meaningfy-ws/rdf-differ/tree/master/resources/templates/diff_report}}.
 		 
 		\subsubsection{Use the custom template}
 		After you have your custom template, run the \texttt{make} command, indicating the location of your template through the \texttt{location} variable.
@@ -156,7 +157,8 @@ make location=~/template/location/ differ-set-report-template
 
 		The custom template functionality is implemented using \textbf{\href{https://docs.docker.com/storage/volumes/}{docker's volumes}} mechanism. This implementation has been chosen as it requires no code modifications from the end-user's side.
 
-		An externally defined volume \texttt{rdf-fingerprinter-template} which will contain the externally defined template (aka: the custom template), which in turn is coupled with the \texttt{rdf-fingerprinter-api} docker container to use when generating the reports.
+		An externally defined volume \texttt{rdf-fingerprinter-template} which will contain the externally defined template (aka: the custom template), which in turn is coupled with the \texttt{rdf-fingerprinter-api} docker container to use when generating the reports. The coupling of the volume to the service container is done with the following statement, which is included in the default docker compose configuration. 
+		
 		\begin{lstlisting}[]
 volumes:
 - rdf-fingerprinter-template:${RDF_FINGERPRINTER_TEMPLATE_LOCATION}
@@ -166,7 +168,8 @@ volumes:
 
 		The lines above map the custom template that has been copied to the docker volume with the internal location of the container which has been defined in the \texttt{.env} file.
 
-		To configure your own template you can copy the default report template and adjust it to your needs. Read more about the required structure of the template on the \href{https://eds4jinja2.readthedocs.io/en/latest/#target-directory-layout}{\underline{eds4jinja2}} documentation page.
+		To configure your own template you can copy the default report template and adjust it to your needs or design a new one from scratch. 
+		The templates are written in \textit{Jinja2} templating language \citep{jinja2}. The data source access is facilitated through the \textit{eds4jinja2} library \citep{eds4jinja2}. If you are familiar with Jinja2 language a short introduction to how to use eds4jinja2 is available on the documentation page\footnote{\url{https://eds4jinja2.readthedocs.io/en/latest/}}. Also the default template can be seen as an example accessible in the repository\footnote{\url{https://github.com/meaningfy-ws/rdf-fingerprinter/tree/master/fingerprint_report_templates/fingerprint_report}}.
 
 		\subsubsection{Use the custom template}
 		After you have your custom template, run the \texttt{make} command, indicating the location of your template through the \texttt{location} variable.
@@ -248,7 +251,7 @@ make location=~/template/location/ fingerprinter-set-report-template
 
 	The custom template functionality is implemented using \textbf{\href{https://docs.docker.com/storage/volumes/}{docker's volumes}} mechanism. This implementation has been chosen as it requires no code modifications from the end-user's side.
 	
-	An externally defined volume \texttt{rdf-validator-template} which will contain the externally defined template (aka: the custom template), which in turn is coupled with the \texttt{rdf-validator-api} docker container to use when generating the reports.
+	An externally defined volume \texttt{rdf-validator-template} which will contain the externally defined template (aka: the custom template), which in turn is coupled with the \texttt{rdf-validator-api} docker container to use when generating the reports.  The coupling of the volume to the service container is done with the following statement, which is included in the default docker compose configuration. 
 
 	\begin{lstlisting}[]
 volumes:
@@ -259,7 +262,8 @@ volumes:
 
 	The lines above map the custom template that has been copied to the docker volume with the internal location of the container which has been defined in the \texttt{.env} file.
 	
-	To configure your own template you can copy the default report template and adjust it to your needs. Read more about the required structure of the template on the \href{https://eds4jinja2.readthedocs.io/en/latest/#target-directory-layout}{\underline{eds4jinja2}} documentation page.
+	To configure your own template you can copy the default report template and adjust it to your needs or design a new one from scratch. 
+	The templates are written in \textit{Jinja2} templating language \citep{jinja2}. The data source access is facilitated through the \textit{eds4jinja2} library \citep{eds4jinja2}. If you are familiar with Jinja2 language a short introduction to how to use eds4jinja2 is available on the documentation page\footnote{\url{https://eds4jinja2.readthedocs.io/en/latest/}}. Also the default template can be seen as an example accessible in the repository\footnote{\url{https://github.com/meaningfy-ws/rdf-validator-ws/tree/master/resources/templates/validator_report}}.
 		
 	\subsubsection{Use the custom template}
 	After you have your custom template, run the \texttt{make} command, indicating the location of your template through the \texttt{location} variable.
@@ -332,7 +336,7 @@ make location=~/template/location/ validator-set-report-template
 	
 	Note that it is important to change the LP\_ETL\_DOMAIN each time the deployment environment changes. If it runs locally please set the value to be \textit{http://localhost:8060}, otherwise if it runs on a dedicated domain, the variable value must be set accordingly. If this is not done, the services will run but will not be able to load any pipelines because of a mismatch between the domain in the pipeline URI (created by using the variable value) and the domain of the service host. 
 	
-	The special \textit{configuration.properties} file, as mentioned above must be in synch with the port numbers of the environment variables. The meaning of these variables is explained on the LinkedPipes ETL website. They have been preconfigured, so that no changes are necessary there but of course they can be adjusted if needed. The native configuration file is available next to the \textit{docker-compose.yml} in the subfolder \textit{linkedpipes-etl/configuration}. The content of this file with descriptions of parameters as provided by the LinkedPipes ETL authors is available in the Section \ref{sec:appendinx1}. 	
+	The special \textit{configuration.properties} file\footnote{\url{https://github.com/meaningfy-ws/mdr-workflow/blob/master/docker/linkedpipes-etl/configuration/configuration.properties}}, as mentioned above must be in synch with the port numbers of the environment variables. The meaning of these variables is explained on the LinkedPipes ETL website. They have been preconfigured, so that no changes are necessary there but of course they can be adjusted if needed. The native configuration file is available next to the \textit{docker-compose.yml} in the subfolder \textit{linkedpipes-etl/configuration}. The content of this file with descriptions of parameters as provided by the LinkedPipes ETL authors is available in the Section \ref{sec:appendinx1}. 	
 	
 	\subsection{LinkedPipes ETL dedicated triple store}
 	
