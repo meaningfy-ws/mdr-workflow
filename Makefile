@@ -24,7 +24,7 @@ set-linekdpipes-etl-configurations:
 	@ docker cp ./docker/linkedpipes-etl/configuration/configuration.properties temp:/data
 	@ docker rm temp
 
-start-services: set-linekdpipes-etl-configurations
+start-services: set-linekdpipes-etl-configurations build-template-volumes
 	@ echo "$(BUILD_PRINT)Starting the Docker compose services"
 	@ docker-compose --file docker/docker-compose.yml --env-file docker/.env up -d
 

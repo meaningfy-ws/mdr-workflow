@@ -108,3 +108,23 @@ docker-compose --file docker/docker-compose.yml --env-file docker/.env up -d
 \begin{lstlisting}[language=bash,]
 docker-compose --file docker/docker-compose.yml --env-file docker/.env down
 \end{lstlisting}
+
+
+	\subsection{Set custom templates}
+ 
+	 RDF Differ, RDF Validator and RDF Fingerprinter support custom templates. The custom templates are stored in Docker volumes, and are explicitly marked to be externally created. Therefore, before running the service for the first time, ensure the volumes exist by running the following make command:
+
+\begin{lstlisting}[language=bash,]
+make build-template-volumes
+\end{lstlisting}	 
+	 	 
+	 Provided that the custom template is available on the host system in a \textit{location to template} you can set it by using the following makefile targets, which are prepared to facilitate this operation. 
+	 
+\begin{lstlisting}[language=bash,]
+make location=<location to template> differ-set-report-template
+make location=<location to template> validator-set-report-template
+make location=<location to template> fingerprinter-set-report-template
+\end{lstlisting}	 	 
+
+	The detailed explanation on how to configure them is provided in the Configuration section for each of these services (See Section \ref{sec:rdf-differ-ct}, \ref{sec:rdf-fingerprinter-ct}, \ref{sec:rdf-validator-ct} ). 
+ 

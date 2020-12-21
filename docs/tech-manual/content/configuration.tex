@@ -60,6 +60,7 @@
 	Please note that the domain specified in in the URL is only available inside the Docker network and is not visible from the outside. Its purpose is to provide a named way for a service to connect to another service. 
 
 		\subsubsection{Custom template configuration}
+		\label{sec:rdf-differ-ct}
 		The \textbf{default diff report} template resides in \\ \texttt{/usr/src/app/resources/templates/diff\_report}.
 
 		The custom template functionality is implemented using \textbf{\href{https://docs.docker.com/storage/volumes/}{docker's volumes}} mechanism. This implementation has been chosen as it requires no code modifications from the end-user's side.
@@ -153,6 +154,8 @@ make location=~/template/location/ differ-set-report-template
 	Please note that the URL is only available inside the same Docker network and is not visible from the outside. Its purpose is to provide a named way for a service to connect to another service.
 	
 	\subsubsection{Custom Template Configuration}
+	\label{sec:rdf-fingerprinter-ct}
+	
 		The \textbf{default fingerprinter report} template resides in the python fingerprinter package: \href{https://github.com/meaningfy-ws/rdf-fingerprinter/tree/master/fingerprint_report_templates/fingerprint_report}{\texttt{rdf-fingerprinter}}.
 
 		The custom template functionality is implemented using \textbf{\href{https://docs.docker.com/storage/volumes/}{docker's volumes}} mechanism. This implementation has been chosen as it requires no code modifications from the end-user's side.
@@ -247,6 +250,7 @@ make location=~/template/location/ fingerprinter-set-report-template
 	Note, when validating SPARQL endpoints, the fully qualified domain name of the machine must be specified. As a consequence, ``localhost'' domain will not work as expected.
 
 	\subsubsection{Custom Template Configuration}
+	\label{sec:rdf-validator-ct}
 	The \textbf{default validator report} template resides in \\ \texttt{/usr/src/app/resources/templates/validator\_report}.
 
 	The custom template functionality is implemented using \textbf{\href{https://docs.docker.com/storage/volumes/}{docker's volumes}} mechanism. This implementation has been chosen as it requires no code modifications from the end-user's side.
