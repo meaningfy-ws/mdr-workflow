@@ -4,7 +4,7 @@ This repository provides the enterprise architecture and description of capabili
 # Documents
 * The *architectural design* and the detailed deployment specifications are provided in the [Enterprise Architecture document](./architecture/enterprise-architecture.pdf). 
 * The *enterprise architecture model* is provided in the [Workflow model](./workflow-ea.eapx)
-* The *technical guide* for installing and running the services are provided in the [Installation guide for the asset publishing workflow services](./tech-manual/tech-manual.pdf). 
+* The *technical guide* for installing and running the services are provided in the [Installation guide for the asset publishing workflow services](../../EUVOCABULARIES/deliveries/wp1.3.8/tech-manual.pdf). 
 
 
 # Repository Structure
