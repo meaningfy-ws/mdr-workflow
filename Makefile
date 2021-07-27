@@ -32,6 +32,14 @@ stop-services:
 	@ echo "$(BUILD_PRINT)Stopping the Docker compose services"
 	@ docker-compose --file docker/docker-compose.yml --env-file docker/.env down
 
+start-fingerprinter: build-template-volumes
+	@ echo "$(BUILD_PRINT)Starting the Fingerprinter services"
+	@ docker-compose --file docker/docker-compose.yml --env-file .env up -d rdf-fingerprinter-fuseki rdf-fingerprinter-api rdf-fingerprinter-ui
+
+stop-services:
+	@ echo "$(BUILD_PRINT)Stopping the Docker compose services"
+	@ docker-compose --file docker/docker-compose.yml --env-file .env down rdf-fingerprinter-fuseki rdf-fingerprinter-api rdf-fingerprinter-ui
+
 #-----------------------------------------------------------------------------
 # Template commands
 #-----------------------------------------------------------------------------
@@ -39,6 +47,7 @@ build-template-volumes:
 	@ docker volume create rdf-differ-template
 	@ docker volume create rdf-validator-template
 	@ docker volume create rdf-fingerprinter-template
+	@ docker volume create linkedpipes-configuration
 
 differ-set-report-template:
 	@ [ "$(location)" ] || ( echo ">> template 'location' is not set"; exit 1 )
