@@ -1,8 +1,5 @@
 \section{Requirements}
 \label{sec:requirements}
-
-CentOS system with python version 3.8 a fuseki and redis service setup and available. 
-
 There is a range of ports that must be available on the host machine as they will be bound to by different services. Although the system administrator may choose to change them by changing the values in of specific environment variables. The inventory of pre-configured ports is provided in Table \ref{tab:port-inventory}.
 
 \begin{longtable}[c]{@{}p{3.64cm}p{1.25cm}p{1.25cm}p{1.9cm}p{5cm}@{}}
@@ -37,8 +34,7 @@ The minimal hardware requirements are as follows
 
 \section{Installation}
 \label{sec:installation}
-
-In order to run the services it is necessary to have the fuseki and redis services already setup and running with the appropriate ports and addresses configured in the environment variable file.
+In order for the services to function properly a CentOS system with python version 3.8, a fuseki, and redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file. 
 
 In case you are using Debian-like OS such as Ubuntu, you may simply run the following Bash commands to install and set the appropriate permissions.
 

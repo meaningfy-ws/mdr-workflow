@@ -1,14 +1,12 @@
 \section{Configuration}
 \label{sec:configuration}
-The deployment suite of micro-services is defined docker-compose.yml file. At deployment and at runtime, the service configurations are provided through OS environment variables available in the \textit{.env} file. The role of the .env file is to enable the system administrators to easily change default configurations as necessary in the context of their environment.
+At deployment and at runtime, the service configurations are provided through OS environment variables available in the \textit{.env} file. The role of the \textit{.env} file is to enable the system administrators to easily change default configurations as necessary in the context of their environment.
 
 The suite of micro-services is built, started and shut down via Makefile commands.
 
-In order to avoid hard coding parameters, they are defined externally in the \textit{.env}. Having them in a single file makes much more sense and it is more pragmatic, as you can see and manage all parameters in one place, add the file to the version control system (the contents of the file will evolve and be in sync with the actual code) and have different files for different environments.
+In order to avoid hard coding parameters, they are defined externally in the \textit{.env}. Having them in a single file makes  sense and it is more pragmatic, as you can see and manage all parameters in one place, add the file to the version control system (the contents of the file will evolve and be in sync with the actual code) and have different files for different environments.
 
 The file is named \textit{.env} and contains all of the parameters that you want to be able to change and that you need to build and run the defined containers. 
-
-Having the parameters in an \textit{.env} file is very useful in a multitude of scenarios, where you would want to have different configurations for different environments where you might want to deploy. As a more specific example, consider a continuous delivery pipeline and the URLs and ports you want your containers to bind (or to connect) to. You thus can easily have two \textit{.env} files, one named \textit{test.env} and one named \textit{acceptance.env}. Each file would have the same declared variables, but with different values for each of the continuous delivery pipeline stage where it’s being deployed. The benefit is that you deploy and test/use the same containers/artifacts and are able to configure them, on the spot, according to the environment that they are integrated with.
 
 This section describes the important configurations options available for each of the services.
 
@@ -38,6 +36,45 @@ The RDF differ application exposes an API and an UI and depends on a dedicated t
 	\caption{RDF differ configurations}
 	\label{tab:my-table1}                                                                 \\
 \end{longtable}
+
+\subsection{Celery worker}
+Celery is a simple, flexible, and reliable distributed system to process vast amounts of messages, while providing operations with the tools required to maintain such a system. It’s a task queue with focus on real-time processing.
+
+In the rdf differ project it serves the purpose of enabling multiprocessing of both diff creation and report generation.
+
+The RDF differ application uses the following Celery environment variables
+
+\begin{longtable}[c]{@{}p{3.5cm}p{3.5cm}l@{}}
+	\toprule
+	Description    & Value                  & Associated variable          \\* \midrule
+	\endfirsthead
+	%
+	\multicolumn{3}{c}%
+	{{\bfseries Table \thetable\ continued from previous page}}            \\
+	\endhead
+	%
+	\bottomrule
+	\endfoot
+	%
+	\endlastfoot
+	%
+	Redis location & \texttt{redis://redis} & RDF\_DIFFER\_REDIS\_LOCATION \\
+	Redis port     & 6379                   & RDF\_DIFFER\_REDIS\_PORT     \\*\bottomrule
+	\caption{Celery environment configurations}
+	\label{tab:celery-env}                                                  \\
+\end{longtable}
+
+More about the implementation of multiprocessing can be found in the \textit{adapters/celery.py}. A fragment of how celery is used and the asynchronous diff creation is presented below:
+
+\begin{lstlisting}
+celery_worker = Celery('rdf-differ-tasks', broker=RDF_DIFFER_REDIS_SERVICE, backend=RDF_DIFFER_REDIS_SERVICE)
+
+CELERY_CREATE_DIFF = 'create_diff'
+
+@celery_worker.task(name=CELERY_CREATE_DIFF, bind=True)
+def async_create_diff(...):
+	...
+\end{lstlisting}
 
 \subsection{Configure and read logs}
 Every service provided by the rdf differ has it's own log history and is configurable through the aforementioned \textit{.env} file. The current configuration accepts a relative path to where the logs to be written \textit{logs/api.log}, for example.
