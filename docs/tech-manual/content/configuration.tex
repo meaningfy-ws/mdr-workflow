@@ -6,9 +6,7 @@ The suite of micro-services is built, started and shut down via Makefile command
 
 In order to avoid hard coding parameters, they are defined externally in the \textit{.env}. Having them in a single file makes  sense and it is more pragmatic, as you can see and manage all parameters in one place, add the file to the version control system (the contents of the file will evolve and be in sync with the actual code) and have different files for different environments.
 
-The file is named \textit{.env} and contains all of the parameters that you want to be able to change and that you need to build and run the defined containers. 
-
-This section describes the important configurations options available for each of the services.
+The following sections describe the configuration options available for each of the services.
 
 \subsection{RDF differ}
 
@@ -46,11 +44,11 @@ The RDF differ application uses the following Celery environment variables
 
 \begin{longtable}[c]{@{}p{3.5cm}p{3.5cm}l@{}}
 	\toprule
-	Description    & Value                  & Associated variable          \\* \midrule
+	Description    & Value                      & Associated variable          \\* \midrule
 	\endfirsthead
 	%
 	\multicolumn{3}{c}%
-	{{\bfseries Table \thetable\ continued from previous page}}            \\
+	{{\bfseries Table \thetable\ continued from previous page}}                \\
 	\endhead
 	%
 	\bottomrule
@@ -58,10 +56,10 @@ The RDF differ application uses the following Celery environment variables
 	%
 	\endlastfoot
 	%
-	Redis location & \texttt{redis://redis} & RDF\_DIFFER\_REDIS\_LOCATION \\
-	Redis port     & 6379                   & RDF\_DIFFER\_REDIS\_PORT     \\*\bottomrule
+	Redis location & \texttt{redis://localhost} & RDF\_DIFFER\_REDIS\_LOCATION \\
+	Redis port     & 6379                       & RDF\_DIFFER\_REDIS\_PORT     \\*\bottomrule
 	\caption{Celery environment configurations}
-	\label{tab:celery-env}                                                  \\
+	\label{tab:celery-env}                                                     \\
 \end{longtable}
 
 More about the implementation of multiprocessing can be found in the \textit{adapters/celery.py}. A fragment of how celery is used and the asynchronous diff creation is presented below:
@@ -122,5 +120,3 @@ The RDF differ application uses the following environment variables to define lo
 	\caption{RDF differ log configurations}
 	\label{tab:rdf-differ-log}                                  \\
 \end{longtable}
-
-

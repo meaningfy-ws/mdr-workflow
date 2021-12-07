@@ -1,13 +1,17 @@
 \section{Add a new application profile template}
 
-The default application profile template is the diff report template that resides in \texttt{resource\slash templates\slash diff\textunderscore report} folder. For adding a new application profile create a new folder under \texttt{resource\slash templates} with the name of your new application profile and following the structure explained below.
+There are several application profiles already provided within the system that resides in \texttt{resource\slash templates} folder. For adding a new application profile create a new folder under \texttt{resource\slash templates} with the name of your new application profile and following the structure explained below.
+
 Folder structure needed for adding a new application profile:
+
+~
+~
+~
 
 \begin{lstlisting}
 templates/
- diff_report/
+  diff_report/
   new_application_profile/
-   config.json   <--- configuration file
    queries/      <--- contains SPARQL queries
     query1.rq
     query2.rq
@@ -50,6 +54,7 @@ Example:
 
 \subsubsection{Adjusting an existing template}
 \textbf{Adding a new query/section}
+
 To add a query a new file needs to be created and added into the queries folder as the system will autodiscover this. After this is done a new html file that will represent a new section needs to be created. The content of this is similar to the existing ones and the only thing that needs to be adjusted will be the query file name in the content variable definition as presented below:
 
 \begin{lstlisting}
@@ -128,12 +133,18 @@ For adding a count query that will be used in the statistics section the steps a
 \end{lstlisting}
 
 \textbf{Removing a query/section}
+
 To remove a section from the existing report you just need to delete or comment the include statement from the main.html file. If you decide to delete the include statement it's recommended to delete the query from the queries folder as well to avoid confusions later on.
+
+~
+~
 
 Example of include statement to remove:
 \begin{lstlisting}
 {% include "conceptscheme/labels/added_property_concept_scheme_pref_label.html" with context %}
 \end{lstlisting}
+
+~
 
 To remove a row from the statistics section just delete or comment the \texttt{<tr>} block from the \textit{statistics.html} file:
 \begin{lstlisting}

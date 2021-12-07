@@ -1,5 +1,61 @@
 \section{SPARQL Queries}
 
+\subsection{Change type inventory}
+This section provides a change type inventory along with the patterns captured by each change type. We model the change as state transition operator between old (on the left) and teh new (on the right). The transition operator is denoted by the arrow symbol ($\rightarrow$) On each sides of the transition operator, we use a compact notation following SPARQL triple patterns.
+
+We use a set of conventions for each variable in the triple pattern, ascribing meaning to each of them and a few additional notations. These conventions are presented in the table below.
+
+\begin{longtable}[c]{@{}p{4cm}p{7cm}p{3cm}l@{}}
+  \toprule
+  Notation                              & Meaning                                                                                                                                                    & Example                                                  \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}}                                                                                                                                                                                                   \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  triple pattern \texttt{< \_s p o\_ >} & each item in the triple represents a SPARQL variable or an URI. For brevity we omit the question mark prefix (?) otherwise the SPARQL reading shall apply. & \texttt{i p v}                                           \\
+  arrow $\rightarrow$                   & state transition operator (from one version to the next)                                                                                                   & \texttt{i1 p o} $\rightarrow$ \texttt{i2 p o}            \\
+  \texttt{i} - in the triple pattern    & the instance subject (assuming class instantiation)                                                                                                        & \texttt{i p v}                                           \\
+  \texttt{p} - in the triple pattern    & the main predicate                                                                                                                                         & \texttt{i p v}                                           \\
+  \texttt{op} - in the triple pattern   & the secondary predicate in a property chain (/)                                                                                                            & \texttt{i p/op v}                                        \\
+  \texttt{v} - in the triple pattern    & the value of interest, which is object of the main or secondary predicate                                                                                  & \texttt{i p v}                                           \\
+  slash (\texttt{/})                    & the property chaining operation.                                                                                                                           & \texttt{p1/p2/p3/p4}                                     \\
+  number (\texttt{\#})                  & the numeric suffixes help distinguish variables of the same type	operation.                                                                                 & \texttt\texttt{i1 p1 o1} $\rightarrow$ \texttt{i2 p2 o2} \\
+  zero (\texttt{0})                     & denotes empty set or not applicable                                                                                                                        & \texttt{0}                                               \\* \bottomrule
+  \label{tab:rdf-differ-query-conventions}                                                                                                                                                                                                                      \\
+\end{longtable}
+
+The table below presents the patterns of change likely to occur in the context of maintaining SKOS vocabularies, but the abstraction proposed here may be useful way beyond this use case. The table represents a power product between the four types of change relevant to the current diffing context and the possible triple patterns in which they can occur. Cells that are marked with zero (0) mean that no check shall be performed for such a change type as it is included in onw of its siblings. The last two columns indicate whether quantification assumptions apply on either side of the transition operator.
+
+\begin{longtable}[c]{@{}p{3.3cm}p{3.3cm}p{3.3cm}p{3.3cm}pl@{}}
+  \toprule
+  change type               & instance                            & property value                                & reified property value                              \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}}                                                                                                           \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  Addition                  & \texttt{0} $\rightarrow$ \texttt{i} & \texttt{0} $\rightarrow$ \texttt{i p v}       & \texttt{0} $\rightarrow$ \texttt{i p/op v}          \\
+  Deletion                  & \texttt{i} $\rightarrow$ \texttt{0} & \texttt{i p v} $\rightarrow$ \texttt{0}       & \texttt{i p/op v} $\rightarrow$ \texttt{0}          \\
+  Value update              & \texttt{0}                          & \texttt{i p v1} $\rightarrow$ \texttt{i p v2} & \texttt{i p/op v1} $\rightarrow$ \texttt{i p/op v2} \\
+  Movement (cross instance) & \texttt{0}                          & \texttt{i1 p v} $\rightarrow$ \texttt{i2 p v} & \texttt{i1 p/op v} $\rightarrow$ \texttt{i2 p/op v} \\
+  Movement (cross property) & \texttt{0}                          & \texttt{i p1 v} $\rightarrow$ \texttt{i p2 v} & \texttt{i p1/op v} $\rightarrow$ \texttt{i p2/op v} \\* \bottomrule
+  \label{tab:rdf-differ-query-conventions}                                                                                                                              \\
+\end{longtable}
+The state transition patterns presented in the table above can be translated to SPARQL queries.
+
 \subsection{Naming conventions}
 \subsubsection{Operations}
 
@@ -149,7 +205,6 @@ WHERE {
 \end{lstlisting}
 
 \subsubsection{Version history graph block and value injection}
-For the results and the query itself to be easy to read we need to choose good variable names and make sure the variables will bring the expected result format. In this case we want to see instance URI, instance label, property and value of the property.
 
 \begin{lstlisting}
 GRAPH ?versionHistoryGraph {
