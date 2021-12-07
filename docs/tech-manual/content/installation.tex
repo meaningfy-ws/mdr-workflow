@@ -1,130 +1,87 @@
 \section{Requirements}
 \label{sec:requirements}
+There is a range of ports that must be available on the host machine as they will be bound to by different services. Although the system administrator may choose to change them by changing the values in of specific environment variables. The inventory of pre-configured ports is provided in Table \ref{tab:port-inventory}.
 
-	Although Docker can be executed on any platform, for performance and security reasons we recommend using a Linux OS with kernel version 5.4x or higher. The services have been tested on Ubuntu 20 server. 
-		
-	There is a range of ports that must be available on the host machine as they will be bound to by different docker services. Although the system administrator may choose to change them by changing the values in of specific environment variables. The inventory of pre-configured ports is provided in Table \ref{tab:port-inventory}.
-
-	\begin{longtable}[c]{@{}p{3.64cm}p{1.25cm}p{1.25cm}p{1.9cm}p{5cm}@{}}
-		\toprule
-		Service name & HTTP port UI & HTTP port API & FTP port & Mounted volume \\* \midrule
-		\endfirsthead
-		%
-		\multicolumn{5}{c}%
-		{{\bfseries Table \thetable\ continued from previous page}} \\
-		\endhead
-		%
-		\bottomrule
-		\endfoot
-		%
-		\endlastfoot
-		%
-		RDF differ & 8030 & 4030 &  &  \\* \hline
-		RDF differ dedicated Fuseki &  & 3030 &  & rdf-differ-fuseki \\* \hline
-		RDF validator & 8010 & 4010 &  &  \\* \hline
-		RDF fingerprinter & 8020 & 4020 &  &  \\* \hline
-		RDF fingerprinter dedicated Fuseki &  & 3020 &  & rdf-fingerprinter-fuseki \\* \hline
-		LinkedPipes ETL - storage &  & 8063 &  & linkedpipes-logs, linkedpipes-data-storage, linkedpipes-configuration \\* \hline
-		LinkedPipes ETL - executor &  & 8065 &  & linkedpipes-logs, linkedpipes-data-execution, linkedpipes-configuration \\* \hline
-		LinkedPipes ETL - monitor &  & 8061 & 2221, 2222, 2225 & linkedpipes-logs, linkedpipes-data-execution, linkedpipes-configuration \\* \hline
-		LinkedPipes ETL - frontend & 8060 &  &  & linkedpipes-logs, linkedpipes-configuration \\* \hline
-		LinkedPipes ETL - dedicated Fuseki &  & 3060 &  & linkedpipes-fuseki \\* \hline
-		Jenkins & 8080 & 50000 &  & jenkins-home \\* \hline
-		Camunda BPMN engine & 8040 &  &  & rdf-camunda \\* \bottomrule
-		\caption{Port usage inventory}
-		\label{tab:port-inventory}\\
-	\end{longtable}
+\begin{longtable}[c]{@{}p{3.64cm}p{1.25cm}p{1.25cm}p{1.9cm}p{5cm}@{}}
+	\toprule
+	Service name     & HTTP port UI & HTTP port API             \\* \midrule
+	\endfirsthead
+	%
+	\multicolumn{5}{c}%
+	{{\bfseries Table \thetable\ continued from previous page}} \\
+	\endhead
+	%
+	\bottomrule
+	\endfoot
+	%
+	\endlastfoot
+	%
+	RDF differ       & 8030         & 4030                      \\* \hline
+	dedicated Fuseki &              & 3030                      \\* \hline
+	redis            &              & 6379                      \\* \bottomrule
+	\caption{Port usage inventory}
+	\label{tab:port-inventory}                                  \\
+\end{longtable}
 
 %	\vfil
-	The minimal hardware requirements are as follows 
-	\begin{enumerate}
-		\item CPU: 3.2 Ghz quad core 
-		\item RAM: 16GB 
-		\item SDD system: 32GB 
-		\item SDD data: 128GB 
-	\end{enumerate}	
+The minimal hardware requirements are as follows 
+\begin{enumerate}
+	\item CPU: ???
+	\item RAM: ???
+	\item SDD system: ???
+	\item SDD data: ???
+\end{enumerate}
 
 \section{Installation}
 \label{sec:installation}
+In order for the services to function properly a CentOS system with python version 3.8, a fuseki, and redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file. 
 
-	In order to run the services it is necessary to have Docker server and docker-compose tool installed. To install them following the instructions provided at the following locations
-	
-	\begin{enumerate}
-		\item Docker - \url{https://docs.docker.com/engine/install}
-		\item Docker Compose - \url{https://docs.docker.com/compose/install}
-	\end{enumerate}
-	
-	In case you are using Debian-like OS such as Ubuntu, you may simply run the following Bash commands to install and set the appropriate permissions. 
-	
-	\begin{lstlisting}[language=bash,]
-sudo apt -y install docker.io docker-compose git make
-sudo groupadd docker
-sudo usermod -aG docker $USER
-newgrp docker
-	\end{lstlisting}
-	
-	Next, clone the Git repository containing the \textit{docker-compose.yml}, \textit{.env} file and the \textit{Makefile}.
-	
-\begin{lstlisting}[language=bash,]
-git clone https://github.com/meaningfy-ws/mdr-workflow.git
-cd mdr-workflow
-\end{lstlisting}	
-	
-	Then change directory into the \textit{mdr-workflow} folder and Makefile commands to start and stop services will be available. 	
-	
-	Downloading the Docker images will be triggered automatically on first request to start the services. 
-	
-	To start the services using Makefile
+In case you are using Debian-like OS such as Ubuntu, you may simply run the following Bash commands to install and set the appropriate permissions.
+
+Next, copy the rdf differ zip on the system you intend to run it and unzip it.
+
+Then change directory into the \textit{project} folder. Makefile commands to start and stop services will be available. 	
+
+To start the services using Makefile
 
 \begin{lstlisting}[language=bash,]
-make start-services
+make install-python-dependencies
+make run-api
+make run-ui
 \end{lstlisting}
 
-	To stop the services using Makefile
-	
-\begin{lstlisting}[language=bash,]
-make stop-services
-\end{lstlisting}		
+To stop the services using Makefile
 
-	To start services without Makefile first prepare the volume with LinkedPipes ETL configurations file like this
-	
 \begin{lstlisting}[language=bash,]
-docker rm temp | true
-docker volume rm linkedpipes-configuration | true
-docker volume create linkedpipes-configuration
-docker container create --name temp -v linkedpipes-configuration:/data busybox
-docker cp ./docker/linkedpipes-etl/configuration/configuration.properties temp:/data
-docker rm temp
-\end{lstlisting}		
-
-	then start the services
-	
-\begin{lstlisting}[language=bash,]
-docker-compose --file docker/docker-compose.yml --env-file docker/.env up -d
+make stop-gunicorn
 \end{lstlisting}
 
-	To stop the services run
+To start services without Makefile commands
 
 \begin{lstlisting}[language=bash,]
-docker-compose --file docker/docker-compose.yml --env-file docker/.env down
+set -o allexport; source bash/.env; set +o allexport
+
+python3.8 -m venv env
+source env/bin/activate
+pip install -r requirements/prod.txt
 \end{lstlisting}
 
-
-	\subsection{Set custom templates}
- 
-	 RDF Differ, RDF Validator and RDF Fingerprinter support custom templates. The custom templates are stored in Docker volumes, and are explicitly marked to be externally created. Therefore, before running the service for the first time, ensure the volumes exist by running the following make command:
+then start the services
 
 \begin{lstlisting}[language=bash,]
-make build-template-volumes
-\end{lstlisting}	 
-	 	 
-	 Provided that the custom template is available on the host system in a \textit{location to template} you can set it by using the following makefile targets, which are prepared to facilitate this operation. 
-	 
-\begin{lstlisting}[language=bash,]
-make location=<location to template> differ-set-report-template
-make location=<location to template> validator-set-report-template
-make location=<location to template> fingerprinter-set-report-template
-\end{lstlisting}	 	 
+set -o allexport; source bash/.env; set +o allexport
 
-	The detailed explanation on how to configure them is provided in the Configuration section for each of these services (See Section \ref{sec:rdf-differ-ct}, \ref{sec:rdf-fingerprinter-ct}, \ref{sec:rdf-validator-ct} ). 
- 
+source env/bin/activate
+celery -A rdf_differ.adapters.celery.celery_worker worker --loglevel ${RDF_DIFFER_LOG_LEVEL} --logfile ${RDF_DIFFER_CELERY_LOGS} --detach
+gunicorn --timeout ${RDF_DIFFER_GUNICORN_TIMEOUT} --workers ${RDF_DIFFER_GUNICORN_API_WORKERS} --bind 0.0.0.0:${RDF_DIFFER_API_PORT} --reload rdf_differ.entrypoints.api.run:app --log-file ${RDF_DIFFER_API_LOGS} --log-level ${RDF_DIFFER_LOG_LEVEL} --daemon
+gunicorn --timeout ${RDF_DIFFER_GUNICORN_TIMEOUT} --workers ${RDF_DIFFER_GUNICORN_UI_WORKERS} --bind 0.0.0.0:${RDF_DIFFER_UI_PORT} --reload rdf_differ.entrypoints.ui.run:app --log-file ${RDF_DIFFER_UI_LOGS} --log-level ${RDF_DIFFER_LOG_LEVEL} --daemon
+\end{lstlisting}
+
+To stop the services run
+
+\begin{lstlisting}[language=bash,]
+source env/bin/activate
+
+celery -A rdf_differ.adapters.celery.celery_worker control shutdown
+pkill -f gunicorn
+\end{lstlisting}
