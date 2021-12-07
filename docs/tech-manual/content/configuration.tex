@@ -39,26 +39,7 @@ The RDF differ application exposes an API and an UI and depends on a dedicated t
 	\label{tab:my-table1}                                                                 \\
 \end{longtable}
 
-\subsection{Add a new application profile template}
-
-The default application profile template is the diff report template that resides in \texttt{resource\slash templates\slash diff\textunderscore report} folder. For adding a new application profile create a new folder under \texttt{resource\slash templates} with the name of your new application profile and following the structure explained below.
-Folder structure needed for adding a new application profile:
-
-\begin{lstlisting}
-templates/
- diff_report/
-  new_application_profile/
-   config.json   <--- configuration file
-   queries/      <--- contains SPARQL queries
-    query1.rq
-    query2.rq
-   template_variants/
-    html/        <--- contains files for a html template
-    json/        <--- contains files for a json template
-\end{lstlisting}
-
 \subsection{Configure and read logs}
-
 Every service provided by the rdf differ has it's own log history and is configurable through the aforementioned \textit{.env} file. The current configuration accepts a relative path to where the logs to be written \textit{logs/api.log}, for example.
 
 \subsubsection{API log example}
