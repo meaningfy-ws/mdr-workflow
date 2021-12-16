@@ -53,7 +53,7 @@ Example:
 \textit{Note:} the system has in place an autodiscover process for the SPARQL queries in the queries folder. Make sure that the file name added for the variable above (\textit{added\_instance\_concept.rq}) exists in the queries folder.
 
 \subsubsection{Adjusting an existing template}
-\textbf{Adding a new query/section}
+\textit{Adding a new query/section}
 
 To add a query a new file needs to be created and added into the queries folder as the system will autodiscover this. After this is done a new html file that will represent a new section needs to be created. The content of this is similar to the existing ones and the only thing that needs to be adjusted will be the query file name in the content variable definition as presented below:
 
@@ -132,7 +132,7 @@ For adding a count query that will be used in the statistics section the steps a
 </tr>
 \end{lstlisting}
 
-\textbf{Removing a query/section}
+\textit{Removing a query/section}
 
 To remove a section from the existing report you just need to delete or comment the include statement from the main.html file. If you decide to delete the include statement it's recommended to delete the query from the queries folder as well to avoid confusions later on.
 
@@ -246,7 +246,7 @@ The JSON report is automatically built by running all queries that are found in 
 \end{lstlisting}
 
 \subsubsection{Adjusting an existing template}
-\textbf{Removing a query/section}
+\textit{Removing a query/section}
 To remove a query result set from the report simply remove the query from the queries folder.
 
 \textit{Note:} doing this will also affect the HTML template and it's recommended to adjust the html template, if this exists as a template variant for the application profile that you are working with, following the instruction above to avoid errors when generating the HTML template variant.
