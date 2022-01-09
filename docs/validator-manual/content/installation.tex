@@ -81,6 +81,6 @@ To stop the services run
 \begin{lstlisting}[language=bash,]
 source env/bin/activate
 
-celery -A rdf_differ.adapters.celery.celery_worker control shutdown
+celery -9 -f celery
 pkill -f gunicorn
 \end{lstlisting}

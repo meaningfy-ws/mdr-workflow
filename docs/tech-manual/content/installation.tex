@@ -34,9 +34,7 @@ The minimal hardware requirements are as follows
 
 \section{Installation}
 \label{sec:installation}
-In order for the services to function properly a CentOS system with python version 3.8, a fuseki, and redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file. 
-
-In case you are using Debian-like OS such as Ubuntu, you may simply run the following Bash commands to install and set the appropriate permissions.
+In order for the services to function properly a CentOS system with python version 3.6, a fuseki, and redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file. 
 
 Next, copy the rdf differ zip on the system you intend to run it and unzip it.
 
@@ -61,7 +59,7 @@ To start services without Makefile commands
 \begin{lstlisting}[language=bash,]
 set -o allexport; source bash/.env; set +o allexport
 
-python3.8 -m venv env
+python3 -m venv env
 source env/bin/activate
 pip install -r requirements/prod.txt
 \end{lstlisting}
