@@ -1,0 +1,86 @@
+\section{Requirements}
+\label{sec:requirements}
+There is a range of ports that must be available on the host machine as they will be bound to by different services. Although the system administrator may choose to change them by changing the values in of specific environment variables. The inventory of pre-configured ports is provided in Table \ref{tab:validator-port-inventory}.
+
+\begin{longtable}[c]{@{}p{3.64cm}p{1.25cm}p{1.25cm}p{1.9cm}p{5cm}@{}}
+	\toprule
+	Service name  & HTTP port UI & HTTP port API                \\* \midrule
+	\endfirsthead
+	%
+	\multicolumn{5}{c}%
+	{{\bfseries Table \thetable\ continued from previous page}} \\
+	\endhead
+	%
+	\bottomrule
+	\endfoot
+	%
+	\endlastfoot
+	%
+	RDF validator & 8010         & 4010                         \\* \hline
+	redis         &              & 6379                         \\* \bottomrule
+	\caption{Port usage inventory}
+	\label{tab:validator-port-inventory}                        \\
+\end{longtable}
+
+%	\vfil
+The minimal hardware requirements are as follows 
+\begin{enumerate}
+	\item CPU: 3.2 Ghz quad core
+	\item RAM: 16GB
+	\item SDD system: 32GB
+	\item SDD data: 128GB
+\end{enumerate}
+
+\section{Installation}
+\label{sec:installation}
+In order for the services to function properly a CentOS system with python version 3.6  and redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file. 
+
+Copy the rdf validator zip on the system you intend to run it and unzip it.
+
+Then change directory into the \textit{project} folder. Makefile commands to start and stop services will be available. 	
+
+To start the services using Makefile
+
+\begin{lstlisting}[language=bash,]
+make install-python-dependencies
+make setup-rdfunit
+make run-api
+make run-ui
+\end{lstlisting}
+
+To stop the services using Makefile
+
+\begin{lstlisting}[language=bash,]
+make stop-gunicorn
+\end{lstlisting}
+
+To start services without Makefile commands
+
+\begin{lstlisting}[language=bash,]
+set -o allexport; source bash/.env; set +o allexport
+
+python3 -m venv env
+source env/bin/activate
+pip install -r requirements/prod.txt
+\end{lstlisting}
+
+then start the services
+
+\begin{lstlisting}[language=bash,]
+set -o allexport; source bash/.env; set +o allexport
+
+source env/bin/activate
+
+celery -A validator.adapters.celery.celery_worker worker --loglevel ${RDF_VALIDATOR_LOG_LEVEL} --logfile ${RDF_VALIDATOR_CELERY_LOGS} --detach
+gunicorn --timeout ${RDF_VALIDATOR_GUNICORN_TIMEOUT} --workers ${RDF_VALIDATOR_GUNICORN_API_WORKERS} --bind 0.0.0.0:${RDF_VALIDATOR_API_PORT} --reload validator.entrypoints.api.run:app --log-file ${RDF_VALIDATOR_API_LOGS} --log-level ${RDF_VALIDATOR_LOG_LEVEL} --daemon
+gunicorn --timeout ${RDF_VALIDATOR_GUNICORN_TIMEOUT} --workers ${RDF_VALIDATOR_GUNICORN_UI_WORKERS} --bind 0.0.0.0:${RDF_VALIDATOR_UI_PORT} --reload validator.entrypoints.ui.run:app --log-file ${RDF_VALIDATOR_UI_LOGS} --log-level ${RDF_VALIDATOR_LOG_LEVEL} --daemon
+\end{lstlisting}
+
+To stop the services run
+
+\begin{lstlisting}[language=bash,]
+source env/bin/activate
+
+celery -A rdf_differ.adapters.celery.celery_worker control shutdown
+pkill -f gunicorn
+\end{lstlisting}
