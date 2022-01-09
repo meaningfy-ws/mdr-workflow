@@ -83,23 +83,23 @@ Every service provided by the RDF validator has it's own log history and is conf
 
 \subsubsection{API log example}
 \begin{lstlisting}
-[2021-12-01 15:54:39 +0000] [7] [INFO] Starting gunicorn 20.1.0
-[2021-12-01 15:54:39 +0000] [7] [DEBUG] Arbiter booted
-[2021-12-01 15:54:39 +0000] [7] [INFO] Listening at: http://0.0.0.0:4030 (7)
-[2021-12-01 15:54:39 +0000] [7] [INFO] Using worker: sync
-[2021-12-01 15:54:39 +0000] [9] [INFO] Booting worker with pid: 9
-[2021-12-01 15:54:39 +0000] [10] [INFO] Booting worker with pid: 10
-[2021-12-01 15:54:39 +0000] [7] [DEBUG] 2 workers
-[2021-12-01 15:55:13 +0000] [9] [DEBUG] GET /diffs
-[2021-12-01 15:55:13 +0000] [9] [DEBUG] start get diffs endpoint
-[2021-12-01 15:55:13 +0000] [9] [DEBUG] finish get diffs endpoint
+[2022-01-09 15:34:35 +0000] [8] [INFO] Starting gunicorn 20.1.0
+[2022-01-09 15:34:35 +0000] [8] [DEBUG] Arbiter booted
+[2022-01-09 15:34:35 +0000] [8] [INFO] Listening at: http://0.0.0.0:4010 (8)
+[2022-01-09 15:34:35 +0000] [8] [INFO] Using worker: sync
+[2022-01-09 15:34:35 +0000] [11] [INFO] Booting worker with pid: 11
+[2022-01-09 15:34:35 +0000] [12] [INFO] Booting worker with pid: 12
+[2022-01-09 15:34:35 +0000] [8] [DEBUG] 2 workers
+[2022-01-09 15:37:04 +0000] [11] [DEBUG] POST /validate/ap/file
+[2022-01-09 15:37:04 +0000] [11] [DEBUG] start validate file endpoint
+[2022-01-09 15:37:04 +0000] [11] [DEBUG] finish request to validate file endpoint
 \end{lstlisting}
 
 \subsubsection{UI log example}
 \begin{lstlisting}
-[2021-12-01 15:55:21 +0000] [10] [DEBUG] GET /tasks
-[2021-12-01 15:55:21 +0000] [10] [DEBUG] request active tasks view
-[2021-12-01 15:55:22 +0000] [10] [DEBUG] render active tasks view
+[2022-01-09 15:34:45 +0000] [11] [DEBUG] GET /
+[2022-01-09 15:34:45 +0000] [11] [DEBUG] request index view
+[2022-01-09 15:34:45 +0000] [11] [DEBUG] render index view
 \end{lstlisting}
 
 The RDF validator application uses the following environment variables to define logs location:
@@ -122,5 +122,5 @@ The RDF validator application uses the following environment variables to define
 	UI logs     & logs/ui.log     & RDF\_VALIDATOR\_UI\_LOGS     \\
 	Celery logs & logs/celery.log & RDF\_VALIDATOR\_CELERY\_LOGS \\* \bottomrule
 	\caption{RDF validator log configurations}
-	\label{tab:rdf-validator-log}                                   \\
+	\label{tab:rdf-validator-log}                                \\
 \end{longtable}
