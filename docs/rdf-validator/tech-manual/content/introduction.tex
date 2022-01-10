@@ -1,0 +1,36 @@
+\section{Introduction}
+\label{sec:introduction}
+
+The Standardisation Unit (SU) at the Publications Office of the European Union (OP) is engaged in a digital transformation process oriented towards semantic technologies. In \citep{costetchi2020d} is described a working definition of the architectural stance and design decisions that are to be adopted for the asset publication life-cycle process. The report describes the baseline (current) solution and the (new) target solution for the asset publication workflow that is part of the life-cycle process. 
+
+The software components building up the target publication workflow solution have been packaged as into a suite of interconnected services.
+
+This document describes the installation and configuration procedures along with stating the scope, and target audience.
+
+\section{Scope}
+\label{sec:scope}
+
+This document aims at covering the installation and configuration instructions for the suite of the following software services:
+
+\begin{enumerate}
+	\item RDF validator
+	\item Validator celery worker
+\end{enumerate}
+
+\section{Target audience}
+\label{sec:audience}
+
+The target audience for this document comprises the following groups and stakeholders:	
+\begin{itemize}
+	\item Technical staff in charge of operating workflow components
+	\item System administrators
+	\item Enterprise architects and data governance specialists
+	\item Documentalists involved in the reference data life-cycle
+	\item Developers in charge of workflow and component implementation
+	\item Third parties using the SU services and data
+\end{itemize}
+
+\section{Technology background}
+\label{sec:background}
+
+Infrastructure and deployment configuration rely on services deployed on a CentOS system.

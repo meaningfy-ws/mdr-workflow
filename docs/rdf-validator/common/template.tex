@@ -1,0 +1,87 @@
+\section{Add a new application profile}
+
+There is an application profile already provided within the system that resides in \texttt{resource\slash aps} folder called \texttt{main} which contain the following shape files: \texttt{skosShapes.shapes.ttl}, \texttt{euvocShapes.shapes.ttl}, and \texttt{extensionShapes.shapes.ttl}. For adding a new application profile create a new folder under \texttt{resource\slash aps} with the name of your new application profile and add the shape files inside. It then should become available to the system; this can be checked by calling the API Application Profiles endpoint described here in chapter \ref{api:get-aps}.
+
+Folder structure of application profiles:
+
+\begin{lstlisting}
+resources/
+  aps/                <--- contains application profiles
+    main/             <--- provided by default
+        euvocShapes.shapes.ttl
+        extensionShapes.shapes.ttl
+        skosShapes.shapes.ttl
+    alternative/      <--- example of another application profile
+        other.shapes.ttl
+        alternative.shapes.ttl
+\end{lstlisting}
+
+
+\section{Custom templates}
+
+To configure the templates used for generating the custom validation reports you have to modify the currently available ones, found at \texttt{resource\slash templates}. 
+
+The templates are written in \textit{Jinja2} templating language \citep{jinja2}. The data source access is facilitated through the \textit{eds4jinja2} library \citep{eds4jinja2}. If you are familiar with Jinja2 language a short introduction to how to use eds4jinja2 is available on the documentation page\footnote{\url{https://eds4jinja2.readthedocs.io/en/latest/}}. Also the default template can be seen as an example accessible in the repository\footnote{\url{https://github.com/meaningfy-ws/rdf-validator-ws/tree/master/resources/templates}}.
+
+\subsubsection{Folder structure}
+\begin{lstlisting}
+resources/
+    templates/          
+      html/      <--- custom html report
+      json/      <--- custom json report
+      query/     <--- queries used by the templates
+          validator_query.rq
+\end{lstlisting}
+
+\subsection{HTML template variant}
+\subsubsection{Folder structure}
+\begin{lstlisting}
+html/
+  config.json   <--- configuration file
+  templates/    <--- jinja html templates
+    sections/
+      simple_view.html
+    layout.html
+    macros.html
+    main.html
+\end{lstlisting}
+
+
+\subsubsection{Template structure}
+
+The HTML template is built be combining four major parts as layout, main, macros and sections. The layout file \textit{layout.html} will have the rules of how the report will look like in terms of positioning and styling. Macros will contain all the jinja2 macros used across the template. A section represents the result of a query that was run with additional html and will be used to build the report. As the name suggest the main file of the html template is main.html. Here is where every other file that are a different section in the report are included and will form the HTML report.
+
+Example of including a section in the main html file:
+\begin{lstlisting}
+{% include "sections/simple_view.html" with context %}
+\end{lstlisting}
+
+Each section file has one or more variables where the SPARQL query result is saved as a pandas dataframe.
+
+Example used in \texttt{simple\_view.html}:
+\begin{lstlisting}
+{% set content, error = from_rdf_file(conf.report_data_file).with_query_from_file(conf.query_file).fetch_tabular() %}
+{% if not content.empty %}
+    {% call mc.render_fetch_results(content, error) %}
+        {% set compress_uris = simplify_uri_columns_in_tabular(data_frame=content,namespace_inventory=namespaces,error_fail=False) %}
+        <section class="ui basic segment">
+            {{ mc.pandas_table(content, "Validation issues") }}
+        </section>
+    {% endcall %}
+{% endif %}
+\end{lstlisting}
+
+\subsection{JSON template variant}
+\subsubsection{Folder structure}
+
+\begin{lstlisting}
+json/
+  config.json   <--- configuration file
+  templates/    <--- jinja json templates
+    main.json
+\end{lstlisting}
+
+\textit{Note:} make sure that in the templates folder there is a file named the same as the one defined in the \textit{config.json} file (i.e \texttt{"template": "main.json"})
+
+\subsubsection{Template structure}
+The JSON report is automatically built by running all queries that are found in the \textit{queries} folder as the system has autodiscover process for this. In the beginning of this report there will be 3 keys that will show the metadata of the report like dataset used, created time and application profile used. Each query result can be identified in the report by the filename and will contain a results key that will represent the result set brought back by the query.
