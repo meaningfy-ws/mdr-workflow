@@ -558,6 +558,16 @@ Get specific task status
 }
 \end{lstlisting}
 
+\textit{Note:} Task statuses and their meanings::
+\begin{itemize}
+  \item \texttt{FAILURE} - Task failed.
+  \item \texttt{PENDING} - Task state is unknown or the task doesn't exist.
+  \item \texttt{REVOKED} - Task was revoked.
+  \item \texttt{STARTED} - Task was started by a worker.
+  \item \texttt{SUCCESS} - Task succeeded.
+\end{itemize}
+
+
 \subsection{Stop task execution}
 
 \begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
