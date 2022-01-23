@@ -81,6 +81,8 @@ def async_validate_file(self, uid: str, data_file: str, shacl_shapes: list, db_c
 \subsection{Configure and read logs}
 Every service provided by the RDF validator has it's own log history and is configurable through the aforementioned \textit{.env} file. The current configuration accepts a relative path to where the logs to be written \textit{logs/api.log}, for example.
 
+\texttt{logs/celery.log} contains the logs of the Celery workers. This contains the logs of the tasks that are being processed; here is where you would do most of the log hunting to debug inconsistent behavior.
+
 \subsubsection{API log example}
 \begin{lstlisting}
 [2022-01-02 15:34:35 +0000] [8] [INFO] Starting gunicorn 20.1.0
