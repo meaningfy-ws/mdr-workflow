@@ -508,6 +508,26 @@ Validate a SPARQL endpoint with the provided Application Profile and optionally 
 ]
 \end{lstlisting}
 
+\textit{Note:} the brief explanation of fields.
+\begin{itemize}
+  \item \texttt{id} - ID of the task.
+  \item \texttt{name} - name of the task, in this case, it is the same as the task \texttt{type}.
+  \item \texttt{args} - positional arguments passed to the task.
+  \item \texttt{kwargs} - keywords arguments passed to the task.
+  \item \texttt{type} - type of the task.
+  \item \texttt{hostname} - hostname of the worker that is running the task.
+  \item \texttt{acknowledged} - True when task was acknowledged by the broker.
+  \item \texttt{delivery\_info}
+        \begin{itemize}
+          \item \texttt{exchange} - name of the exchange the task was published to
+          \item \texttt{priority} - priority of the task
+          \item \texttt{redelivered} - True when task was redelivered by the broker
+          \item \texttt{routing\_key} - routing key of the task
+        \end{itemize}
+  \item \texttt{time\_start} - time of the task start.
+  \item \texttt{worker\_pid} - PID of the worker that is executing the task.
+\end{itemize}
+
 \subsection{Get task status}
 Get specific task status
 

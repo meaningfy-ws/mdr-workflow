@@ -81,6 +81,30 @@ json/
     main.json
 \end{lstlisting}
 
+The report will have the following shape:
+\begin{lstlisting}
+  {
+    "focusNode": "http://publications.europa.eu/resource/authority/file-type",
+    "message": "Minimum cardinality for <http://www.w3.org/2002/07/owl#versionInfo> is \"1\"^^<http://www.w3.org/2001/XMLSchema#integer>",
+    "resultPath": "http://www.w3.org/2002/07/owl#versionInfo",
+    "resultSeverity": "http://www.w3.org/ns/shacl#Violation",
+    "sourceConstraintComponent": "http://www.w3.org/ns/shacl#MinCountConstraintComponent",
+    "sourceShape": "ub2bL232C39",
+    "value": null
+  }
+\end{lstlisting}
+
+\textit{Note:} the brief explanation of fields.
+\begin{itemize}
+  \item \texttt{focusNode} - Each validation result has exactly one value for the property \texttt{sh:focusNode} that is equal to the focus node that has caused the result. This is the focus node that was validated when the validation result was produced.
+  \item \texttt{message} - Validation results may have values for the property \texttt{sh:resultMessage}, for example to communicate additional textual details to humans.
+  \item \texttt{resultPath} - Validation results may have a value for the property \texttt{sh:resultPath} pointing at a well-formed SHACL property path.
+  \item \texttt{resultSeverity} - Each validation result has exactly one value for the property \texttt{sh:resultSeverity}, and this value is an IRI. The value is equal to the value of \texttt{sh:severity} of the shape in the shapes graph that caused the result, defaulting to sh:Violation if no sh:severity has been specified for the shape.
+  \item \texttt{sourceConstraintComponent} - Validation results have exactly one value for the property \texttt{sh:sourceConstraintComponent} and this value is the IRI of the constraint component that caused the result.
+  \item \texttt{sourceShape} - Validation results may include, as the only value of the property \texttt{sh:sourceShape}, the shape that the given \texttt{sh:focusNode} was validated against.
+  \item \texttt{value} - Validation results may include, as a value of the property \texttt{sh:value}, at most one RDF term that has caused the result.
+\end{itemize}
+
 \textit{Note:} make sure that in the templates folder there is a file named the same as the one defined in the \textit{config.json} file (i.e \texttt{"template": "main.json"})
 
 \subsubsection{Template structure}
