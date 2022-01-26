@@ -508,6 +508,26 @@ Validate a SPARQL endpoint with the provided Application Profile and optionally 
 ]
 \end{lstlisting}
 
+\textit{Note:} the brief explanation of fields.
+\begin{itemize}
+  \item \texttt{id} - ID of the task.
+  \item \texttt{name} - name of the task, in this case, it is the same as the task \texttt{type}.
+  \item \texttt{args} - positional arguments passed to the task.
+  \item \texttt{kwargs} - keywords arguments passed to the task.
+  \item \texttt{type} - type of the task.
+  \item \texttt{hostname} - hostname of the worker that is running the task.
+  \item \texttt{acknowledged} - True when task was acknowledged by the broker.
+  \item \texttt{delivery\_info}
+        \begin{itemize}
+          \item \texttt{exchange} - name of the exchange the task was published to
+          \item \texttt{priority} - priority of the task
+          \item \texttt{redelivered} - True when task was redelivered by the broker
+          \item \texttt{routing\_key} - routing key of the task
+        \end{itemize}
+  \item \texttt{time\_start} - time of the task start.
+  \item \texttt{worker\_pid} - PID of the worker that is executing the task.
+\end{itemize}
+
 \subsection{Get task status}
 Get specific task status
 
@@ -557,6 +577,16 @@ Get specific task status
   "task_status": "PENDING"
 }
 \end{lstlisting}
+
+\textit{Note:} Task statuses and their meanings::
+\begin{itemize}
+  \item \texttt{FAILURE} - Task failed.
+  \item \texttt{PENDING} - Task state is unknown or the task doesn't exist.
+  \item \texttt{REVOKED} - Task was revoked.
+  \item \texttt{STARTED} - Task was started by a worker.
+  \item \texttt{SUCCESS} - Task succeeded.
+\end{itemize}
+
 
 \subsection{Stop task execution}
 

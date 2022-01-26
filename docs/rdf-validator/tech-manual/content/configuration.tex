@@ -8,6 +8,12 @@ In order to avoid hard coding parameters, they are defined externally in the \te
 
 The following sections describe the configuration options available for each of the services.
 
+The following applications have to be available in the system:
+\begin{lstlisting}
+	sudo yum install redis curl java-11-openjdk maven
+\end{lstlisting}
+You can also find the required packages in the \texttt{install\_os\_dependencies.sh} file.
+
 \subsection{RDF validator}
 
 The RDF validator is an online platform for validating RDF data with SHACL shape definitions. It exposes an API and an UI. The RDF validator API is the core service providing the RDF validation functionality. The URL and port are described below, as well as the request timeout:
@@ -29,11 +35,21 @@ The RDF validator is an online platform for validating RDF data with SHACL shape
 	Service URL                       & http://localhost & RDF\_VALIDATOR\_API\_LOCATION     \\
 	Service API port                  & 4010             & RDF\_VALIDATOR\_API\_PORT         \\
 	Is in debug mode                  & False            & RDF\_VALIDATOR\_DEBUG             \\
+	Logging level                     & DEBUG            & RDF\_VALIDATOR\_LOG\_LEVEL        \\
 	Service UI port                   & 8030             & RDF\_VALIDATOR\_UI\_PORT          \\
 	Web server worker process timeout & 1200             & RDF\_VALIDATOR\_GUNICORN\_TIMEOUT \\* \bottomrule
 	\caption{RDF validator configurations}
 	\label{tab:rdf-validator-configuration}                                                  \\
 \end{longtable}
+
+\textit{Note:} Possible values for logging levels are explained in more detail \\*\href{https://docs.python.org/3.6/library/logging.html#logging-levels}{docs.python.org/3.6/library/logging.html} :
+\begin{itemize}
+	\item DEBUG
+	\item INFO
+	\item WARNING
+	\item ERROR
+	\item CRITICAL
+\end{itemize}
 
 \subsection{Celery worker}
 Celery is a simple, flexible, and reliable distributed system to process vast amounts of messages, while providing operations with the tools required to maintain such a system. It’s a task queue with focus on real-time processing.
@@ -80,6 +96,8 @@ def async_validate_file(self, uid: str, data_file: str, shacl_shapes: list, db_c
 
 \subsection{Configure and read logs}
 Every service provided by the RDF validator has it's own log history and is configurable through the aforementioned \textit{.env} file. The current configuration accepts a relative path to where the logs to be written \textit{logs/api.log}, for example.
+
+\texttt{logs/celery.log} contains the logs of the Celery workers. This contains the logs of the tasks that are being processed; here is where you would do most of the log hunting to debug inconsistent behavior.
 
 \subsubsection{API log example}
 \begin{lstlisting}
