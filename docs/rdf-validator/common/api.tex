@@ -653,3 +653,63 @@ Get specific task status
   "type": "about:blank"
 }
 \end{lstlisting}
+
+
+\subsection{Check file structure}
+Check if a file is valid
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                  & ACTION                               \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/file-check} & \texttt{POST}                        \\* \bottomrule
+  \label{tab:file-check}                                      \\
+\end{longtable}
+
+\subsubsection{Body}
+\textit{multipart/form-data}
+\begin{longtable}[c]{@{}p{4.5cm}p{1.5cm}p{2cm}p{6cm}l@{}}
+  \toprule
+  Name                & Required & Type          & Description             \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}}              \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{data\_file} & true     & \texttt{file} & The file to be checked. \\* \bottomrule
+  \label{tab:rdf-validator-file-body}                                      \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+\begin{lstlisting}
+{
+  "message": "File is valid"
+}
+\end{lstlisting}
+
+\textbf{\texttt{400}}
+\begin{lstlisting}
+{
+  "detail": "File is not well formed.",
+  "status": 400,
+  "title": "Bad Request",
+  "type": "about:blank"
+}
+\end{lstlisting}
