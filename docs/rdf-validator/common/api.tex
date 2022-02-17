@@ -167,6 +167,15 @@ Report successfully retrieved.
 }
 \end{lstlisting}
 
+The flow to retrieve a validation report is as follows:
+\begin{enumerate}
+  \item send a request to on of the validation endpoints
+  \item use the UID provided in the response to retrieve the report by calling the \texttt{/validations/\{UID\}?report\_type=\{type\}} endpoint
+\end{enumerate}
+
+\textit{Note:} This request just retrieves the reports, it doesn't regenerate them. 
+If the original data used in the validation suffered modifications, step 1. has to be run again.
+
 \subsection{Delete validation report}
 Delete specific validation
 

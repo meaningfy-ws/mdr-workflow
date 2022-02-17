@@ -81,6 +81,6 @@ To stop the services run
 \begin{lstlisting}[language=bash,]
 source env/bin/activate
 
-celery -9 -f celery
+pkill -9 -f celery
 pkill -f gunicorn
 \end{lstlisting}
