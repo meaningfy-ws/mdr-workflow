@@ -1,0 +1,62 @@
+\section{Add a new application profile}
+
+There is an application profile already provided within the system that resides in \texttt{resource\slash aps} folder called \texttt{main} which contain the following shape files: \texttt{skosShapes.shapes.ttl}, \texttt{euvocShapes.shapes.ttl}, and \texttt{extensionShapes.shapes.ttl}. For adding a new application profile create a new folder under \texttt{resource\slash aps} with the name of your new application profile and add the shape files inside. It then should become available to the system; this can be checked by calling the API Application Profiles endpoint described here in chapter \ref{api:get-aps}.
+
+Folder structure of application profiles:
+
+\begin{lstlisting}
+resources/
+  aps/                <--- contains application profiles
+    main/             <--- provided by default
+        euvocShapes.shapes.ttl
+        extensionShapes.shapes.ttl
+        skosShapes.shapes.ttl
+    alternative/      <--- example of another application profile
+        other.shapes.ttl
+        alternative.shapes.ttl
+\end{lstlisting}
+
+
+\section{Custom templates}
+
+To configure the templates used for generating the custom fingerprinting reports you have to modify the currently available ones, found at \texttt{resources\slash templates}. 
+
+The templates are written in \textit{Jinja2} templating language \citep{jinja2}. The data source access is facilitated through the \textit{eds4jinja2} library \citep{eds4jinja2}. If you are familiar with Jinja2 language a short introduction to how to use eds4jinja2 is available on the documentation page\footnote{\url{https://eds4jinja2.readthedocs.io/en/latest/}}. Also the default template can be seen as an example accessible in the repository\footnote{\url{https://github.com/meaningfy-ws/rdf-fingerprinter-ws/tree/main/resources/templates}}.
+
+\subsubsection{Folder structure}
+\begin{lstlisting}
+resources/
+    templates/          
+      html/      <--- custom html report
+      json/      <--- custom json report
+\end{lstlisting}
+
+\subsection{HTML and JSON template variant}
+\subsubsection{HTML Folder structure}
+\begin{lstlisting}
+html/
+  config.json   <--- configuration file
+  templates/    <--- jinja html templates
+    macros/
+      builders.html  <--- macro for building the report
+      renderers.html <--- macro for rendering information inside the report
+      selectors.html <--- macro for selecting information from the report
+    layout.html  <--- layout of the report
+    main.html    <--- "start" of the template
+    prefixes.json  <--- prefixes used in the report
+\end{lstlisting}
+
+\textit{Note:} the \texttt{json} report structure is similar to the \texttt{HTML}
+\subsubsection{JSON Folder structure}
+\begin{lstlisting}
+json/
+  config.json   <--- configuration file
+  templates/    <--- jinja json templates
+    macros/
+      builders.json  <--- macro for building the report
+      renderers.json <--- macro for rendering information inside the report
+      selectors.json <--- macro for selecting information from the report
+    layout.json  <--- layout of the report
+    main.json    <--- "start" of the template
+    prefixes.json  <--- prefixes used in the report
+\end{lstlisting}

@@ -1,0 +1,482 @@
+\section{API documentation}
+
+\subsection{Get all fingerprinting reports}
+List the existent fingerprinting reports and the metadata about the fingerprinting.
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                   & ACTION                              \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/reports} & \texttt{GET}                        \\* \bottomrule
+  \label{tab:rdf-fingerprinter-all-fingerprintings}                   \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+\begin{lstlisting}
+[
+  {
+      "created_at": "14-Feb-2022T13:28:09",
+      "file": "/usr/src/app/db/48605058-4795-492b-9793-1074201d9af8/090f9ccf-e2bb-4ff1-995a-aa65a2fb9defcontinents-source-ap.rdf",
+      "fingerprinting_on": "file",
+      "graphs": [],
+      "html_report": "report.html",
+      "json_report": "report.json",
+      "uid": "e876dc23-0e31-46a5-b5f3-102db8b15c11",
+      "url": "",
+      "zip_report": "report.zip"
+  },
+]
+\end{lstlisting}
+
+\subsection{Get fingerprinting report}
+Get specific HTML, JSON, or ZIP (all report types in a zipped file) report.
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                                      & ACTION           \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/reports/\{fingerprinting\_id\}} & \texttt{GET}     \\* \bottomrule
+  \label{tab:rdf-fingerprinter-get-fingerprinting-report}             \\
+\end{longtable}
+
+\subsubsection{Parameters}
+\begin{longtable}[c]{@{}p{4.5cm}p{10cm}l@{}}
+  \toprule
+  Name                    & Description                                                        \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}}                                  \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{fingerprinting\_id} & fingerprinting unique id                                               \\
+  \texttt{report\_type}   & type of report requested. accepted values: html, json, and zip \\* \bottomrule
+  \label{tab:rdf-fingerprinter-get-fingerprinting-parameters}                                          \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+
+Report successfully retrieved.
+
+\textit{Note:} selecting the \texttt{zip} report extension the file will contain the following files:
+\begin{itemize}
+  \item \texttt{report.html} - custom HTML
+  \item \texttt{report.json} - custom JSON
+\end{itemize}
+
+
+\textbf{\texttt{422}}
+\begin{lstlisting}
+{
+  "detail": "Wrong report_extension format. Accepted formats: html, json, zip",
+  "status": 422,
+  "title": "Unprocessable Entity",
+  "type": "about:blank"
+}
+\end{lstlisting}
+
+The flow to retrieve a fingerprinting report is as follows:
+\begin{enumerate}
+  \item send a request to on of the fingerprinting endpoints
+  \item use the UID provided in the response to retrieve the report by calling the \texttt{/reports/\{UID\}?report\_type=\{type\}} endpoint
+\end{enumerate}
+
+\textit{Note:} This request just retrieves the reports, it doesn't regenerate them. 
+If the original data used in the fingerprinting suffered modifications, step 1. has to be run again.
+
+\subsection{Delete fingerprinting report}
+Delete specific fingerprinting
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                                      & ACTION           \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/reports/\{fingerprinting\_id\}} & \texttt{DELETE}  \\* \bottomrule
+  \label{tab:rdf-fingerprinting-delete-fingerprinter}                 \\
+\end{longtable}
+
+\subsubsection{Parameters}
+\begin{longtable}[c]{@{}p{4.5cm}p{10cm}l@{}}
+  \toprule
+  Name                    & Description                       \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{fingerprinting\_id} & fingerprinting unique id              \\* \bottomrule
+  \label{tab:rdf-fingerprinter-delete-fingerprinting-parameters}      \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+\begin{lstlisting}
+{
+  "message": "Fingerprinting with bbc32fb7-c20c-45f3-9949-d294d1755870 successfully removed"
+}
+\end{lstlisting}
+
+\textbf{\texttt{404}}
+\begin{lstlisting}
+{
+  "detail": "Fingerprinting with bbc32fb7-c20c-45f3-9949-d294d1755870 doesn't exist",
+  "status": 404,
+  "title": "Not Found",
+  "type": "about:blank"
+}
+\end{lstlisting}
+
+\subsection{Delete all fingerprinting reports}
+Delete all fingerprinting
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                      & ACTION                           \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/remove-reports} & \texttt{DELETE}                  \\* \bottomrule
+  \label{tab:rdf-fingerprinter-delete-fingerprinting}                \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+\begin{lstlisting}
+{
+  "message": "All fingerprintings successfully removed"
+}
+\end{lstlisting}
+
+\subsection{Fingerprint file}
+Fingerprint an RDF file.
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                            & ACTION                     \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/fingerprint-file} & \texttt{POST}              \\* \bottomrule
+  \label{tab:rdf-fingerprinter-file}                              \\
+\end{longtable}
+
+\subsubsection{Body}
+\textit{multipart/form-data}
+\begin{longtable}[c]{@{}p{4.5cm}p{1.5cm}p{2cm}p{6cm}l@{}}
+  \toprule
+  Name                                            & Required & Type          & Description                                                               \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}}                                                                                            \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{data\_file}                             & true     & \texttt{file} & The file to be fingerprinted.                                                 \\* \bottomrule
+  \label{tab:rdf-fingerprinter-file-body}                                                                                                                    \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+\begin{lstlisting}
+{
+  "task_id": "2383dd04-5dfc-4523-9f6b-e9304495a4fc"
+}
+\end{lstlisting}
+
+\subsection{Fingerprint SPARQL endpoint}
+Fingerprint SPARQL endpoint and optionally restricted to provided graphs.
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                        & ACTION                         \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/fingerprint-sparql-endpoint} & \texttt{POST}                  \\* \bottomrule
+  \label{tab:rdf-fingerprinter-sparql-endpoint}                                                                                                                                               \\
+\end{longtable}
+
+\subsubsection{Body}
+\textit{multipart/form-data}
+\begin{longtable}[c]{@{}p{4.5cm}p{1.5cm}p{2cm}p{6cm}l@{}}
+  \toprule
+  Name                          & Required & Type            & Description                                                                                                             \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}}                                                                                                                          \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{sparql\_endpoint\_url}                  & true     & \texttt{string} & The endpoint to fingeprint                                                  \\
+  \texttt{graphs}                                 & false    & \texttt{array}  & An optional list of named graphs to restrict the scope of the fingerprinting  \\* \bottomrule
+  \label{tab:rdf-fingerprinter-sparql-endpoint-body}                                                                                                                                               \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+\begin{lstlisting}
+{
+  "task_id": "e4ae3a48-4ecd-4ed8-8b3e-6445f106d4b2"
+}
+\end{lstlisting}
+
+\subsection{List active tasks}
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                    & ACTION                             \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/tasks/active} & \texttt{GET}                       \\* \bottomrule
+  \label{tab:rdf-fingerprinter-get-tasks}                         \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+\begin{lstlisting}
+  [
+    {
+        "acknowledged": true,
+        "args": [],
+        "delivery_info": {
+            "exchange": "",
+            "priority": 0,
+            "redelivered": null,
+            "routing_key": "celery"
+        },
+        "hostname": "celery@a2b79d7ffdcb",
+        "id": "79e95946-94b4-45c1-8090-54dbb43dd490",
+        "kwargs": {
+            "db_cleanup_location": "/usr/src/app/db/ac921023-ac15-4a25-85e1-b33b78674e02",
+            "file_path": "/usr/src/app/db/ac921023-ac15-4a25-85e1-b33b78674e02/f4c0e71d-c039-4396-8b22-55cd63ad2e0ecourts-source-ap.rdf"
+        },
+        "name": "fingerprint_file",
+        "time_start": 1645204152.7428734,
+        "type": "fingerprint_file",
+        "worker_pid": 27
+    }
+]
+\end{lstlisting}
+
+\textit{Note:} the brief explanation of fields.
+\begin{itemize}
+  \item \texttt{id} - ID of the task.
+  \item \texttt{name} - name of the task, in this case, it is the same as the task \texttt{type}.
+  \item \texttt{args} - positional arguments passed to the task.
+  \item \texttt{kwargs} - keywords arguments passed to the task.
+  \item \texttt{type} - type of the task.
+  \item \texttt{hostname} - hostname of the worker that is running the task.
+  \item \texttt{acknowledged} - True when task was acknowledged by the broker.
+  \item \texttt{delivery\_info}
+        \begin{itemize}
+          \item \texttt{exchange} - name of the exchange the task was published to
+          \item \texttt{priority} - priority of the task
+          \item \texttt{redelivered} - True when task was redelivered by the broker
+          \item \texttt{routing\_key} - routing key of the task
+        \end{itemize}
+  \item \texttt{time\_start} - time of the task start.
+  \item \texttt{worker\_pid} - PID of the worker that is executing the task.
+\end{itemize}
+
+\subsection{Get task status}
+Get specific task status
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                          & ACTION                       \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/tasks/\{task\_id\}} & \texttt{GET}                 \\* \bottomrule
+  \label{tab:rdf-fingerprinter-get-task}                          \\
+\end{longtable}
+
+\subsubsection{Parameters}
+\begin{longtable}[c]{@{}p{4.5cm}p{10cm}l@{}}
+  \toprule
+  Name              & Description                             \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{task\_id} & task unique id                          \\* \bottomrule
+  \label{tab:rdf-fingerprinter-get-task-parameters}               \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+\begin{lstlisting}
+{
+  "task_id": "dfb406f8-d59c-4c73-b332-47b7259e447e",
+  "task_result": null,
+  "task_status": "PENDING"
+}
+\end{lstlisting}
+
+\textit{Note:} Task statuses and their meanings::
+\begin{itemize}
+  \item \texttt{FAILURE} - Task failed.
+  \item \texttt{PENDING} - Task state is unknown or the task doesn't exist.
+  \item \texttt{REVOKED} - Task was revoked.
+  \item \texttt{STARTED} - Task was started by a worker.
+  \item \texttt{SUCCESS} - Task succeeded.
+\end{itemize}
+
+
+\subsection{Stop task execution}
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                          & ACTION                       \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/tasks/\{task\_id\}} & \texttt{DELETE}              \\* \bottomrule
+  \label{tab:rdf-fingerprinter-delete-task}                       \\
+\end{longtable}
+
+\subsubsection{Parameters}
+\begin{longtable}[c]{@{}p{4.5cm}p{10cm}l@{}}
+  \toprule
+  Name              & Description                             \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{task\_id} & task unique id                          \\* \bottomrule
+  \label{tab:rdf-fingerprinter-delete-task-parameters}            \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+\begin{lstlisting}
+{
+  "message": "task 26651a0f-e8ae-490a-b500-ccf7b90080dd set for revoking."
+}
+\end{lstlisting}
+
+\textbf{\texttt{406}}
+\begin{lstlisting}
+{
+  "detail": "task already finished executing or does not exist",
+  "status": 406,
+  "title": "Not Acceptable",
+  "type": "about:blank"
+}
+\end{lstlisting}

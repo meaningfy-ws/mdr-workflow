@@ -167,6 +167,15 @@ Report successfully retrieved.
 }
 \end{lstlisting}
 
+The flow to retrieve a validation report is as follows:
+\begin{enumerate}
+  \item send a request to on of the validation endpoints
+  \item use the UID provided in the response to retrieve the report by calling the \texttt{/validations/\{UID\}?report\_type=\{type\}} endpoint
+\end{enumerate}
+
+\textit{Note:} This request just retrieves the reports, it doesn't regenerate them. 
+If the original data used in the validation suffered modifications, step 1. has to be run again.
+
 \subsection{Delete validation report}
 Delete specific validation
 
@@ -641,6 +650,66 @@ Get specific task status
   "detail": "task already finished executing or does not exist",
   "status": 406,
   "title": "Not Acceptable",
+  "type": "about:blank"
+}
+\end{lstlisting}
+
+
+\subsection{Check file structure}
+Check if a file is valid
+
+\begin{longtable}[c]{@{}p{7.5cm}p{7.5cm}l@{}}
+  \toprule
+  URL                  & ACTION                               \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}} \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{/file-check} & \texttt{POST}                        \\* \bottomrule
+  \label{tab:file-check}                                      \\
+\end{longtable}
+
+\subsubsection{Body}
+\textit{multipart/form-data}
+\begin{longtable}[c]{@{}p{4.5cm}p{1.5cm}p{2cm}p{6cm}l@{}}
+  \toprule
+  Name                & Required & Type          & Description             \\* \midrule
+  \endfirsthead
+  %
+  \multicolumn{3}{c}%
+  {{\bfseries Table \thetable\ continued from previous page}}              \\
+  \endhead
+  %
+  \bottomrule
+  \endfoot
+  %
+  \endlastfoot
+  %
+  \texttt{data\_file} & true     & \texttt{file} & The file to be checked. \\* \bottomrule
+  \label{tab:rdf-validator-file-body}                                      \\
+\end{longtable}
+
+\subsubsection{Response}
+\textbf{\texttt{200}}
+\begin{lstlisting}
+{
+  "message": "File is valid"
+}
+\end{lstlisting}
+
+\textbf{\texttt{400}}
+\begin{lstlisting}
+{
+  "detail": "File is not well formed.",
+  "status": 400,
+  "title": "Bad Request",
   "type": "about:blank"
 }
 \end{lstlisting}

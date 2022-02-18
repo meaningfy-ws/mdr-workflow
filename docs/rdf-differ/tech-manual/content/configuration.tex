@@ -28,12 +28,22 @@ The RDF differ application exposes an API and an UI and depends on a dedicated t
 	%
 	Service URL                       & http://localhost & RDF\_DIFFER\_API\_LOCATION     \\
 	Service API port                  & 4030             & RDF\_DIFFER\_API\_PORT         \\
-	Is in debug mode                  & False             & RDF\_DIFFER\_DEBUG             \\
+	Is in debug mode                  & False            & RDF\_DIFFER\_DEBUG             \\
+	Logging level                     & DEBUG            & RDF\_DIFFER\_LOG\_LEVEL        \\
 	Service UI port                   & 8030             & RDF\_DIFFER\_UI\_PORT          \\
 	Web server worker process timeout & 1200             & RDF\_DIFFER\_GUNICORN\_TIMEOUT \\* \bottomrule
 	\caption{RDF differ configurations}
 	\label{tab:my-table1}                                                                 \\
 \end{longtable}
+
+\textit{Note:} Possible values for logging levels are explained in more detail \\*\href{https://docs.python.org/3.6/library/logging.html#logging-levels}{docs.python.org/3.6/library/logging.html} :
+\begin{itemize}
+	\item DEBUG
+	\item INFO
+	\item WARNING
+	\item ERROR
+	\item CRITICAL
+\end{itemize}
 
 \subsection{Celery worker}
 Celery is a simple, flexible, and reliable distributed system to process vast amounts of messages, while providing operations with the tools required to maintain such a system. It’s a task queue with focus on real-time processing.
