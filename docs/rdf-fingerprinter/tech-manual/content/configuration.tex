@@ -1,0 +1,142 @@
+\section{Configuration}
+\label{sec:configuration}
+At deployment and at runtime, the service configurations are provided through OS environment variables available in the \textit{.env} file. The role of the \textit{.env} file is to enable the system administrators to easily change default configurations as necessary in the context of their environment.
+
+The suite of micro-services is built, started and shut down via Makefile commands.
+
+In order to avoid hard coding parameters, they are defined externally in the \textit{.env}. Having them in a single file makes  sense and it is more pragmatic, as you can see and manage all parameters in one place, add the file to the version control system (the contents of the file will evolve and be in sync with the actual code) and have different files for different environments.
+
+The following sections describe the configuration options available for each of the services.
+
+The following applications have to be available in the system:
+\begin{lstlisting}
+	sudo yum install redis curl
+\end{lstlisting}
+You can also find the required packages in the \texttt{install\_os\_dependencies.sh} file.
+
+\subsection{RDF fingerprinter}
+
+The RDF fingerprinter is an online platform that provides the possibility to fingerprint an RDF file or SPARQL endpoint. The RDF fingerprinter API is the core service providing the RDF fingerprinting functionality. The URL and port are described below, as well as the request timeout:
+
+\begin{longtable}[c]{@{}p{3.5cm}p{3.5cm}l@{}}
+	\toprule
+	Description                       & Value            & Associated variable               \\* \midrule
+	\endfirsthead
+	%
+	\multicolumn{3}{c}%
+	{{\bfseries Table \thetable\ continued from previous page}}                              \\
+	\endhead
+	%
+	\bottomrule
+	\endfoot
+	%
+	\endlastfoot
+	%
+	Service URL                       & http://localhost & RDF\_FINGERPRINTER\_API\_LOCATION     \\
+	Service API port                  & 4020             & RDF\_FINGERPRINTER\_API\_PORT         \\
+	Is in debug mode                  & False            & RDF\_FINGERPRINTER\_DEBUG             \\
+	Logging level                     & DEBUG            & RDF\_FINGERPRINTER\_LOG\_LEVEL        \\
+	Service UI port                   & 8020             & RDF\_FINGERPRINTER\_UI\_PORT          \\
+	Web server worker process timeout & 1200             & RDF\_FINGERPRINTER\_GUNICORN\_TIMEOUT \\* \bottomrule
+	\caption{RDF fingerprinter configurations}
+	\label{tab:rdf-fingerprinter-configuration}                                                  \\
+\end{longtable}
+
+\textit{Note:} Possible values for logging levels are explained in more detail \\*\href{https://docs.python.org/3.6/library/logging.html#logging-levels}{docs.python.org/3.6/library/logging.html} :
+\begin{itemize}
+	\item DEBUG
+	\item INFO
+	\item WARNING
+	\item ERROR
+	\item CRITICAL
+\end{itemize}
+
+\subsection{Celery worker}
+Celery is a simple, flexible, and reliable distributed system to process vast amounts of messages, while providing operations with the tools required to maintain such a system. It’s a task queue with focus on real-time processing.
+
+In the RDF fingerprinter project it serves the purpose of enabling multiprocessing of fingerprinting report generation.
+
+The RDF fingerprinter application uses the following Celery environment variables
+
+\begin{longtable}[c]{@{}p{3.5cm}p{3.5cm}l@{}}
+	\toprule
+	Description    & Value                      & Associated variable             \\* \midrule
+	\endfirsthead
+	%
+	\multicolumn{3}{c}%
+	{{\bfseries Table \thetable\ continued from previous page}}                   \\
+	\endhead
+	%
+	\bottomrule
+	\endfoot
+	%
+	\endlastfoot
+	%
+	Redis location & \texttt{redis://localhost} & RDF\_FINGERPRINTER\_REDIS\_LOCATION \\
+	Redis port     & 6379                       & RDF\_FINGERPRINTER\_REDIS\_PORT     \\*\bottomrule
+	\caption{Celery environment configurations}
+	\label{tab:fingerprinter-celery-env}                                              \\
+\end{longtable}
+
+More about the implementation of multiprocessing can be found in the \textit{adapters/celery.py}. A fragment of how celery is used and the asynchronous file fingerprinting is presented below:
+
+\begin{lstlisting}
+celery_worker = Celery('rdf-fingerprinter-tasks',
+	broker=config.RDF_FINGERPRINTER_REDIS_SERVICE,
+	backend=config.RDF_FINGERPRINTER_REDIS_SERVICE)
+celery_worker.conf.update(result_extended=True)
+
+CELERY_FINGERPRINT_FILE = 'fingerprint_file'
+
+
+@celery_worker.task(name=CELERY_FINGERPRINT_FILE, bind=True)
+def async_fingerprint_file(self, file_path: str, db_cleanup_location: str, graphs: list = None):
+	...
+\end{lstlisting}
+
+\subsection{Configure and read logs}
+Every service provided by the RDF fingerprinter has it's own log history and is configurable through the aforementioned \textit{.env} file. The current configuration accepts a relative path to where the logs to be written \textit{logs/api.log}, for example.
+
+\texttt{logs/celery.log} contains the logs of the Celery workers. This contains the logs of the tasks that are being processed; here is where you would do most of the log hunting to debug inconsistent behavior.
+
+\subsubsection{API log example}
+\begin{lstlisting}
+[2022-02-17 15:26:16 +0000] [1] [INFO] Starting gunicorn 20.1.0
+[2022-02-17 15:26:16 +0000] [1] [DEBUG] Arbiter booted
+[2022-02-17 15:26:16 +0000] [1] [INFO] Listening at: http://0.0.0.0:4020 (1)
+[2022-02-17 15:26:16 +0000] [1] [INFO] Using worker: sync
+[2022-02-17 15:26:16 +0000] [9] [INFO] Booting worker with pid: 9
+[2022-02-17 15:26:16 +0000] [10] [INFO] Booting worker with pid: 10
+[2022-02-17 15:26:16 +0000] [1] [DEBUG] 2 workers
+[2022-02-17 15:26:55 +0000] [9] [DEBUG] getting fingerprinting reports
+\end{lstlisting}
+
+\subsubsection{UI log example}
+\begin{lstlisting}
+[2022-02-17 15:30:24 +0000] [10] [DEBUG] request index view
+[2022-02-17 15:31:25 +0000] [10] [DEBUG] request fingerprint sparql endpoint view
+[2022-02-17 15:31:25 +0000] [10] [DEBUG] return fingerprint sparql endpoint clean view
+\end{lstlisting}
+
+The RDF fingerprinter application uses the following environment variables to define logs location:
+
+\begin{longtable}[c]{@{}p{3.5cm}p{3.5cm}l@{}}
+	\toprule
+	Description & Value           & Associated variable          \\* \midrule
+	\endfirsthead
+	%
+	\multicolumn{3}{c}%
+	{{\bfseries Table \thetable\ continued from previous page}}  \\
+	\endhead
+	%
+	\bottomrule
+	\endfoot
+	%
+	\endlastfoot
+	%
+	API logs    & logs/api.log    & RDF\_FINGERPRINTER\_API\_LOGS    \\
+	UI logs     & logs/ui.log     & RDF\_FINGERPRINTER\_UI\_LOGS     \\
+	Celery logs & logs/celery.log & RDF\_FINGERPRINTER\_CELERY\_LOGS \\* \bottomrule
+	\caption{RDF fingerprinter log configurations}
+	\label{tab:rdf-fingerprinter-log}                                \\
+\end{longtable}
