@@ -72,7 +72,7 @@ The RDF differ application uses the following Celery environment variables
 	\label{tab:celery-env}                                                     \\
 \end{longtable}
 
-More about the implementation of multiprocessing can be found in the \textit{adapters/celery.py}. A fragment of how celery is used and the asynchronous diff creation is presented below:
+More about the implementation of multiprocessing can be found in the \textit{adapters/celery.py}. A fragment of how Celery is used and the asynchronous diff creation is presented below:
 
 \begin{lstlisting}
 celery_worker = Celery('rdf-differ-tasks', broker=RDF_DIFFER_REDIS_SERVICE, backend=RDF_DIFFER_REDIS_SERVICE)
