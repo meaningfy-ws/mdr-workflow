@@ -70,7 +70,8 @@ List the existent dataset deltas
   {
       "current_version_graph": "http://publications.europa.eu/resource/authority/data-theme/version/new",
       "dataset_description": null,
-      "dataset_id": "/diff18H35CGpD",
+      "uid": "b1a6ae69-47d8-459a-a45a-c2a42e0b8042",
+      "dataset_name": "diff18H35CGpD",
       "dataset_uri": "http://publications.europa.eu/resource/authority/data-theme/",
       "dataset_versions": [
           "new1",
@@ -89,7 +90,8 @@ List the existent dataset deltas
   {
       "current_version_graph": "http://publications.europa.eu/resource/authority/data-theme/version/new",
       "dataset_description": null,
-      "dataset_id": "/diff2F4ZLMgNu",
+      "uid": "51e7724c-acc2-4efc-920b-b10c2f8d8cef",
+      "dataset_name": "diff2F4ZLMgNu",
       "dataset_uri": "http://publications.europa.eu/resource/authority/data-theme/",
       "dataset_versions": [
           "new1",
@@ -144,7 +146,7 @@ Get specific dataset delta
   %
   \endlastfoot
   %
-  \texttt{dataset\_id} & dataset unique name                  \\* \bottomrule
+  \texttt{dataset\_id} & dataset unique identifier                  \\* \bottomrule
   \label{tab:rdf-differ-get-diff-parameters}                  \\
 \end{longtable}
 
@@ -152,22 +154,24 @@ Get specific dataset delta
 \textbf{\texttt{200}}
 \begin{lstlisting}
 {
-  "current_version_graph": "http://publications.europa.eu/resource/authority/data-theme/version/new",
-  "dataset_description": null,
-  "dataset_id": "/diff18H35CGpD",
+  "available_reports": [],
+  "current_version_graph": "http://publications.europa.eu/resource/authority/data-theme/version/new1",
+  "dataset_description": "some new descriptionssssssssssss",
+  "dataset_name": "data-themeKAd9MU5J",
   "dataset_uri": "http://publications.europa.eu/resource/authority/data-theme/",
   "dataset_versions": [
-    "new1",
-    "old1"
+      "new1",
+      "old1"
   ],
-  "diff_date": null,
-  "new_version_id": "new",
-  "old_version_id": "old",
-  "query_url": "http://fuseki:3030/diff18H35CGpD/sparql",
+  "diff_date": "2022-04-15T15:40:49.953+00:00",
+  "new_version_id": "old1",
+  "old_version_id": "new1",
+  "query_url": "http://fuseki:3030/data-themeKAd9MU5J/sparql",
+  "uid": "51e7724c-acc2-4efc-920b-b10c2f8d8cef",
   "version_history_graph": "http://publications.europa.eu/resource/authority/data-theme/version",
   "version_named_graphs": [
-    "http://publications.europa.eu/resource/authority/data-theme/version/new",
-    "http://publications.europa.eu/resource/authority/data-theme/version/old"
+      "http://publications.europa.eu/resource/authority/data-theme/version/new1",
+      "http://publications.europa.eu/resource/authority/data-theme/version/old1"
   ]
 }
 \end{lstlisting}
@@ -175,7 +179,7 @@ Get specific dataset delta
 \textbf{\texttt{404}}
 \begin{lstlisting}
 {
-  "detail": "<datasetname> does not exist.",
+  "detail": "<datasetid> does not exist.",
   "status": 404,
   "title": "Not Found",
   "type": "about:blank"
@@ -218,7 +222,7 @@ Delete specific dataset delta
   %
   \endlastfoot
   %
-  \texttt{dataset\_id} & dataset unique name                  \\* \bottomrule
+  \texttt{dataset\_id} & dataset unique identifier                  \\* \bottomrule
   \label{tab:rdf-differ-get-diff-parameters}                  \\
 \end{longtable}
 
@@ -231,7 +235,7 @@ Delete specific dataset delta
 \textbf{\texttt{404}}
 \begin{lstlisting}
 {
-  "detail": "<datasetname> does not exist.",
+  "detail": "<datasetid> does not exist.",
   "status": 404,
   "title": "Not Found",
   "type": "about:blank"
@@ -277,7 +281,7 @@ Create a diff delta
   %
   \endlastfoot
   %
-  \texttt{dataset\_id}                 & true     & \texttt{string} & The dataset identifier. This should be short alphanumeric string uniquely identifying the dataset. \\
+  \texttt{dataset\_name}                 & true     & \texttt{string} & The dataset identifier. This should be short alphanumeric string uniquely identifying the dataset. \\
   \texttt{dataset\_description}        & true     & \texttt{string} & The dataset description. This is a free text description fo the dataset.                           \\
   \texttt{dataset\_uri}                & true     & \texttt{string} & The dataset URI. For SKOS datasets this is usually the ConceptSchema URI.                          \\
   \texttt{old\_version\_id}            & true     & \texttt{string} & Identifier for the older version of the dataset.                                                   \\
@@ -293,7 +297,7 @@ Create a diff delta
 \begin{lstlisting}
 {
   "dataset_name": "diff2F4ZLMgNu",
-  "task_id": "cee03499-41b2-41e4-ae75-95b9383eea0c"
+  "uid": "cee03499-41b2-41e4-ae75-95b9383eea0c"
 }
 \end{lstlisting}
 
@@ -333,7 +337,7 @@ Create a diff delta
   %
   \endlastfoot
   %
-  \texttt{dataset\_id}          & true     & \texttt{string} & The dataset identifier. This should be short alphanumeric string uniquely identifying the dataset. \\
+  \texttt{dataset\_id}          & true     & \texttt{string} & The dataset identifier. \\
   \texttt{application\_profile} & true     & \texttt{string} & The application profile identifier                                                                 \\
   \texttt{template\_type}       & true     & \texttt{string} & The template type identifier                                                                       \\
   \texttt{rebuild}              & false    & \texttt{string} & Flag to signal rebuilding the report even if already exists. ("true" or "false")                   \\* \bottomrule
