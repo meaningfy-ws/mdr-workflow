@@ -4,7 +4,7 @@ There is a range of ports that must be available on the host machine as they wil
 
 \begin{longtable}[c]{@{}p{3.64cm}p{1.25cm}p{1.25cm}p{1.9cm}p{5cm}@{}}
 	\toprule
-	Service name  & HTTP port UI & HTTP port API                \\* \midrule
+	Service name      & HTTP port UI & HTTP port API            \\* \midrule
 	\endfirsthead
 	%
 	\multicolumn{5}{c}%
@@ -16,10 +16,10 @@ There is a range of ports that must be available on the host machine as they wil
 	%
 	\endlastfoot
 	%
-	RDF fingerprinter & 8020         & 4020                         \\* \hline
-	redis         &              & 6379                         \\* \bottomrule
+	RDF fingerprinter & 8020         & 4020                     \\* \hline
+	Redis             &              & 6379                     \\* \bottomrule
 	\caption{Port usage inventory}
-	\label{tab:fingerprinter-port-inventory}                        \\
+	\label{tab:fingerprinter-port-inventory}                    \\
 \end{longtable}
 
 %	\vfil
@@ -33,13 +33,14 @@ The minimal hardware requirements are as follows
 
 \section{Installation}
 \label{sec:installation}
-In order for the services to function properly a CentOS system with python version 3.6  and redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file. 
+This describes how to setup the RDF fingerprinter application on for production level deployment.
+In order for the services to function properly a CentOS system with python version 3.6, Fuseki, and Redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file.  For information on how to setup the Fuseki service see the \url{https://jena.apache.org/documentation/fuseki2/}.
 
-Copy the rdf fingerprinter zip on the system you intend to run it and unzip it.
+Copy the \texttt{rdf fingerprinter} zip on the system you intend to run it and unzip it.
 
-Then change directory into the \textit{project} folder. Makefile commands to start and stop services will be available. 	
+Then change directory into the \textit{project} folder. The available Makefile commands to start and stop services will be available.
 
-To start the services using Makefile
+To start the services using the Makefile commands:
 
 \begin{lstlisting}[language=bash,]
 make install-python-dependencies
@@ -70,7 +71,7 @@ set -o allexport; source bash/.env; set +o allexport
 
 source env/bin/activate
 
-# run celery
+# run Celery
 celery -A fingerprinter.adapters.celery.celery_worker worker --loglevel ${RDF_FINGERPRINTER_LOG_LEVEL} --logfile ${RDF_FINGERPRINTER_CELERY_LOGS} --detach
 
 # run api server

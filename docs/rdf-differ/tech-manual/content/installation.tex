@@ -18,7 +18,7 @@ There is a range of ports that must be available on the host machine as they wil
 	%
 	RDF differ       & 8030         & 4030                      \\* \hline
 	dedicated Fuseki &              & 3030                      \\* \hline
-	redis            &              & 6379                      \\* \bottomrule
+	Redis            &              & 6379                      \\* \bottomrule
 	\caption{Port usage inventory}
 	\label{tab:port-inventory}                                  \\
 \end{longtable}
@@ -34,13 +34,14 @@ The minimal hardware requirements are as follows
 
 \section{Installation}
 \label{sec:installation}
-In order for the services to function properly a CentOS system with python version 3.6, a fuseki, and redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file. 
+This describes how to setup the RDF differ application on for production level deployment.
+In order for the services to function properly a CentOS system with python version 3.6, a Fuseki, and Redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file. For information on how to setup the Fuseki service see the \url{https://jena.apache.org/documentation/fuseki2/}.
 
-Next, copy the rdf differ zip on the system you intend to run it and unzip it.
+Copy the \texttt{rdf differ} zip on the system you intend to run it and unzip it.
 
-Then change directory into the \textit{project} folder. Makefile commands to start and stop services will be available. 	
+Then change directory into the \textit{project} folder. The available Makefile commands to start and stop services will be available.
 
-To start the services using Makefile
+To start the services using the Makefile commands:
 
 \begin{lstlisting}[language=bash,]
 make install-python-dependencies
@@ -48,7 +49,7 @@ make run-api
 make run-ui
 \end{lstlisting}
 
-To stop the services using Makefile
+To stop the services using Makefile commands:
 
 \begin{lstlisting}[language=bash,]
 make stop-gunicorn

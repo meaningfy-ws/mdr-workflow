@@ -17,7 +17,7 @@ There is a range of ports that must be available on the host machine as they wil
 	\endlastfoot
 	%
 	RDF validator & 8010         & 4010                         \\* \hline
-	redis         &              & 6379                         \\* \bottomrule
+	Redis         &              & 6379                         \\* \bottomrule
 	\caption{Port usage inventory}
 	\label{tab:validator-port-inventory}                        \\
 \end{longtable}
@@ -33,13 +33,14 @@ The minimal hardware requirements are as follows
 
 \section{Installation}
 \label{sec:installation}
-In order for the services to function properly a CentOS system with python version 3.6  and redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file. 
+This describes how to setup the RDF validator application on for production level deployment.
+In order for the services to function properly a CentOS system with python version 3.6, Maven with a version above `3.3.9`, and a Redis service should be setup and running with the appropriate ports and addresses configured in the environment variable file. 
 
-Copy the rdf validator zip on the system you intend to run it and unzip it.
+Copy the \texttt{rdf validator} zip on the system you intend to run it and unzip it.
 
-Then change directory into the \textit{project} folder. Makefile commands to start and stop services will be available. 	
+Then change directory into the \textit{project} folder. The available Makefile commands to start and stop services will be available.
 
-To start the services using Makefile
+To start the services using the Makefile commands:
 
 \begin{lstlisting}[language=bash,]
 make install-python-dependencies
@@ -48,13 +49,13 @@ make run-api
 make run-ui
 \end{lstlisting}
 
-To stop the services using Makefile
+To stop the services using Makefile commands:
 
 \begin{lstlisting}[language=bash,]
 make stop-gunicorn
 \end{lstlisting}
 
-To start services without Makefile commands
+To start services without Makefile commands:
 
 \begin{lstlisting}[language=bash,]
 set -o allexport; source bash/.env; set +o allexport
